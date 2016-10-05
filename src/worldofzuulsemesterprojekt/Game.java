@@ -91,7 +91,7 @@ public class Game
     public void play(){            
         printWelcome();
 
-        int i = 0;
+        //int i = 0;
                 
         boolean finished = false;
         while (! finished) {
@@ -167,8 +167,16 @@ public class Game
             goRoom(command);
         } else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
-        } else if (commandWord == CommandWord.CHECK){
+        } else if (commandWord == CommandWord.INSPECT){
             checkRoom(command);
+        } else if (commandWord == CommandWord.ASK){
+            // Interrogate
+        } else if (commandWord == CommandWord.ACCUSE){
+            // Accuse person
+        } else if (commandWord == CommandWord.LOGBOOK){
+            // Do logbook
+        } else if (commandWord == CommandWord.TAKE){
+            // Take item
         }
         return wantToQuit;
     }
@@ -178,8 +186,9 @@ public class Game
      * Prints all the commands available to the player.
      */
     private void printHelp(){
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("You are the detective at a party.");
+        System.out.println("Your job is to figure out who comitted the murder");
+        System.out.println("Throughout the game you can interact with items and interrogate persons.");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
