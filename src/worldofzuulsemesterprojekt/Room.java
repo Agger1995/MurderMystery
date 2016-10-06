@@ -1,5 +1,6 @@
 package worldofzuulsemesterprojekt;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashMap;
 
@@ -14,10 +15,15 @@ public class Room
 {
     private String description;
     private String contents;
+    //private ArrayList<Item> items;
+    //private ArrayList<Person> persons;
     private HashMap<String, Room> exits;
 
     /**
-     * Constructor for Room class, 
+     * Constructor for Room class.
+     * Sets instance variables and generates a new hashmap per room created
+     * The hashmap contains directions in form of "String" and the Room the direction
+     * leads to as an object of type "Room".
      * @param description
      * @param contents 
      */
@@ -27,22 +33,43 @@ public class Room
         exits = new HashMap<String, Room>();
     }
 
+    /**
+     * setExit sets an exit (direction) leading to a Room (neighbor)
+     * @param direction the direction to go to get to Room
+     * @param neighbor the Room object
+     */
     public void setExit(String direction, Room neighbor){
         exits.put(direction, neighbor);
     }
 
+    /**
+     * getShortDescription returns a String with the rooms description
+     * @return a String with the rooms description
+     */
     public String getShortDescription(){
         return description;
     }
 
+    /**
+     * getLongDescription returns a customized message including the description of the room
+     * @return a String of a customized description message, and the current rooms exits
+     */
     public String getLongDescription(){
         return "You are in " + description + ".\n" + getExitString();
     }
     
+    /**
+     * getContents returns a String with the rooms contents
+     * @return a String with the rooms contents
+     */
     public String getContents(){
         return contents;
     }
 
+    /**
+     * getExitString returns a String version of all the exits to the current room
+     * @return a String with available exits to current room
+     */
     private String getExitString(){
         String returnString = "Exits:";
         Set<String> keys = exits.keySet();
@@ -52,6 +79,11 @@ public class Room
         return returnString;
     }
 
+    /**
+     * getExit returns an object of type Room 
+     * @param direction Is a room name
+     * @return An object in the exits hashmap that is reffered to by the direction
+     */
     public Room getExit(String direction){
         return exits.get(direction);
     }

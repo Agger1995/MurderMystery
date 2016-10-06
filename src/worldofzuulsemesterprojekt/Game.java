@@ -176,6 +176,8 @@ public class Game
             // Do logbook
         } else if (commandWord == CommandWord.TAKE){
             // Take item
+        } else if (commandWord == CommandWord.DROP){
+            // Drop item
         }
         return wantToQuit;
     }
@@ -212,7 +214,7 @@ public class Game
         if("the secret room".contentEquals(currentRoom.getShortDescription()) && "exit".contentEquals(direction)){
             Room[] roomArray = {ballRoom, toilet, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, library, bedroom, secretRoom};
             
-            currentRoom = roomArray[(int)(Math.random()*11) + 1];
+            currentRoom = roomArray[(int)(Math.random() * 12)];
             
             System.out.println(currentRoom.getLongDescription());
         } else {

@@ -7,7 +7,7 @@ package worldofzuulsemesterprojekt;
  * @author FrameWork
  */
 public enum CommandWord{
-    GO("go"), QUIT("quit"), HELP("help"), ASK("ask"), INSPECT("inspect"), ACCUSE("accuse"), LOGBOOK("logbook"), TAKE("take"), UNKNOWN("?");
+    GO("go"), QUIT("quit"), HELP("help"), ASK("ask"), INSPECT("inspect"), ACCUSE("accuse"), LOGBOOK("logbook"), TAKE("take"), DROP("drop"), UNKNOWN("?");
     
     private String commandString;
     

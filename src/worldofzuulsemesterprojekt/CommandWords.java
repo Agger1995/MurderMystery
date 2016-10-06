@@ -48,6 +48,10 @@ public class CommandWords{
         return validCommands.containsKey(aString);
     }
 
+    /**
+     * showAll() method will print all commands available for the user
+     * The method will not print UNKNOWN command.
+     */
     public void showAll(){
         for(String command : validCommands.keySet()) {
             System.out.print(command + "  ");

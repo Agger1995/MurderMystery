@@ -12,7 +12,7 @@ package worldofzuulsemesterprojekt;
 public class WorldOfZuulSemesterProjekt {
 
     /**
-     * Main method, the game is run here, nothing more.
+     * Main method, the game is initialized from here, nothing more.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
