@@ -13,8 +13,7 @@ public class Game
      * The Game class' constructor
      * Calls the method createRooms(), and initiates the game's parser
      */
-    public Game()
-    {
+    public Game(){
         createRooms();
         parser = new Parser();
     }
