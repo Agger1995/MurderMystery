@@ -1,11 +1,13 @@
 package worldofzuulsemesterprojekt;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
+    private LogBook logbook;
     protected Room ballRoom, toilet, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, bedroom, library, secretRoom;
         
 
@@ -15,7 +17,14 @@ public class Game
      */
     public Game(){
         createRooms();
+        logbook = new LogBook();
+        //createItems();
+        //createPersons();
         parser = new Parser();
+        Items toAdd = new Items("Axe");
+        Items bucket = new Items("Bucket");
+        logbook.addInventory(toAdd);
+        logbook.addInventory(bucket);
     }
 
 
@@ -173,11 +182,11 @@ public class Game
         } else if (commandWord == CommandWord.ACCUSE){
             // Accuse person
         } else if (commandWord == CommandWord.LOGBOOK){
-            // Do logbook
+            printLog(command);
         } else if (commandWord == CommandWord.TAKE){
             // Take item
         } else if (commandWord == CommandWord.DROP){
-            // Drop item
+            dropItem(command);
         }
         return wantToQuit;
     }
@@ -226,7 +235,44 @@ public class Game
             }
         }
     }
+    
+    public void printLog(Command command){
+        if(command.hasSecondWord()){
+            if("inventory".equals(command.getSecondWord().toLowerCase())){
 
+                if(!logbook.getInventory().isEmpty()){
+                    for(Items item : logbook.getInventory()){
+                        System.out.println(item.getName());  // Print information about each item in inventory
+                    }
+                    return;
+                }
+            } else if("weapons".equals(command.getSecondWord().toLowerCase())){
+                
+            } else if("suspects".equals(command.getSecondWord().toLowerCase())){
+                
+            }
+        }
+        
+        logbook.printAll();
+        
+    }
+
+    public void dropItem(Command command){
+        if(command.hasSecondWord()){
+            for(Items item : logbook.getInventory()){
+                if(item.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())){
+                    logbook.removeItem(item);
+                    //currentRoom.addItem(item);
+                    System.out.println("You have dropped: " + item.getName());
+                    return;
+                }
+            }
+            System.out.println("You have no item named: " + command.getSecondWord());
+        } else {
+            System.out.println("Drop what?");
+        }
+    }
+    
     private boolean quit(Command command){
         if(command.hasSecondWord()) {
             System.out.println("Quit what?");
