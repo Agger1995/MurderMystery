@@ -10,13 +10,38 @@ package worldofzuulsemesterprojekt;
  * @author chris
  */
 public class Items {
+    private boolean isActive = false; 
+    private boolean isMurderweapon = false;
+    private String type = null;
+    private String description = null;
     private String name;
+    private String use;
     
-    public Items(String desc){
-        name = desc;
+    public Items(boolean isActive, String use, String description, boolean isMurderWeapon, String name){
+        this.isActive = isActive;
+        this.name = name;
+        this.use = use;
+        this.description = description;
+        this.isMurderweapon = isMurderWeapon; 
     }
     
-    public String getName() {
+    public boolean isActive(){
+        return isActive;
+    }
+    
+    public boolean isMurderweapon(){
+        return isMurderweapon;
+    }
+    
+    public String getName(){
         return name;
+    }
+    
+    public String getDescription(){
+        return description;
+    }
+    
+    public String getUse(){
+        return use;
     }
 }

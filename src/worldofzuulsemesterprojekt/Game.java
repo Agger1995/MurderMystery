@@ -21,10 +21,6 @@ public class Game
         //createItems();
         //createPersons();
         parser = new Parser();
-        Items toAdd = new Items("Axe");
-        Items bucket = new Items("Bucket");
-        logbook.addInventory(toAdd);
-        logbook.addInventory(bucket);
     }
 
 
@@ -56,6 +52,10 @@ public class Game
         ballRoom.setExit("toilet",toilet);
         ballRoom.setExit("hall",groundFloorHall);
         ballRoom.setExit("kitchen",kitchen);
+        ballRoom.addItem(false, "none", "This is a carpet, upon inspection you find a secret trapdoor underneath", false, "carpet");
+        ballRoom.addItem(false,"none", "This is Mr. Pheins daughters body", false, "body");
+        ballRoom.addItem(false, "none", "This is a drink, you feel a bit thirsty and take a sip", false, "drink");
+        ballRoom.addItem(true, "You pick up the bloody knife", "A bloody knife, quite possibly a murder weapon", true, "bloody knife");
         //ballRoom.setExit("rug",dungeon);        //
         
         toilet.setExit("ballroom",ballRoom);
@@ -64,6 +64,7 @@ public class Game
         kitchen.setExit("garden",garden);
         
         garden.setExit("kitchen",kitchen);      //
+        garden.addItem(true, "You pick up a set of rusty keys", "These are some old rusty looking keys", false, "keys");//
         
         dungeon.setExit("westhall",dungeonHall1);
         
@@ -84,6 +85,7 @@ public class Game
         
         library.setExit("hall",upstairsHall);
         library.setExit("bookcase",secretRoom);     //
+        library.addItem(false, "none", "This is a bookshelf", false, "bookshelf");//
         
         secretRoom.setExit("exit",null);
         
@@ -176,7 +178,7 @@ public class Game
         } else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
         } else if (commandWord == CommandWord.INSPECT){
-            checkRoom(command);
+            inspect(command);
         } else if (commandWord == CommandWord.ASK){
             // Interrogate
         } else if (commandWord == CommandWord.ACCUSE){
@@ -184,7 +186,7 @@ public class Game
         } else if (commandWord == CommandWord.LOGBOOK){
             printLog(command);
         } else if (commandWord == CommandWord.TAKE){
-            // Take item
+            takeItem(command);
         } else if (commandWord == CommandWord.DROP){
             dropItem(command);
         }
@@ -239,7 +241,7 @@ public class Game
     public void printLog(Command command){
         if(command.hasSecondWord()){
             if("inventory".equals(command.getSecondWord().toLowerCase())){
-
+                System.out.println("Your inventory contains: " + logbook.getInventory().size() + " items.");
                 if(!logbook.getInventory().isEmpty()){
                     for(Items item : logbook.getInventory()){
                         System.out.println(item.getName());  // Print information about each item in inventory
@@ -247,14 +249,25 @@ public class Game
                     return;
                 }
             } else if("weapons".equals(command.getSecondWord().toLowerCase())){
-                
+                System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
+                if(!logbook.getMurderWeapons().isEmpty()){
+                    for(Items weapon : logbook.getMurderWeapons()){
+                        System.out.println(weapon.getName());
+                    }
+                    return;
+                }
             } else if("suspects".equals(command.getSecondWord().toLowerCase())){
-                
+                System.out.println("You have found " + logbook.getSuspects().size() + " suspects.");
+/*                if(!logbook.getSuspects().isEmpty()){
+                    for(Person person : logbook.getSuspects()){
+                        System.out.println(person.getName());
+                    }
+                    return;
+                }*/
             }
         }
         
         logbook.printAll();
-        
     }
 
     public void dropItem(Command command){
@@ -262,7 +275,7 @@ public class Game
             for(Items item : logbook.getInventory()){
                 if(item.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())){
                     logbook.removeItem(item);
-                    //currentRoom.addItem(item);
+                    currentRoom.addItem(item.isActive(),item.getUse(),item.getDescription(),item.isMurderweapon(),item.getName());
                     System.out.println("You have dropped: " + item.getName());
                     return;
                 }
@@ -282,21 +295,37 @@ public class Game
         }
     }
 
-    private void checkRoom(Command command) {       // Custom method, still to add is check for contents of room 
-        if(!command.hasSecondWord()) {
-            System.out.println("Check what?");
-            return;
-        }
-        
-        String direction = command.getSecondWord();
-        
-        Room nextRoom = currentRoom.getExit(direction);
-        
-        if (nextRoom == null){
-            System.out.println("There is nothing here to check!");
+    private void inspect(Command command) {
+        if(command.hasSecondWord()){
+            ArrayList<Items> itemsInCurrentRoom = currentRoom.getItems();
+            for(Items item : itemsInCurrentRoom){
+                if(item.getName().equals(command.getSecondWord())){
+                    System.out.println(item.getDescription());
+                }
+            }
         } else {
-            System.out.println("The room to the " + direction + " is " + nextRoom.getShortDescription() + ". In the room you can clearly see " + nextRoom.getContents() + ".");
+            System.out.println("Inspect what item?");
         }
-        
+    }
+
+    private void takeItem(Command command) {
+        if(command.hasSecondWord()){
+            ArrayList<Items> itemsInCurrentRoom = currentRoom.getItems();
+            ArrayList<Items> toRemoveFromOriginalList = new ArrayList<>();
+            for(Items item : itemsInCurrentRoom){
+                if(item.getName().equals(command.getSecondWord())){
+                    if(item.isActive()){
+                        System.out.println(item.getUse());
+                        logbook.addInventory(item);
+                        toRemoveFromOriginalList.add(item);
+                    } else {
+                        System.out.println("You could not pick up the " + item.getName());
+                    }
+                }
+            }
+            currentRoom.getItems().removeAll(toRemoveFromOriginalList);
+        } else {
+            System.out.println("Take what item?");
+        }
     }
 }

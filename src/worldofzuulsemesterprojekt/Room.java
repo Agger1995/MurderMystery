@@ -18,6 +18,7 @@ public class Room
     //private ArrayList<Item> items;
     //private ArrayList<Person> persons;
     private HashMap<String, Room> exits;
+    private ArrayList<Items> itemsInRoom;
 
     /**
      * Constructor for Room class.
@@ -31,6 +32,7 @@ public class Room
         this.description = description;
         this.contents = contents;
         exits = new HashMap<String, Room>();
+        itemsInRoom = new ArrayList<>();
     }
 
     /**
@@ -55,7 +57,7 @@ public class Room
      * @return a String of a customized description message, and the current rooms exits
      */
     public String getLongDescription(){
-        return "You are in " + description + ".\n" + getExitString();
+        return "You are in " + description + ".\n" + getItemsString() + ".\n" + getExitString();
     }
     
     /**
@@ -71,12 +73,24 @@ public class Room
      * @return a String with available exits to current room
      */
     private String getExitString(){
-        String returnString = "Exits:";
+        String returnString = "Exits: ";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
-            returnString += " " + exit;
+            returnString += exit + ", ";
         }
+        returnString = returnString.substring(0, returnString.length() - 2);
+        
         return returnString;
+    }
+    
+    private String getItemsString(){
+        String toReturn = "Items: ";
+        for(Items item : itemsInRoom){
+            toReturn += item.getName() + ", ";
+        }
+        toReturn = toReturn.substring(0, toReturn.length() - 2);
+        
+        return toReturn;
     }
 
     /**
@@ -87,5 +101,12 @@ public class Room
     public Room getExit(String direction){
         return exits.get(direction);
     }
+    
+    public void addItem(boolean isActive, String use, String description, boolean isMurderWeapon, String name){
+        itemsInRoom.add(new Items(isActive, use, description, isMurderWeapon, name));
+    }
+    
+    public ArrayList<Items> getItems(){
+        return itemsInRoom;
+    }
 }
-

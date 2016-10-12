@@ -53,9 +53,11 @@ public class CommandWords{
      * The method will not print UNKNOWN command.
      */
     public void showAll(){
+        String toPrint = "";
         for(String command : validCommands.keySet()) {
-            System.out.print(command + ",  ");
+            toPrint += command + ", ";
         }
-        System.out.println();
+        toPrint = toPrint.substring(0, toPrint.length() - 2);
+        System.out.println(toPrint);
     }
 }

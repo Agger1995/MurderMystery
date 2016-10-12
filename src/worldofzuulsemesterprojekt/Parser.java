@@ -28,9 +28,9 @@ public class Parser{
      */
     public Command getCommand(){
         String inputLine;
-        String word1 = null;
-        String word2 = null;
-
+        String word1 = "";
+        String word2 = "";
+        
         System.out.print("> "); 
 
         inputLine = reader.nextLine();
@@ -38,12 +38,12 @@ public class Parser{
         Scanner tokenizer = new Scanner(inputLine);
         if(tokenizer.hasNext()) {
             word1 = tokenizer.next().toLowerCase();
-            if(tokenizer.hasNext()) {
-                word2 = tokenizer.next().toLowerCase();
+            while(tokenizer.hasNext()) {
+                word2 += tokenizer.next().toLowerCase() + " ";
             }
         }
 
-        return new Command(commands.getCommandWord(word1), word2);
+        return new Command(commands.getCommandWord(word1), word2.trim());
     }
 
     /**

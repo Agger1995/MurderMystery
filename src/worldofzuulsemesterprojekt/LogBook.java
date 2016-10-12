@@ -35,7 +35,19 @@ public class LogBook {
         return inventory;
     }
     
+    public ArrayList<Person> getSuspects(){
+        return suspects;
+    }
+    
+    public ArrayList<Items> getMurderWeapons(){
+        return murderWeapons;
+    }
+    
     public void addInventory(Items toAdd){
+        if(toAdd.isMurderweapon()){
+            murderWeapons.add(toAdd);
+            return;
+        }
         if(inventory.size() < invMaxItems){
             inventory.add(toAdd);
         } else {
