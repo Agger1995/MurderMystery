@@ -19,7 +19,7 @@ public class CommandWords{
         validCommands = new HashMap<String, CommandWord>();
         for(CommandWord command : CommandWord.values()) {
             if(command != CommandWord.UNKNOWN) {
-                validCommands.put(command.toString(), command);
+                validCommands.put(command.toString().toLowerCase(), command);
             }
         }
     }
@@ -54,7 +54,7 @@ public class CommandWords{
      */
     public void showAll(){
         for(String command : validCommands.keySet()) {
-            System.out.print(command + "  ");
+            System.out.print(command + ",  ");
         }
         System.out.println();
     }
