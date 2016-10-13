@@ -16,13 +16,15 @@ public class Items {
     private String description = null;
     private String name;
     private String use;
+    private String keyWords;
     
-    public Items(boolean isActive, String use, String description, boolean isMurderWeapon, String name){
+    public Items(boolean isActive, String use, String description, boolean isMurderWeapon, String name, String keyWords){
         this.isActive = isActive;
         this.name = name;
         this.use = use;
         this.description = description;
         this.isMurderweapon = isMurderWeapon; 
+        this.keyWords = keyWords;
     }
     
     public boolean isActive(){
@@ -43,5 +45,9 @@ public class Items {
     
     public String getUse(){
         return use;
+    }
+    
+    public String getKeyWords(){
+        return keyWords;
     }
 }

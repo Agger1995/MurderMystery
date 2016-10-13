@@ -3,11 +3,11 @@ package worldofzuulsemesterprojekt;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Game 
-{
+public class Game {
     private Parser parser;
     private Room currentRoom;
     private LogBook logbook;
+    protected boolean isCorrectAccusation;
     protected Room ballRoom, toilet, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, bedroom, library, secretRoom;
         
 
@@ -17,9 +17,9 @@ public class Game
      */
     public Game(){
         createRooms();
+        createItems();
+        createPersons();
         logbook = new LogBook();
-        //createItems();
-        //createPersons();
         parser = new Parser();
     }
 
@@ -34,29 +34,22 @@ public class Game
      * Lastly it defines where the player begins his mission.
      */
     private void createRooms(){
-        //Room ballRoom, toilet, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, bedroom, library, secretRoom;
-
-        ballRoom = new Room("the ball room","objects to place in room");
-        toilet = new Room("the toilet","objects to place in room");
-        kitchen = new Room("the kitchen","objects to place in room");
-        groundFloorHall = new Room("the ground floor hall","objects to place in room");
-        dungeon = new Room("the dungeon","objects to place in room");
-        dungeonHall1 = new Room("the western dungeon hall","objects to place in room");
-        dungeonHall2 = new Room("the eastern dungeon hall","objects to place in room");
-        garden = new Room("the garden","objects to place in room");
-        upstairsHall = new Room("the upstairs hall","objects to place in room");
-        bedroom = new Room("the bedroom","objects to place in room");
-        library = new Room("the library","objects to place in room");
-        secretRoom = new Room("the secret room","objects to place in room");
+        ballRoom = new Room("the ball room");
+        toilet = new Room("the toilet");
+        kitchen = new Room("the kitchen");
+        groundFloorHall = new Room("the ground floor hall");
+        dungeon = new Room("the dungeon");
+        dungeonHall1 = new Room("the western dungeon hall");
+        dungeonHall2 = new Room("the eastern dungeon hall");
+        garden = new Room("the garden");
+        upstairsHall = new Room("the upstairs hall");
+        bedroom = new Room("the bedroom");
+        library = new Room("the library");
+        secretRoom = new Room("the secret room");
         
         ballRoom.setExit("toilet",toilet);
         ballRoom.setExit("hall",groundFloorHall);
         ballRoom.setExit("kitchen",kitchen);
-        ballRoom.addItem(false, "none", "This is a carpet, upon inspection you find a secret trapdoor underneath", false, "carpet");
-        ballRoom.addItem(false,"none", "This is Mr. Pheins daughters body", false, "body");
-        ballRoom.addItem(false, "none", "This is a drink, you feel a bit thirsty and take a sip", false, "drink");
-        ballRoom.addItem(true, "You pick up the bloody knife", "A bloody knife, quite possibly a murder weapon", true, "bloody knife");
-        //ballRoom.setExit("rug",dungeon);        //
         
         toilet.setExit("ballroom",ballRoom);
         
@@ -64,7 +57,6 @@ public class Game
         kitchen.setExit("garden",garden);
         
         garden.setExit("kitchen",kitchen);      //
-        garden.addItem(true, "You pick up a set of rusty keys", "These are some old rusty looking keys", false, "keys");//
         
         dungeon.setExit("westhall",dungeonHall1);
         
@@ -84,12 +76,32 @@ public class Game
         bedroom.setExit("library",library);
         
         library.setExit("hall",upstairsHall);
-        library.setExit("bookcase",secretRoom);     //
-        library.addItem(false, "none", "This is a bookshelf", false, "bookshelf");//
         
         secretRoom.setExit("exit",null);
         
         currentRoom = ballRoom;
+    }
+    
+    private void createItems() {
+        ballRoom.addItem(false, "none", "This is a carpet, upon inspection you find a secret trapdoor underneath", false, "carpet", "dusty, revealed trapdoor");
+        ballRoom.addItem(false,"none", "This is Mr. Pheins daughters body", false, "body", "");
+        ballRoom.addItem(true, "none", "This is a drink, you feel a bit thirsty and take a sip", false, "drink", "");
+        bedroom.addItem(true, "You pick up the bloody knife", "A bloody knife, quite possibly a murder weapon", true, "bloody knife", "");
+        
+        kitchen.addItem(true, "You pick up the rat poison", "Odd to find an empty bottle of rat poison in the kitchen, \n"
+                                                            + "the powdery substance matches the one found by the body. \n"
+                                                            + "The amount is rather small to cause the murder. \n"
+                                                            + "*Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell, \n"
+                                                            + "only alfred have been in the kitchen all night. \n"
+                                                            + "This could be a good idea to keep this in mind though. ", true, "rat poison", "powder, resemble powder on knife, kitchen.");
+        
+        garden.addItem(true, "You pick up a set of rusty keys", "These are some old rusty looking keys", false, "keys", "rusty keys, says 'kitchen', garden");//
+        
+        library.addItem(false, "none", "This is a bookshelf", false, "bookshelf", "revealed secret room, library");
+    }
+
+    private void createPersons() {
+        
     }
 
     /**
@@ -100,19 +112,11 @@ public class Game
      */
     public void play(){            
         printWelcome();
-
-        //int i = 0;
                 
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
-            /*
-            i++;
-            if(i == 5){
-                ballRoom.setExit("rug",dungeon);
-            }
-            */
         }
         System.out.println("Thank you for playing our murder mystery game. Hope you enjoyed it.");
     }
@@ -125,7 +129,7 @@ public class Game
     private void printWelcome(){
         Scanner input = new Scanner(System.in);
         System.out.println();
-        System.out.println("Welcome to Mystery Murder mansion!");
+        System.out.println("Welcome to Murder Mansion!");
         System.out.println();
         System.out.println("You’re a snarky detective, who discovered a dead body during a party after a couple of drinks.");
         System.out.println("Your job as a now slightly intoxicated detective is to find the murderer, and what weapon he/she used and not die in the process.");
@@ -180,9 +184,9 @@ public class Game
         } else if (commandWord == CommandWord.INSPECT){
             inspect(command);
         } else if (commandWord == CommandWord.ASK){
-            // Interrogate
+            interrogate(command);
         } else if (commandWord == CommandWord.ACCUSE){
-            // Accuse person
+            wantToQuit = accuse(command);
         } else if (commandWord == CommandWord.LOGBOOK){
             printLog(command);
         } else if (commandWord == CommandWord.TAKE){
@@ -219,23 +223,35 @@ public class Game
         String direction = command.getSecondWord();
 
         Room nextRoom = currentRoom.getExit(direction);
-
-        //System.out.println(currentRoom + " " + direction);
         
+        if("the garden".contentEquals(currentRoom.getShortDescription()) && "kitchen".contentEquals(direction)){
+            ArrayList<Items> inv = logbook.getInventory();
+            for(Items item : inv){
+                if(item.getName().equals("keys")){
+                    System.out.println("You unlock the kitchen door and enter.");
+                    currentRoom = nextRoom;
+                    System.out.println(currentRoom.getLongDescription());
+                    return;
+                }
+            }
+            System.out.println("The door is locked! You need the keys for it.");
+            return;
+        }
         if("the secret room".contentEquals(currentRoom.getShortDescription()) && "exit".contentEquals(direction)){
             Room[] roomArray = {ballRoom, toilet, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, library, bedroom, secretRoom};
             
             currentRoom = roomArray[(int)(Math.random() * 12)];
             
             System.out.println(currentRoom.getLongDescription());
-        } else {
-            if (nextRoom == null) {
-                System.out.println("There is no door!");
-            } else {
-                currentRoom = nextRoom;
-                System.out.println(currentRoom.getLongDescription());
-            }
+            return;
         }
+        if (nextRoom == null) {
+            System.out.println("There is no door!");
+        } else {
+            currentRoom = nextRoom;
+            System.out.println(currentRoom.getLongDescription());
+        }
+
     }
     
     public void printLog(Command command){
@@ -246,24 +262,24 @@ public class Game
                     for(Items item : logbook.getInventory()){
                         System.out.println(item.getName());  // Print information about each item in inventory
                     }
-                    return;
                 }
+                return;
             } else if("weapons".equals(command.getSecondWord().toLowerCase())){
                 System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
                 if(!logbook.getMurderWeapons().isEmpty()){
                     for(Items weapon : logbook.getMurderWeapons()){
                         System.out.println(weapon.getName());
                     }
-                    return;
                 }
+                return;
             } else if("suspects".equals(command.getSecondWord().toLowerCase())){
                 System.out.println("You have found " + logbook.getSuspects().size() + " suspects.");
-/*                if(!logbook.getSuspects().isEmpty()){
+                if(!logbook.getSuspects().isEmpty()){
                     for(Person person : logbook.getSuspects()){
                         System.out.println(person.getName());
                     }
-                    return;
-                }*/
+                }
+                return;
             }
         }
         
@@ -275,7 +291,7 @@ public class Game
             for(Items item : logbook.getInventory()){
                 if(item.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())){
                     logbook.removeItem(item);
-                    currentRoom.addItem(item.isActive(),item.getUse(),item.getDescription(),item.isMurderweapon(),item.getName());
+                    currentRoom.addItem(item.isActive(),item.getUse(),item.getDescription(),item.isMurderweapon(),item.getName(), item.getKeyWords());
                     System.out.println("You have dropped: " + item.getName());
                     return;
                 }
@@ -301,8 +317,16 @@ public class Game
             for(Items item : itemsInCurrentRoom){
                 if(item.getName().equals(command.getSecondWord())){
                     System.out.println(item.getDescription());
+                    logbook.addItemDescription(item);
+                    if("carpet".equals(item.getName())){
+                        ballRoom.setExit("trapdoor",dungeon);
+                    } else if("bookshelf".equals(item.getName())){
+                        library.setExit("bookshelf",secretRoom);
+                    }
+                    return;
                 }
             }
+            System.out.println("There is no item named: " + command.getSecondWord());
         } else {
             System.out.println("Inspect what item?");
         }
@@ -327,5 +351,34 @@ public class Game
         } else {
             System.out.println("Take what item?");
         }
+    }
+
+    private boolean accuse(Command command) {
+        if(!command.hasSecondWord()){
+            System.out.println("Accuse who?");
+            return false;
+        }
+        String whoToAccuse = command.getSecondWord();
+        isCorrectAccusation = false;
+        
+        if(!currentRoom.getPersonsInRoom().isEmpty()){
+            for(Person person : currentRoom.getPersonsInRoom()){
+               System.out.println(whoToAccuse + " : " + person.getName());
+               if(!whoToAccuse.equals(person.getName())){
+                   return false;
+               }
+           }
+           return true;   
+        }
+        System.out.println("There is no person here named: " + command.getSecondWord());
+        return false;
+    }
+
+    private void interrogate(Command command) {
+        if(!command.hasSecondWord()){
+            System.out.println("Ask who?");
+            return;
+        }
+        
     }
 }

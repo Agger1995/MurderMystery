@@ -21,5 +21,4 @@ public class WorldOfZuulSemesterProjekt {
         
         game.play();
     }
-    
 }

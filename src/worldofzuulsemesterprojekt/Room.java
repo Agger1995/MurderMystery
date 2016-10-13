@@ -14,11 +14,11 @@ import java.util.HashMap;
 public class Room 
 {
     private String description;
-    private String contents;
     //private ArrayList<Item> items;
     //private ArrayList<Person> persons;
     private HashMap<String, Room> exits;
     private ArrayList<Items> itemsInRoom;
+    private ArrayList<Person> personsInRoom;
 
     /**
      * Constructor for Room class.
@@ -28,11 +28,11 @@ public class Room
      * @param description
      * @param contents 
      */
-    public Room(String description, String contents){
+    public Room(String description){
         this.description = description;
-        this.contents = contents;
         exits = new HashMap<String, Room>();
         itemsInRoom = new ArrayList<>();
+        personsInRoom = new ArrayList<>();
     }
 
     /**
@@ -57,17 +57,28 @@ public class Room
      * @return a String of a customized description message, and the current rooms exits
      */
     public String getLongDescription(){
-        return "You are in " + description + ".\n" + getItemsString() + ".\n" + getExitString();
+        return "You are in " + description + ".\n" + getReturnString();
     }
     
     /**
      * getContents returns a String with the rooms contents
      * @return a String with the rooms contents
      */
-    public String getContents(){
-        return contents;
-    }
 
+    private String getReturnString(){
+        String toReturn = "";
+        toReturn += getExitString() + ".\n";
+        
+        if(!itemsInRoom.isEmpty()){
+            toReturn += getItemsString() + ".\n";
+        }
+        if(!personsInRoom.isEmpty()){
+            toReturn += getPersonsString() + ".\n";
+        }
+        
+        return toReturn;
+    }
+    
     /**
      * getExitString returns a String version of all the exits to the current room
      * @return a String with available exits to current room
@@ -92,6 +103,16 @@ public class Room
         
         return toReturn;
     }
+    
+    private String getPersonsString(){
+        String toReturn = "Persons: ";
+        for(Person person : personsInRoom){
+            toReturn += person.getName() + ", ";
+        }
+        toReturn = toReturn.substring(0, toReturn.length() - 2);
+        
+        return toReturn;
+    }
 
     /**
      * getExit returns an object of type Room 
@@ -102,11 +123,19 @@ public class Room
         return exits.get(direction);
     }
     
-    public void addItem(boolean isActive, String use, String description, boolean isMurderWeapon, String name){
-        itemsInRoom.add(new Items(isActive, use, description, isMurderWeapon, name));
+    public void addItem(boolean isActive, String use, String description, boolean isMurderWeapon, String name, String keyWords){
+        itemsInRoom.add(new Items(isActive, use, description, isMurderWeapon, name, keyWords));
     }
     
     public ArrayList<Items> getItems(){
         return itemsInRoom;
+    }
+    
+    public void addPerson(Person person){
+        personsInRoom.add(person);
+    }
+    
+    public ArrayList<Person> getPersonsInRoom(){
+        return personsInRoom;
     }
 }
