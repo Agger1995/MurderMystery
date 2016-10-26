@@ -13,16 +13,16 @@ public class Items {
     private boolean isActive = false; 
     private boolean isMurderweapon = false;
     private String type = null;
-    private String description = null;
+    private String msgOnInspect = null;
     private String name;
-    private String use;
+    private String msgOnPickup;
     private String keyWords;
     
-    public Items(boolean isActive, String use, String description, boolean isMurderWeapon, String name, String keyWords){
+    public Items(boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String name, String keyWords){
         this.isActive = isActive;
         this.name = name;
-        this.use = use;
-        this.description = description;
+        this.msgOnPickup = msgOnPickup;
+        this.msgOnInspect = msgOnInspect;
         this.isMurderweapon = isMurderWeapon; 
         this.keyWords = keyWords;
     }
@@ -39,12 +39,12 @@ public class Items {
         return name;
     }
     
-    public String getDescription(){
-        return description;
+    public String getMsgOnInspect(){
+        return msgOnInspect;
     }
     
-    public String getUse(){
-        return use;
+    public String getMsgOnPickup(){
+        return msgOnPickup;
     }
     
     public String getKeyWords(){

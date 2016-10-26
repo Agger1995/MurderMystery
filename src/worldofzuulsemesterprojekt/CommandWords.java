@@ -55,7 +55,47 @@ public class CommandWords{
     public void showAll(){
         String toPrint = "";
         for(String command : validCommands.keySet()) {
-            toPrint += command + ", ";
+            switch(command){
+                case "drop":
+                    toPrint += command + " <item>, ";
+                    break;
+                
+                case "take":
+                    toPrint += command + " <item>, ";
+                    break;
+                    
+                case "ask":
+                    toPrint += command + " <person>, ";
+                    break;
+                    
+                case "accuse":
+                    toPrint += command + " <person>, ";
+                    break;
+                    
+                case "logbook":
+                    toPrint += command + ", ";
+                    toPrint += command + " <weapons>, ";
+                    break;
+                    
+                case "inspect":
+                    toPrint += command + " <item>, ";
+                    break;
+                    
+                case "go":
+                    toPrint += command + " <exit>, ";
+                    break;
+                    
+                case "help":
+                    toPrint += command + ", ";
+                    break;
+                    
+                case "inventory":
+                    toPrint += command + ", ";
+                    break;
+                    
+                default:
+                    break;
+            }
         }
         toPrint = toPrint.substring(0, toPrint.length() - 2);
         System.out.println(toPrint);

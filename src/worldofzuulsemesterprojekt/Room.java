@@ -123,8 +123,8 @@ public class Room
         return exits.get(direction);
     }
     
-    public void addItem(boolean isActive, String use, String description, boolean isMurderWeapon, String name, String keyWords){
-        itemsInRoom.add(new Items(isActive, use, description, isMurderWeapon, name, keyWords));
+    public void addItem(boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String name, String keyWords){
+        itemsInRoom.add(new Items(isActive, msgOnPickup, msgOnInspect, isMurderWeapon, name, keyWords));
     }
     
     public ArrayList<Items> getItems(){

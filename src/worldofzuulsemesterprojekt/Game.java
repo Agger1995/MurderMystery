@@ -1,6 +1,5 @@
 package worldofzuulsemesterprojekt;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -8,7 +7,8 @@ public class Game {
     private Room currentRoom;
     private LogBook logbook;
     protected boolean isCorrectAccusation;
-    protected Room ballRoom, toilet, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, bedroom, library, secretRoom;
+    private Room ballRoom, toilet, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, bedroom, library, secretRoom;
+    private Person tyrion, phein, alfred, veronica, stephanie;
         
 
     /**
@@ -22,7 +22,6 @@ public class Game {
         logbook = new LogBook();
         parser = new Parser();
     }
-
 
     /**
      * When createRooms is called, it is responsible for creating the rooms
@@ -83,27 +82,105 @@ public class Game {
     }
     
     private void createItems() {
-        ballRoom.addItem(false, "none", "This is a carpet, upon inspection you find a secret trapdoor underneath", false, "carpet", "dusty, revealed trapdoor");
-        ballRoom.addItem(false,"none", "This is Mr. Pheins daughters body", false, "body", "");
-        ballRoom.addItem(true, "none", "This is a drink, you feel a bit thirsty and take a sip", false, "drink", "");
-        bedroom.addItem(true, "You pick up the bloody knife", "A bloody knife, quite possibly a murder weapon", true, "bloody knife", "");
+        ballRoom.addItem(false, "UNUSED", "Hmm, that’s a ugly carpet compared to the rest of this mansion. \n"
+                                        + "*Wind gushing from the open windows* suddenly a trapdoor \n"
+                                        + "became visible as the wind grabbed a bit of the carpet.\n", false, "carpet", "Dusty, revealed trapdoor");
         
+        toilet.addItem(false, "UNUSED", "Such a shame, Agnes known for her beauty resembling from her \n"
+                                        + "mother, now had a face resembling massacred raw beef with \n"
+                                        + "hair. A bit of dust is around her face, could be anything from \n"
+                                        + "flour to baby powder *sniff* hmm fits the case, it has a very distinctive smell.\n", false, "body", "Poisoned knife caused it, Ballroom.");
+        
+        upstairsHall.addItem(true, "You pick up the whiskey", "A bottle of whiskey on the floor in hallway on \n"
+                                                        + "the 1st floor, who could be leaving such a beauty there? *drink* ahh… \n"
+                                                        + "that’s the stuff. Oh, better get back to work, otherwise \n"
+                                                        + "I’ll be spending all my time here.\n", false, "whiskey", "very strong taste, but good");
+        
+        bedroom.addItem(true, "You pick up the bloody knife", "A knife wrapped in a handkerchief soaked in blood... \n"
+                                                            + "in Mr. Phine’s room... the knife seems to also have some powder on it. \n"
+                                                            + "It looks like the same powder as the one on the body. \n"
+                                                            + "*sniff*, yeah this is ratpoison. Odd to find something like \n"
+                                                            + "that in his room, I wonder who dropped this here.\n", true, "bloody knife", "bloody and powdered, suspicious, bedroom.");
+        
+        
+        kitchen.addItem(false, "UNUSED", "Hmm, an empty knifeholder in the kitchen. Wonder where the knife is?\n",false, "empty knifeholder", "Knife-holder with missing knife, Kitchen");
         kitchen.addItem(true, "You pick up the rat poison", "Odd to find an empty bottle of rat poison in the kitchen, \n"
                                                             + "the powdery substance matches the one found by the body. \n"
                                                             + "The amount is rather small to cause the murder. \n"
                                                             + "*Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell, \n"
                                                             + "only alfred have been in the kitchen all night. \n"
-                                                            + "This could be a good idea to keep this in mind though. ", true, "rat poison", "powder, resemble powder on knife, kitchen.");
+                                                            + "This could be a good idea to keep this in mind though.\n", true, "rat poison", "powder, resemble powder on knife, kitchen.");
         
-        garden.addItem(true, "You pick up a set of rusty keys", "These are some old rusty looking keys", false, "keys", "rusty keys, says 'kitchen', garden");//
+        garden.addItem(true, "You pick up a set of rusty keys", "These are some old rusty looking keys\n", false, "keys", "rusty keys, says 'kitchen', garden");//
+        garden.addItem(true, "You pick up a golf club", "A golf club in the garden, doesn’t seems suspicious so far. There is \n"
+                                                        + "no blood on it, and it seems to be clean and shiny, yet it \n"
+                                                        + "has been left alone in the garden.\n", true, "golf club", "dirty with grass, no blood, garden.");
+        upstairsHall.addItem(true, "You pick up a rope", "A rope with a tied knot, not usually something you’d find in a hallway \n"
+                                                        + "on the 2nd hall. Perhaps someone were trying to off themselves. \n"
+                                                        + "Interesting case, but irrelevant right now. We gotta find the \n"
+                                                        + "murderer of Agnes, before that monster escapes. \n", true, "rope", "unused with a knot, 2nd floor Hall.");
         
-        library.addItem(false, "none", "This is a bookshelf", false, "bookshelf", "revealed secret room, library");
+        library.addItem(false, "UNUSED", "As I inspected the bookshelf it cracks and creaks. The bookshelf slowly \n"
+                                        + "moves itself and a door appears, I wonder where it leads.\n", false, "bookshelf", "revealed secret room, library");
+        library.addItem(true, "You pick up a pistol", "Finding a pistol in the library, odd place to find a pistol. \n"
+                                                    + "All bullets are still in the case, but no bullets \n"
+                                                    + "or gunpowder were found by the scene. It didn’t seem \n"
+                                                    + "to have caused the murder.\n", true, "pistol", "all bullets intact, Library");
     }
 
     private void createPersons() {
+        phein = new Person("Mr. Phein", true, "Thank you for helping me, Detective! \n"
+                                + "I hope that you find my daughter's murderer as quickly as possible. \n"
+                                + "I don’t know anything about the murder I just heard a scream, ran and saw \n"
+                                + "the body of my daughter, and I’ve been down here ever since. The gruesome \n"
+                                + "body, I can’t even look at it!\n","Thanks you, heard scream, been by body since.",
+                                "She was an angel, my daughter. An angel, so wonderful and beautiful, just like her mother. \n"
+                                + "After you found her, the angel, she, had a lost her beauty and innocence, I tried to \n"
+                                + "take her to therapy, but my angel never became the same again. Just like her mother \n"
+                                + "sacrificed herself to give birth to Agnes, my angel, she, must sacrifice herself so \n"
+                                + "that the beautiful angel she once was can be restored. But the angel never came back, \n"
+                                + "she just died, never to return to life.\n", "phein");
         
-    }
 
+        tyrion = new Person("Tyrion Lannister","I do have something; Veronica doesn’t seem to \n"
+                                + "like Agnes very much, she’s been talking about her constantly, if I \n"
+                                + "didn’t know any better I’d say she did it!\n","Veronica hates Agnes, talking about her.",
+                                "What the hell?! Goddammit, I did not do it. You’re making \n"
+                                + "some seriously far-stretched assumptions here, my little boy!\n", "tyrion");
+        
+        
+
+        alfred = new Person("Alfred the Butler","I don’t know who did it, but I did see Veronica Mars, \n"
+                                + "walking quickly away from that room with a guilty smug on her face.\n","Veronica, smug on face, walked from ballroom.",
+                                "I’m afraid I didn’t have anything to do with the murder, Detective. Agnes \n"
+                                + "was a wonderful girl, such an angel to have in the mansion, I could never \n"
+                                + "do anything like that to her. How dare you ask that question?\n", "alfred");
+        
+
+        veronica = new Person("Veronica Mars","Gush! I haven’t heard anything about this! Oh my god, that is horrible! \n"
+                                + "*Cell phone rings* Oh, I better take this, it’s an \n"
+                                + "important call for an investigation, if you need \n"
+                                + "me for anything, please ask!\n","Surprised response, not ruling her out yet.",
+                                "Are you stupid? Can’t you tell that the others are lying?! I have \n"
+                                + "tried just like you to solve this, yet you accuse me? This is stupid, \n"
+                                + "as you can see the evidence clearly doesn’t point towards any of the guest, \n"
+                                + "I might have planted some ratpoison on the weapon, but that was only to lead \n"
+                                + "you to obvious murderer!\n", "veronica");
+        
+        stephanie = new Person("Stephanie Richburg","Wow, what the hell! Damn, I do have one thing to say though; Veronica seems \n"
+                                + "to have been involving herself a lot with that room.\n","Veronica being a lot in ballroom.",
+                                "OMG!!! you think i did it? I don’t know who you think \n"
+                                + "you are, but I damn well didn’t do it, the evidence you’ve say you \n"
+                                + "have does NOT have anything to with me, and if you accuse me again i will sue you.\n", "stephanie");
+        
+        
+        ballRoom.addPerson(phein);
+        library.addPerson(tyrion);
+        kitchen.addPerson(alfred);
+        garden.addPerson(stephanie);
+        bedroom.addPerson(veronica);
+    }
+    
     /**
      * The game's main method. When the game is played, this method is always running.
      * It's main function is to get the players input in form of commands.
@@ -118,7 +195,27 @@ public class Game {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing our murder mystery game. Hope you enjoyed it.");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Press ENTER to continue.");
+        input.nextLine();
+        if(isCorrectAccusation){
+            System.out.println("After that moment, it was like he snapped. From the mansion all the way \n"
+                    + "to prison, he had the expression of “regret” plastered all over his face. \n");
+            System.out.println("Press ENTER to continue.");
+            input.nextLine();
+            System.out.println("The murder is now solved, very well done. We hoped you enjoyed our game, if \n"
+                    + "not, then return == null. We had a lot of fun making this short game, thank you for playing!\n");
+            
+        } else {
+            System.out.println("Well, that was a surprise, he/she didn’t do it. I wonder who did then?\n" +
+                               "You have used the one try you have, as you fail the guess \n"
+                               + "a sharp sting is felt on your should, blood arising down you \n"
+                               + "right chest and your vision becomes blurry. The real murderer killed you, \n"
+                               + "you damn fool. ");
+            System.out.println("Press ENTER to continue.");
+            input.nextLine();
+            System.out.println("GAME OVER!");
+        }
     }
 
     /**
@@ -193,6 +290,8 @@ public class Game {
             takeItem(command);
         } else if (commandWord == CommandWord.DROP){
             dropItem(command);
+        } else if (commandWord == CommandWord.INVENTORY){
+            inventory();
         }
         return wantToQuit;
     }
@@ -225,8 +324,7 @@ public class Game {
         Room nextRoom = currentRoom.getExit(direction);
         
         if("the garden".contentEquals(currentRoom.getShortDescription()) && "kitchen".contentEquals(direction)){
-            ArrayList<Items> inv = logbook.getInventory();
-            for(Items item : inv){
+            for(Items item : logbook.getInventory()){
                 if(item.getName().equals("keys")){
                     System.out.println("You unlock the kitchen door and enter.");
                     currentRoom = nextRoom;
@@ -251,20 +349,20 @@ public class Game {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
-
+    }
+    
+    public void inventory(){
+        System.out.println("Your inventory contains: " + logbook.getInventory().size() + " items.");
+        if(!logbook.getInventory().isEmpty()){
+            for(Items item : logbook.getInventory()){
+                System.out.println(item.getName());  // Print information about each item in inventory
+            }
+        }
     }
     
     public void printLog(Command command){
         if(command.hasSecondWord()){
-            if("inventory".equals(command.getSecondWord().toLowerCase())){
-                System.out.println("Your inventory contains: " + logbook.getInventory().size() + " items.");
-                if(!logbook.getInventory().isEmpty()){
-                    for(Items item : logbook.getInventory()){
-                        System.out.println(item.getName());  // Print information about each item in inventory
-                    }
-                }
-                return;
-            } else if("weapons".equals(command.getSecondWord().toLowerCase())){
+            if("weapons".equals(command.getSecondWord().toLowerCase())){
                 System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
                 if(!logbook.getMurderWeapons().isEmpty()){
                     for(Items weapon : logbook.getMurderWeapons()){
@@ -272,17 +370,8 @@ public class Game {
                     }
                 }
                 return;
-            } else if("suspects".equals(command.getSecondWord().toLowerCase())){
-                System.out.println("You have found " + logbook.getSuspects().size() + " suspects.");
-                if(!logbook.getSuspects().isEmpty()){
-                    for(Person person : logbook.getSuspects()){
-                        System.out.println(person.getName());
-                    }
-                }
-                return;
             }
         }
-        
         logbook.printAll();
     }
 
@@ -291,7 +380,7 @@ public class Game {
             for(Items item : logbook.getInventory()){
                 if(item.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())){
                     logbook.removeItem(item);
-                    currentRoom.addItem(item.isActive(),item.getUse(),item.getDescription(),item.isMurderweapon(),item.getName(), item.getKeyWords());
+                    currentRoom.addItem(item.isActive(),item.getMsgOnPickup(),item.getMsgOnInspect(),item.isMurderweapon(),item.getName(), item.getKeyWords());
                     System.out.println("You have dropped: " + item.getName());
                     return;
                 }
@@ -313,10 +402,9 @@ public class Game {
 
     private void inspect(Command command) {
         if(command.hasSecondWord()){
-            ArrayList<Items> itemsInCurrentRoom = currentRoom.getItems();
-            for(Items item : itemsInCurrentRoom){
+            for(Items item : currentRoom.getItems()){
                 if(item.getName().equals(command.getSecondWord())){
-                    System.out.println(item.getDescription());
+                    System.out.println(item.getMsgOnInspect());
                     logbook.addItemDescription(item);
                     if("carpet".equals(item.getName())){
                         ballRoom.setExit("trapdoor",dungeon);
@@ -334,20 +422,21 @@ public class Game {
 
     private void takeItem(Command command) {
         if(command.hasSecondWord()){
-            ArrayList<Items> itemsInCurrentRoom = currentRoom.getItems();
-            ArrayList<Items> toRemoveFromOriginalList = new ArrayList<>();
-            for(Items item : itemsInCurrentRoom){
+            Items toRemoveFromRoom = null;
+            for(Items item : currentRoom.getItems()){
                 if(item.getName().equals(command.getSecondWord())){
                     if(item.isActive()){
-                        System.out.println(item.getUse());
+                        System.out.println(item.getMsgOnPickup());
                         logbook.addInventory(item);
-                        toRemoveFromOriginalList.add(item);
+                        toRemoveFromRoom = item;
                     } else {
                         System.out.println("You could not pick up the " + item.getName());
                     }
                 }
             }
-            currentRoom.getItems().removeAll(toRemoveFromOriginalList);
+            if(toRemoveFromRoom != null){
+                currentRoom.getItems().remove(toRemoveFromRoom);
+            }
         } else {
             System.out.println("Take what item?");
         }
@@ -358,19 +447,28 @@ public class Game {
             System.out.println("Accuse who?");
             return false;
         }
-        String whoToAccuse = command.getSecondWord();
-        isCorrectAccusation = false;
-        
-        if(!currentRoom.getPersonsInRoom().isEmpty()){
-            for(Person person : currentRoom.getPersonsInRoom()){
-               System.out.println(whoToAccuse + " : " + person.getName());
-               if(!whoToAccuse.equals(person.getName())){
-                   return false;
+        if(logbook.askedAllPersons() && logbook.gatheredAllWeapons()){
+            String whoToAccuse = command.getSecondWord().toLowerCase();
+            isCorrectAccusation = false;
+
+            if(!currentRoom.getPersonsInRoom().isEmpty()){
+                for(Person person : currentRoom.getPersonsInRoom()){
+                    
+                   if(person.getAskName().toLowerCase().equals(whoToAccuse)){
+                       if(person.isMurder()){
+                           System.out.println(person.getAccusationResponse());
+                           isCorrectAccusation = true;
+                           return true;
+                       }
+                   }
                }
-           }
-           return true;   
+               return true;
+            }
+            System.out.println("There is no person here named: " + command.getSecondWord());
+            return false;
         }
-        System.out.println("There is no person here named: " + command.getSecondWord());
+        System.out.println("You haven't gathered enough evidence to point out a murderer yet!\n"
+                         + "You ought to ask all the guests and find the murder weapon.\n");
         return false;
     }
 
@@ -380,5 +478,18 @@ public class Game {
             return;
         }
         
+        if(!currentRoom.getPersonsInRoom().isEmpty()){
+            String whoToAsk = command.getSecondWord().toLowerCase();
+            for(Person person : currentRoom.getPersonsInRoom()){
+               if(person.getAskName().toLowerCase().equals(whoToAsk)){
+                   System.out.println(person.getResponse());
+                   logbook.addPersonResponse(person, person.getKeyWords());
+                   
+                   return;
+               }
+           }
+           System.out.println("There is no person here named: " + command.getSecondWord());
+        }
+        System.out.println("There are no persons in the room.");
     }
 }

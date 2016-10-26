@@ -17,7 +17,6 @@ public class LogBook {
     private HashMap<Person, String> responses;
     private HashMap<Items,String> itemsInspected;
     private ArrayList<Items> murderWeapons;
-    private ArrayList<Person> suspects;
     private ArrayList<Items> inventory;
     private final int invMaxItems;
     
@@ -25,7 +24,6 @@ public class LogBook {
         invMaxItems = 10;
         responses = new HashMap<>();
         murderWeapons = new ArrayList<>();
-        suspects = new ArrayList<>();
         inventory = new ArrayList<>();
         itemsInspected = new HashMap<>();
     }
@@ -36,10 +34,6 @@ public class LogBook {
      */
     public ArrayList<Items> getInventory(){
         return inventory;
-    }
-    
-    public ArrayList<Person> getSuspects(){
-        return suspects;
     }
     
     public ArrayList<Items> getMurderWeapons(){
@@ -58,12 +52,16 @@ public class LogBook {
         }
     }
     
-    public void addPerson(Person toAdd){
-        suspects.add(toAdd);
+    public void addPersonResponse(Person person, String responseKeyWords){
+        responses.put(person, responseKeyWords);
     }
     
-    public void removePersonFromSuspectsList(Person toRemove){
-        suspects.remove(toRemove);
+    public boolean askedAllPersons(){
+        return responses.size() == 5;
+    }
+    
+    public boolean gatheredAllWeapons(){
+        return murderWeapons.size() == 5;
     }
     
     public void addItemDescription(Items item){
@@ -90,28 +88,26 @@ public class LogBook {
         System.out.println("########################## LOGBOOK #########################");
         System.out.println("############################################################");
         
-        String format = "%15s%45s%15s\n";
+        String format = "%15s%45s\n";
         
         if(!responses.isEmpty()){
             System.out.println("########################## PERSONS #########################");
         
             Set<Person> personsAsked = responses.keySet();
             for(Person person : personsAsked){
-                System.out.format(format,person.getName(), responses.get(person),person.getName());
+                System.out.format(format,person.getName() + " - ", responses.get(person));
             }
+            System.out.println("############################################################");
         }
-        
-        System.out.println("############################################################");
         
         if(!itemsInspected.isEmpty()){
             System.out.println("##########################  ITEMS  #########################");
         
             Set<Items> inspectedItems = itemsInspected.keySet();
             for(Items item : inspectedItems){
-                System.out.format(format,item.getName(),itemsInspected.get(item));
+                System.out.format(format,item.getName() + " - ", itemsInspected.get(item));
             }
+            System.out.println("############################################################");
         }
-        
-        System.out.println("############################################################");
     }
 }
