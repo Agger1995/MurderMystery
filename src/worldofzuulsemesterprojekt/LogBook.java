@@ -21,11 +21,11 @@ public class LogBook {
     private final int invMaxItems;
     
     public LogBook(){
-        invMaxItems = 10;
-        responses = new HashMap<>();
-        murderWeapons = new ArrayList<>();
-        inventory = new ArrayList<>();
-        itemsInspected = new HashMap<>();
+        this.invMaxItems = 10;
+        this.responses = new HashMap<>();
+        this.murderWeapons = new ArrayList<>();
+        this.inventory = new ArrayList<>();
+        this.itemsInspected = new HashMap<>();
     }
     
     /**
@@ -33,53 +33,53 @@ public class LogBook {
      * @return
      */
     public ArrayList<Items> getInventory(){
-        return inventory;
+        return this.inventory;
     }
     
     public ArrayList<Items> getMurderWeapons(){
-        return murderWeapons;
+        return this.murderWeapons;
     }
     
     public void addInventory(Items toAdd){
         if(toAdd.isMurderweapon()){
-            murderWeapons.add(toAdd);
+            this.murderWeapons.add(toAdd);
             return;
         }
-        if(inventory.size() < invMaxItems){
-            inventory.add(toAdd);
+        if(this.inventory.size() < this.invMaxItems){
+            this.inventory.add(toAdd);
         } else {
             System.out.println("Inventory is full!");
         }
     }
     
     public void addPersonResponse(Person person, String responseKeyWords){
-        responses.put(person, responseKeyWords);
+        this.responses.put(person, responseKeyWords);
     }
     
     public boolean askedAllPersons(){
-        return responses.size() == 5;
+        return this.responses.size() == 5;
     }
     
     public boolean gatheredAllWeapons(){
-        return murderWeapons.size() == 5;
+        return this.murderWeapons.size() == 5;
     }
     
     public void addItemDescription(Items item){
-        if(!itemsInspected.containsKey(item)){
-            itemsInspected.put(item,item.getKeyWords());
+        if(!this.itemsInspected.containsKey(item)){
+            this.itemsInspected.put(item,item.getKeyWords());
         }
     }
     
     public boolean containsItem(Items toCheck){
-        return inventory.contains(toCheck);
+        return this.inventory.contains(toCheck);
     }
     
     public void removeItem(Items toDrop){
-        inventory.remove(toDrop);
+        this.inventory.remove(toDrop);
     }
 
     public void printAll() {
-        if(responses.isEmpty() && itemsInspected.isEmpty()){
+        if(this.responses.isEmpty() && this.itemsInspected.isEmpty()){
             System.out.println("You haven't inspected nor interrogated anything yet.");
             return;
         }
@@ -90,24 +90,25 @@ public class LogBook {
         
         String format = "%15s%45s\n";
         
-        if(!responses.isEmpty()){
+        if(!this.responses.isEmpty()){
             System.out.println("########################## PERSONS #########################");
         
-            Set<Person> personsAsked = responses.keySet();
+            Set<Person> personsAsked = this.responses.keySet();
             for(Person person : personsAsked){
-                System.out.format(format,person.getName() + " - ", responses.get(person));
+                System.out.format(format,person.getName() + " - ", this.responses.get(person));
             }
             System.out.println("############################################################");
         }
         
-        if(!itemsInspected.isEmpty()){
+        if(!this.itemsInspected.isEmpty()){
             System.out.println("##########################  ITEMS  #########################");
         
-            Set<Items> inspectedItems = itemsInspected.keySet();
+            Set<Items> inspectedItems = this.itemsInspected.keySet();
             for(Items item : inspectedItems){
-                System.out.format(format,item.getName() + " - ", itemsInspected.get(item));
+                System.out.format(format,item.getName() + " - ", this.itemsInspected.get(item));
             }
             System.out.println("############################################################");
         }
+        System.out.println("\n");
     }
 }

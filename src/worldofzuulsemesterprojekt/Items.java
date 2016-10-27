@@ -28,26 +28,26 @@ public class Items {
     }
     
     public boolean isActive(){
-        return isActive;
+        return this.isActive;
     }
     
     public boolean isMurderweapon(){
-        return isMurderweapon;
+        return this.isMurderweapon;
     }
     
     public String getName(){
-        return name;
+        return this.name;
     }
     
     public String getMsgOnInspect(){
-        return msgOnInspect;
+        return this.msgOnInspect;
     }
     
     public String getMsgOnPickup(){
-        return msgOnPickup;
+        return this.msgOnPickup;
     }
     
     public String getKeyWords(){
-        return keyWords;
+        return this.keyWords;
     }
 }

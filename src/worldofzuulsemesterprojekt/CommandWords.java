@@ -16,10 +16,10 @@ public class CommandWords{
      * 
      */
     public CommandWords(){
-        validCommands = new HashMap<String, CommandWord>();
+        this.validCommands = new HashMap<String, CommandWord>();
         for(CommandWord command : CommandWord.values()) {
             if(command != CommandWord.UNKNOWN) {
-                validCommands.put(command.toString().toLowerCase(), command);
+                this.validCommands.put(command.toString().toLowerCase(), command);
             }
         }
     }
@@ -31,7 +31,7 @@ public class CommandWords{
      * @return The CommandWord is returned
      */
     public CommandWord getCommandWord(String commandWord){
-        CommandWord command = validCommands.get(commandWord);
+        CommandWord command = this.validCommands.get(commandWord);
         if(command != null) {
             return command;
         } else {
@@ -45,7 +45,7 @@ public class CommandWords{
      * @return 
      */
     public boolean isCommand(String aString){
-        return validCommands.containsKey(aString);
+        return this.validCommands.containsKey(aString);
     }
 
     /**
@@ -54,7 +54,7 @@ public class CommandWords{
      */
     public void showAll(){
         String toPrint = "";
-        for(String command : validCommands.keySet()) {
+        for(String command : this.validCommands.keySet()) {
             switch(command){
                 case "drop":
                     toPrint += command + " <item>, ";
@@ -90,6 +90,10 @@ public class CommandWords{
                     break;
                     
                 case "inventory":
+                    toPrint += command + ", ";
+                    break;
+                    
+                case "info":
                     toPrint += command + ", ";
                     break;
                     

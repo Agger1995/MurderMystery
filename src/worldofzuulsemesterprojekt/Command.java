@@ -29,19 +29,18 @@ public class Command{
     }
 
     public CommandWord getCommandWord(){
-        return commandWord;
+        return this.commandWord;
     }
 
     public String getSecondWord(){
-        return secondWord;
+        return this.secondWord;
     }
 
     public boolean isUnknown(){
-        return (commandWord == CommandWord.UNKNOWN);
+        return (this.commandWord == CommandWord.UNKNOWN);
     }
 
     public boolean hasSecondWord(){
-        return (!"".equals(secondWord));
+        return (!"".equals(this.secondWord));
     }
 }
-

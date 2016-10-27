@@ -17,8 +17,8 @@ public class Parser{
      * Uses the CommandWord class for the command words
      */
     public Parser(){
-        commands = new CommandWords();
-        reader = new Scanner(System.in);
+        this.commands = new CommandWords();
+        this.reader = new Scanner(System.in);
     }
 
     /**
@@ -33,7 +33,7 @@ public class Parser{
         
         System.out.print("> "); 
 
-        inputLine = reader.nextLine();
+        inputLine = this.reader.nextLine();
 
         Scanner tokenizer = new Scanner(inputLine);
         if(tokenizer.hasNext()) {
@@ -43,13 +43,13 @@ public class Parser{
             }
         }
 
-        return new Command(commands.getCommandWord(word1), word2.trim());
+        return new Command(this.commands.getCommandWord(word1), word2.trim());
     }
 
     /**
      * Shows the commands available to the player
      */
     public void showCommands(){
-        commands.showAll();
+        this.commands.showAll();
     }
 }

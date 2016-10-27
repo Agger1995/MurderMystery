@@ -26,13 +26,12 @@ public class Room
      * The hashmap contains directions in form of "String" and the Room the direction
      * leads to as an object of type "Room".
      * @param description
-     * @param contents 
      */
     public Room(String description){
         this.description = description;
-        exits = new HashMap<String, Room>();
-        itemsInRoom = new ArrayList<>();
-        personsInRoom = new ArrayList<>();
+        this.exits = new HashMap<>();
+        this.itemsInRoom = new ArrayList<>();
+        this.personsInRoom = new ArrayList<>();
     }
 
     /**
@@ -41,7 +40,7 @@ public class Room
      * @param neighbor the Room object
      */
     public void setExit(String direction, Room neighbor){
-        exits.put(direction, neighbor);
+        this.exits.put(direction, neighbor);
     }
 
     /**
@@ -49,7 +48,7 @@ public class Room
      * @return a String with the rooms description
      */
     public String getShortDescription(){
-        return description;
+        return this.description;
     }
 
     /**
@@ -57,7 +56,7 @@ public class Room
      * @return a String of a customized description message, and the current rooms exits
      */
     public String getLongDescription(){
-        return "You are in " + description + ".\n" + getReturnString();
+        return "You are in " + this.description + ".\n" + this.getReturnString();
     }
     
     /**
@@ -67,13 +66,13 @@ public class Room
 
     private String getReturnString(){
         String toReturn = "";
-        toReturn += getExitString() + ".\n";
+        toReturn += this.getExitString() + ".\n";
         
-        if(!itemsInRoom.isEmpty()){
-            toReturn += getItemsString() + ".\n";
+        if(!this.itemsInRoom.isEmpty()){
+            toReturn += this.getItemsString() + ".\n";
         }
-        if(!personsInRoom.isEmpty()){
-            toReturn += getPersonsString() + ".\n";
+        if(!this.personsInRoom.isEmpty()){
+            toReturn += this.getPersonsString() + ".\n";
         }
         
         return toReturn;
@@ -85,7 +84,7 @@ public class Room
      */
     private String getExitString(){
         String returnString = "Exits: ";
-        Set<String> keys = exits.keySet();
+        Set<String> keys = this.exits.keySet();
         for(String exit : keys) {
             returnString += exit + ", ";
         }
@@ -96,7 +95,7 @@ public class Room
     
     private String getItemsString(){
         String toReturn = "Items: ";
-        for(Items item : itemsInRoom){
+        for(Items item : this.itemsInRoom){
             toReturn += item.getName() + ", ";
         }
         toReturn = toReturn.substring(0, toReturn.length() - 2);
@@ -106,7 +105,7 @@ public class Room
     
     private String getPersonsString(){
         String toReturn = "Persons: ";
-        for(Person person : personsInRoom){
+        for(Person person : this.personsInRoom){
             toReturn += person.getName() + ", ";
         }
         toReturn = toReturn.substring(0, toReturn.length() - 2);
@@ -120,22 +119,22 @@ public class Room
      * @return An object in the exits hashmap that is reffered to by the direction
      */
     public Room getExit(String direction){
-        return exits.get(direction);
+        return this.exits.get(direction);
     }
     
     public void addItem(boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String name, String keyWords){
-        itemsInRoom.add(new Items(isActive, msgOnPickup, msgOnInspect, isMurderWeapon, name, keyWords));
+        this.itemsInRoom.add(new Items(isActive, msgOnPickup, msgOnInspect, isMurderWeapon, name, keyWords));
     }
     
     public ArrayList<Items> getItems(){
-        return itemsInRoom;
+        return this.itemsInRoom;
     }
     
     public void addPerson(Person person){
-        personsInRoom.add(person);
+        this.personsInRoom.add(person);
     }
     
     public ArrayList<Person> getPersonsInRoom(){
-        return personsInRoom;
+        return this.personsInRoom;
     }
 }

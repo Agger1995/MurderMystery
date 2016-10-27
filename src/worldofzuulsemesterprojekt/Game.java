@@ -16,11 +16,11 @@ public class Game {
      * Calls the method createRooms(), and initiates the game's parser
      */
     public Game(){
-        createRooms();
-        createItems();
-        createPersons();
-        logbook = new LogBook();
-        parser = new Parser();
+        this.createRooms();
+        this.createItems();
+        this.createPersons();
+        this.logbook = new LogBook();
+        this.parser = new Parser();
     }
 
     /**
@@ -78,7 +78,7 @@ public class Game {
         
         secretRoom.setExit("exit",null);
         
-        currentRoom = ballRoom;
+        currentRoom = toilet;
     }
     
     private void createItems() {
@@ -89,14 +89,14 @@ public class Game {
         toilet.addItem(false, "UNUSED", "Such a shame, Agnes known for her beauty resembling from her \n"
                                         + "mother, now had a face resembling massacred raw beef with \n"
                                         + "hair. A bit of dust is around her face, could be anything from \n"
-                                        + "flour to baby powder *sniff* hmm fits the case, it has a very distinctive smell.\n", false, "body", "Poisoned knife caused it, Ballroom.");
+                                        + "flour to baby powder *sniff* hmm fits the case, it has a very distinctive smell.\n", false, "body", "Poisoned knife caused it, Toilet.");
         
-        upstairsHall.addItem(true, "You pick up the whiskey", "A bottle of whiskey on the floor in hallway on \n"
+        upstairsHall.addItem(true, "You pick up the whiskey\n", "A bottle of whiskey on the floor in hallway on \n"
                                                         + "the 1st floor, who could be leaving such a beauty there? *drink* ahh… \n"
                                                         + "that’s the stuff. Oh, better get back to work, otherwise \n"
                                                         + "I’ll be spending all my time here.\n", false, "whiskey", "very strong taste, but good");
         
-        bedroom.addItem(true, "You pick up the bloody knife", "A knife wrapped in a handkerchief soaked in blood... \n"
+        bedroom.addItem(true, "You pick up the bloody knife\n", "A knife wrapped in a handkerchief soaked in blood... \n"
                                                             + "in Mr. Phine’s room... the knife seems to also have some powder on it. \n"
                                                             + "It looks like the same powder as the one on the body. \n"
                                                             + "*sniff*, yeah this is ratpoison. Odd to find something like \n"
@@ -104,30 +104,35 @@ public class Game {
         
         
         kitchen.addItem(false, "UNUSED", "Hmm, an empty knifeholder in the kitchen. Wonder where the knife is?\n",false, "empty knifeholder", "Knife-holder with missing knife, Kitchen");
-        kitchen.addItem(true, "You pick up the rat poison", "Odd to find an empty bottle of rat poison in the kitchen, \n"
+        kitchen.addItem(true, "You pick up the rat poison\n", "Odd to find an empty bottle of rat poison in the kitchen, \n"
                                                             + "the powdery substance matches the one found by the body. \n"
                                                             + "The amount is rather small to cause the murder. \n"
                                                             + "*Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell, \n"
                                                             + "only alfred have been in the kitchen all night. \n"
                                                             + "This could be a good idea to keep this in mind though.\n", true, "rat poison", "powder, resemble powder on knife, kitchen.");
         
-        garden.addItem(true, "You pick up a set of rusty keys", "These are some old rusty looking keys\n", false, "keys", "rusty keys, says 'kitchen', garden");//
-        garden.addItem(true, "You pick up a golf club", "A golf club in the garden, doesn’t seems suspicious so far. There is \n"
+        garden.addItem(true, "You pick up a set of rusty keys\n", "These are some old rusty looking keys\n", false, "keys", "rusty keys, says 'kitchen', garden");//
+        garden.addItem(true, "You pick up a golf club\n", "A golf club in the garden, doesn’t seems suspicious so far. There is \n"
                                                         + "no blood on it, and it seems to be clean and shiny, yet it \n"
                                                         + "has been left alone in the garden.\n", true, "golf club", "dirty with grass, no blood, garden.");
-        upstairsHall.addItem(true, "You pick up a rope", "A rope with a tied knot, not usually something you’d find in a hallway \n"
+        upstairsHall.addItem(true, "You pick up a rope\n", "A rope with a tied knot, not usually something you’d find in a hallway \n"
                                                         + "on the 2nd hall. Perhaps someone were trying to off themselves. \n"
                                                         + "Interesting case, but irrelevant right now. We gotta find the \n"
                                                         + "murderer of Agnes, before that monster escapes. \n", true, "rope", "unused with a knot, 2nd floor Hall.");
         
         library.addItem(false, "UNUSED", "As I inspected the bookshelf it cracks and creaks. The bookshelf slowly \n"
                                         + "moves itself and a door appears, I wonder where it leads.\n", false, "bookshelf", "revealed secret room, library");
-        library.addItem(true, "You pick up a pistol", "Finding a pistol in the library, odd place to find a pistol. \n"
+        library.addItem(true, "You pick up a pistol\n", "Finding a pistol in the library, odd place to find a pistol. \n"
                                                     + "All bullets are still in the case, but no bullets \n"
                                                     + "or gunpowder were found by the scene. It didn’t seem \n"
                                                     + "to have caused the murder.\n", true, "pistol", "all bullets intact, Library");
     }
 
+    /**
+     * createPersons is responsible for creating persons for the game
+     * They are instantiated objects of the data type Person.
+     * 
+     */
     private void createPersons() {
         phein = new Person("Mr. Phein", true, "Thank you for helping me, Detective! \n"
                                 + "I hope that you find my daughter's murderer as quickly as possible. \n"
@@ -188,16 +193,14 @@ public class Game {
      * Calls processCommand method, for processing the command typed by the player.
      */
     public void play(){            
-        printWelcome();
+        this.printWelcome();
                 
         boolean finished = false;
         while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
+            Command command = this.parser.getCommand();
+            finished = this.processCommand(command);
         }
         Scanner input = new Scanner(System.in);
-        System.out.println("Press ENTER to continue.");
-        input.nextLine();
         if(isCorrectAccusation){
             System.out.println("After that moment, it was like he snapped. From the mansion all the way \n"
                     + "to prison, he had the expression of “regret” plastered all over his face. \n");
@@ -208,10 +211,11 @@ public class Game {
             
         } else {
             System.out.println("Well, that was a surprise, he/she didn’t do it. I wonder who did then?\n" +
-                               "You have used the one try you have, as you fail the guess \n"
-                               + "a sharp sting is felt on your should, blood arising down you \n"
-                               + "right chest and your vision becomes blurry. The real murderer killed you, \n"
-                               + "you damn fool. ");
+                               "You have used the one try you have, as you fail the guess a sharp sting is felt on your shoulder.\n");
+            System.out.println("Press ENTER to continue.");
+            input.nextLine();
+            System.out.println("Blood arising down you right chest and your vision becomes blurry. "
+                    + "The real murderer killed you, you damn fool. ");
             System.out.println("Press ENTER to continue.");
             input.nextLine();
             System.out.println("GAME OVER!");
@@ -241,19 +245,46 @@ public class Game {
         input.nextLine();
         System.out.println("*DRINK* as the whisky ran down my throat I felt better but more is necessary to cope with this.");
         System.out.println("*DRINK* Better, but damn I need more.");
-        System.out.println("*DRINK* Finally, as the whisky ran its course I got a sudden urge to go to the bathroom, finally giving me an excuse to leave this party.");
+        System.out.println("*DRINK* Finally, the whisky is taking its toll on my body and I had to go to the bathroom.");
         System.out.println("Press ENTER to continue the story.");
         input.nextLine();
-        System.out.println("Coming back after the quick relief, I was met by an empty room, growing cold and dark.");
-        System.out.println("Everyone was gone, and a body, smeared in blood, had appeared in the middle the table.");
-        System.out.println("As if it couldn’t get any worse, what the hell are am I going to do now?!?");
-        System.out.println();
-        System.out.println("Let the mystey begin!");
-        System.out.println("Press ENTER to begin the game!");
+        System.out.println("I run towards the bathroom in desperate need, only to find a dead body in the middle of the bathroom, ");
+        System.out.println("smeared in blood, it appears to be Mr. Phein’s daughter Agnes.");
+        System.out.println("Press ENTER to continue the story.");
         input.nextLine();
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        System.out.println("The room was empty, growing cold, dark and silent except for the faint shock in my mind. ");
+        System.out.println("I will find the monster who did this, this is too gruesome to let be.");
         System.out.println();
+        System.out.println("Here comes a small tutorial on how to play the game.");
+        System.out.println("Press ENTER to begin the tutorial.");
+        input.nextLine();
+        System.out.println("Throughout this game you can use many different commands, they are listed here:");
+        this.smallPrintHelp();
+        System.out.println();
+        System.out.println("You can move around to the different rooms using the command 'go' followed by the exit you want to go to.");
+        System.out.println("Press ENTER to continue.");
+        input.nextLine();
+        System.out.println("Throughout the mansion you will find various items with which you can 'inspect' or 'take'.");
+        System.out.println("You will also find various persons in the mansion, you can 'ask' these persons for clues.");
+        System.out.println("Press ENTER to continue.");
+        input.nextLine();
+        System.out.println("All clues you gather and all items you 'inspect' will be added to your 'logbook'.");
+        System.out.println("You can always look at your logbook with the command 'logbook'.");
+        System.out.println("Use it to make a qualified guess on who the murderer is.");
+        System.out.println("Press ENTER to continue.");
+        input.nextLine();
+        System.out.println("Once you have gathered all the clues from all the persons and gathered all the murder weapons, you can 'accuse' a person.");
+        System.out.println("But beware, you only have 1 accusation. If you pick the wrong person to accuse, you will die and lose the game.");
+        System.out.println("Press ENTER to continue.");
+        input.nextLine();
+        System.out.println("That was all the tutorial had to offer.");
+        System.out.println();
+        System.out.println("Type '" + CommandWord.HELP + "' if you need help, or cannot remember the commandwords.");
+        System.out.println("Let the mysteries begin!");
+        System.out.println("Press ENTER to begin.");
+        input.nextLine();
         System.out.println(currentRoom.getLongDescription());
+        System.out.println("Maybe i should inspect the body for clues.");
     }
 
     /**
@@ -273,25 +304,27 @@ public class Game {
         }
 
         if (commandWord == CommandWord.HELP) {
-            printHelp();
+            this.printHelp();
         } else if (commandWord == CommandWord.GO) {
-            goRoom(command);
+            this.goRoom(command);
         } else if (commandWord == CommandWord.QUIT) {
-            wantToQuit = quit(command);
+            wantToQuit = this.quit(command);
         } else if (commandWord == CommandWord.INSPECT){
-            inspect(command);
+            this.inspect(command);
         } else if (commandWord == CommandWord.ASK){
-            interrogate(command);
+            this.interrogate(command);
         } else if (commandWord == CommandWord.ACCUSE){
-            wantToQuit = accuse(command);
+            wantToQuit = this.accuse(command);
         } else if (commandWord == CommandWord.LOGBOOK){
-            printLog(command);
+            this.printLog(command);
         } else if (commandWord == CommandWord.TAKE){
-            takeItem(command);
+            this.takeItem(command);
         } else if (commandWord == CommandWord.DROP){
-            dropItem(command);
+            this.dropItem(command);
         } else if (commandWord == CommandWord.INVENTORY){
-            inventory();
+            this.inventory();
+        } else if (commandWord == CommandWord.INFORMATION){
+            System.out.println(currentRoom.getLongDescription());
         }
         return wantToQuit;
     }
@@ -299,6 +332,14 @@ public class Game {
     /**
      * Prints a brief help description about the game and it's objectives.
      * Prints all the commands available to the player.
+     * gsdfgsdfg
+     * sdgdfgsd
+     * fgsdfg
+     * sdfg
+     * f
+     * dfg
+     * sdfgsdfgsdfgsf
+     * h
      */
     private void printHelp(){
         System.out.println("You are the detective at a party.");
@@ -308,6 +349,10 @@ public class Game {
         System.out.println("Your command words are:");
         parser.showCommands();
     }
+    
+    private void smallPrintHelp(){
+        parser.showCommands();
+    }
 
     /**
      * 
@@ -315,7 +360,7 @@ public class Game {
      */
     private void goRoom(Command command){
         if(!command.hasSecondWord()) {
-            System.out.println("Go where?");
+            System.out.println("Go where?\n");
             return;
         }
 
@@ -332,7 +377,7 @@ public class Game {
                     return;
                 }
             }
-            System.out.println("The door is locked! You need the keys for it.");
+            System.out.println("The door is locked! You need the keys for it.\n");
             return;
         }
         if("the secret room".contentEquals(currentRoom.getShortDescription()) && "exit".contentEquals(direction)){
@@ -344,7 +389,7 @@ public class Game {
             return;
         }
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("There is no door!\n");
         } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
@@ -355,8 +400,9 @@ public class Game {
         System.out.println("Your inventory contains: " + logbook.getInventory().size() + " items.");
         if(!logbook.getInventory().isEmpty()){
             for(Items item : logbook.getInventory()){
-                System.out.println(item.getName());  // Print information about each item in inventory
+                System.out.print(item.getName());  // Print information about each item in inventory
             }
+            System.out.println("\n");
         }
     }
     
@@ -366,9 +412,10 @@ public class Game {
                 System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
                 if(!logbook.getMurderWeapons().isEmpty()){
                     for(Items weapon : logbook.getMurderWeapons()){
-                        System.out.println(weapon.getName());
+                        System.out.print(weapon.getName());
                     }
                 }
+                System.out.println("\n");
                 return;
             }
         }
@@ -381,19 +428,19 @@ public class Game {
                 if(item.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())){
                     logbook.removeItem(item);
                     currentRoom.addItem(item.isActive(),item.getMsgOnPickup(),item.getMsgOnInspect(),item.isMurderweapon(),item.getName(), item.getKeyWords());
-                    System.out.println("You have dropped: " + item.getName());
+                    System.out.println("You have dropped: " + item.getName() + "\n");
                     return;
                 }
             }
-            System.out.println("You have no item named: " + command.getSecondWord());
+            System.out.println("You have no item named: " + command.getSecondWord() + "\n");
         } else {
-            System.out.println("Drop what?");
+            System.out.println("Drop what?\n");
         }
     }
     
     private boolean quit(Command command){
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            System.out.println("Quit what?\n");
             return false;
         } else {
             return true;
@@ -414,9 +461,9 @@ public class Game {
                     return;
                 }
             }
-            System.out.println("There is no item named: " + command.getSecondWord());
+            System.out.println("There is no item named: " + command.getSecondWord() + "\n");
         } else {
-            System.out.println("Inspect what item?");
+            System.out.println("Inspect what item?\n");
         }
     }
 
@@ -430,7 +477,7 @@ public class Game {
                         logbook.addInventory(item);
                         toRemoveFromRoom = item;
                     } else {
-                        System.out.println("You could not pick up the " + item.getName());
+                        System.out.println("You could not pick up the " + item.getName() + "\n");
                     }
                 }
             }
@@ -438,13 +485,13 @@ public class Game {
                 currentRoom.getItems().remove(toRemoveFromRoom);
             }
         } else {
-            System.out.println("Take what item?");
+            System.out.println("Take what item?\n");
         }
     }
 
     private boolean accuse(Command command) {
         if(!command.hasSecondWord()){
-            System.out.println("Accuse who?");
+            System.out.println("Accuse who?\n");
             return false;
         }
         if(logbook.askedAllPersons() && logbook.gatheredAllWeapons()){
@@ -454,7 +501,7 @@ public class Game {
             if(!currentRoom.getPersonsInRoom().isEmpty()){
                 for(Person person : currentRoom.getPersonsInRoom()){
                     
-                   if(person.getAskName().toLowerCase().equals(whoToAccuse)){
+                   if(person.getAskName().toLowerCase().equals(whoToAccuse) || person.getName().toLowerCase().equals(whoToAccuse)){
                        if(person.isMurder()){
                            System.out.println(person.getAccusationResponse());
                            isCorrectAccusation = true;
@@ -462,9 +509,15 @@ public class Game {
                        }
                    }
                }
+               for(Items item : currentRoom.getItems()){
+                   if(item.getName().equals(whoToAccuse)){
+                       System.out.println("You cannot accuse an item.");
+                       return false;
+                   }
+               }
                return true;
             }
-            System.out.println("There is no person here named: " + command.getSecondWord());
+            System.out.println("There is no person here named: " + command.getSecondWord() + "\n");
             return false;
         }
         System.out.println("You haven't gathered enough evidence to point out a murderer yet!\n"
@@ -474,22 +527,22 @@ public class Game {
 
     private void interrogate(Command command) {
         if(!command.hasSecondWord()){
-            System.out.println("Ask who?");
+            System.out.println("Ask who?\n");
             return;
         }
         
         if(!currentRoom.getPersonsInRoom().isEmpty()){
             String whoToAsk = command.getSecondWord().toLowerCase();
             for(Person person : currentRoom.getPersonsInRoom()){
-               if(person.getAskName().toLowerCase().equals(whoToAsk)){
+               if(person.getAskName().toLowerCase().equals(whoToAsk) || person.getName().toLowerCase().equals(whoToAsk)){
                    System.out.println(person.getResponse());
                    logbook.addPersonResponse(person, person.getKeyWords());
-                   
                    return;
                }
            }
-           System.out.println("There is no person here named: " + command.getSecondWord());
+           System.out.println("There is no person here named: " + command.getSecondWord() + "\n");
+           return;
         }
-        System.out.println("There are no persons in the room.");
+        System.out.println("There are no persons in the room.\n");
     }
 }
