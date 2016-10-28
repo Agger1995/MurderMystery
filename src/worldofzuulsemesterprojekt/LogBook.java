@@ -19,9 +19,11 @@ public class LogBook {
     private ArrayList<Items> murderWeapons;
     private ArrayList<Items> inventory;
     private final int invMaxItems;
+    private int currentInv;
     
     public LogBook(){
         this.invMaxItems = 10;
+        this.currentInv = 0;
         this.responses = new HashMap<>();
         this.murderWeapons = new ArrayList<>();
         this.inventory = new ArrayList<>();
@@ -36,6 +38,22 @@ public class LogBook {
         return this.inventory;
     }
     
+    public int getInventorySize(){
+        return this.currentInv;
+    }
+    
+    public boolean isInventoryFull(Items toCheck){
+        if((this.currentInv + toCheck.getWeight()) <= this.invMaxItems){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public int getMaxInventorySize(){
+        return this.invMaxItems;
+    }
+    
     public ArrayList<Items> getMurderWeapons(){
         return this.murderWeapons;
     }
@@ -45,10 +63,9 @@ public class LogBook {
             this.murderWeapons.add(toAdd);
             return;
         }
-        if(this.inventory.size() < this.invMaxItems){
+        if(this.isInventoryFull(toAdd)){
+            this.currentInv += toAdd.getWeight();
             this.inventory.add(toAdd);
-        } else {
-            System.out.println("Inventory is full!");
         }
     }
     
@@ -76,6 +93,7 @@ public class LogBook {
     
     public void removeItem(Items toDrop){
         this.inventory.remove(toDrop);
+        this.currentInv -= toDrop.getWeight();
     }
 
     public void printAll() {

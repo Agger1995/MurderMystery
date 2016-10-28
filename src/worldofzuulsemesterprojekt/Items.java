@@ -17,14 +17,20 @@ public class Items {
     private String name;
     private String msgOnPickup;
     private String keyWords;
+    private int weight;
     
-    public Items(boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String name, String keyWords){
+    public Items(boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String name, String keyWords, int weight){
         this.isActive = isActive;
         this.name = name;
         this.msgOnPickup = msgOnPickup;
         this.msgOnInspect = msgOnInspect;
         this.isMurderweapon = isMurderWeapon; 
         this.keyWords = keyWords;
+        this.weight = weight;
+    }
+    
+    public int getWeight(){
+        return this.weight;
     }
     
     public boolean isActive(){
