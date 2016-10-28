@@ -90,6 +90,7 @@ public class Game {
                                         + "mother, now had a face resembling massacred raw beef with \n"
                                         + "hair. A bit of dust is around her face, could be anything from \n"
                                         + "flour to baby powder *sniff* hmm fits the case, it has a very distinctive smell.\n", false, "body", "Poisoned knife caused it, Toilet.");
+        toilet.addItem(true, "You pick up some toilet paper","Hmm, appropriately placed toilet paper. It would be a shame, if someone, stole it.\n",false,"toilet paper","once a tree, what a cruel destiny, toilet");
         
         upstairsHall.addItem(true, "You pick up the whiskey\n", "A bottle of whiskey on the floor in hallway on \n"
                                                         + "the 1st floor, who could be leaving such a beauty there? *drink* ahh… \n"
@@ -100,8 +101,8 @@ public class Game {
                                                             + "in Mr. Phine’s room... the knife seems to also have some powder on it. \n"
                                                             + "It looks like the same powder as the one on the body. \n"
                                                             + "*sniff*, yeah this is ratpoison. Odd to find something like \n"
-                                                            + "that in his room, I wonder who dropped this here.\n", true, "bloody knife", "bloody and powdered, suspicious, bedroom.");
-        
+                                                            + "that in his room, I wonder who dropped this here.\n", true, "bloody knife", "bloody and powdered, suspicious, bedroom");
+        bedroom.addItem(true, "You pick up a Plasma TV\n", "Hmm, very fine and expensive looking plasma TV. Might be worth something.\n", false, "plasma tv","new expensive tv, bedroom");
         
         kitchen.addItem(false, "UNUSED", "Hmm, an empty knifeholder in the kitchen. Wonder where the knife is?\n",false, "empty knifeholder", "Knife-holder with missing knife, Kitchen");
         kitchen.addItem(true, "You pick up the rat poison\n", "Odd to find an empty bottle of rat poison in the kitchen, \n"
@@ -110,11 +111,15 @@ public class Game {
                                                             + "*Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell, \n"
                                                             + "only alfred have been in the kitchen all night. \n"
                                                             + "This could be a good idea to keep this in mind though.\n", true, "rat poison", "powder, resemble powder on knife, kitchen.");
+        kitchen.addItem(true, "You pick up an apple\n", "Hmm, a delicious red apple. Wonder if it has anything to do with the murder?\n", false, "apple","red apple, kitchen");
         
         garden.addItem(true, "You pick up a set of rusty keys\n", "These are some old rusty looking keys\n", false, "keys", "rusty keys, says 'kitchen', garden");//
         garden.addItem(true, "You pick up a golf club\n", "A golf club in the garden, doesn’t seems suspicious so far. There is \n"
                                                         + "no blood on it, and it seems to be clean and shiny, yet it \n"
                                                         + "has been left alone in the garden.\n", true, "golf club", "dirty with grass, no blood, garden.");
+        garden.addItem(true, "You pick up a beautiful bouquet of flowers\n", "Those are some great looking flowers, i could bring back a bouquet \n"
+                                                                            + "to my darling wife, once i solve this mystery.\n", false, "flowers","beautiful flowers, garden");
+        
         upstairsHall.addItem(true, "You pick up a rope\n", "A rope with a tied knot, not usually something you’d find in a hallway \n"
                                                         + "on the 2nd hall. Perhaps someone were trying to off themselves. \n"
                                                         + "Interesting case, but irrelevant right now. We gotta find the \n"
@@ -126,6 +131,13 @@ public class Game {
                                                     + "All bullets are still in the case, but no bullets \n"
                                                     + "or gunpowder were found by the scene. It didn’t seem \n"
                                                     + "to have caused the murder.\n", true, "pistol", "all bullets intact, Library");
+        library.addItem(true, "You pick up a book\n", "Hmm, that's curious. A crime book about a murder happening in a mansion at a \n"
+                                                    + "dinner party, just like this! That's a bit odd.\n", false,"odd book","book regarding murder, library");
+        
+        dungeon.addItem(true, "You pick up a rat corpse\n","Ew, a disgusting rat corpse.. Looks like it has been lying here for quite some time now.\n",false, "rat corpse","rotten rat corpse, dungeon");
+        dungeon.addItem(true, "You pick up a human skull", "Hmm, a human skull. I wonder what sick history this mansion has, surely \n"
+                                                        + "this can only mean that another murder has happened here in the past.\n",false,"skull","human skull, dungeon");
+        
     }
 
     /**
