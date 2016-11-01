@@ -3,6 +3,8 @@ package worldofzuulsemesterprojekt;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashMap;
+import static worldofzuulsemesterprojekt.Game.itemDatabase;
+import static worldofzuulsemesterprojekt.Game.personDatabase;
 
 /**
  * Room class is used to create new a new instance object of type room
@@ -11,14 +13,11 @@ import java.util.HashMap;
  * @author Christian
  */
 
-public class Room 
-{
+public class Room {
     private String description;
-    //private ArrayList<Item> items;
-    //private ArrayList<Person> persons;
     private HashMap<String, Room> exits;
-    private ArrayList<Items> itemsInRoom;
-    private ArrayList<Person> personsInRoom;
+    private ArrayList<Integer> itemsInRoom;
+    private ArrayList<Integer> personsInRoom;
 
     /**
      * Constructor for Room class.
@@ -95,8 +94,8 @@ public class Room
     
     private String getItemsString(){
         String toReturn = "Items: ";
-        for(Items item : this.itemsInRoom){
-            toReturn += item.getName() + ", ";
+        for(Integer itemID : this.itemsInRoom){
+            toReturn += itemDatabase.get(itemID).getName() + ", ";
         }
         toReturn = toReturn.substring(0, toReturn.length() - 2);
         
@@ -105,8 +104,8 @@ public class Room
     
     private String getPersonsString(){
         String toReturn = "Persons: ";
-        for(Person person : this.personsInRoom){
-            toReturn += person.getName() + ", ";
+        for(Integer personID : this.personsInRoom){
+            toReturn += personDatabase.get(personID).getName() + ", ";
         }
         toReturn = toReturn.substring(0, toReturn.length() - 2);
         
@@ -122,19 +121,19 @@ public class Room
         return this.exits.get(direction);
     }
     
-    public void addItem(boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String name, String keyWords, int weight){
-        this.itemsInRoom.add(new Items(isActive, msgOnPickup, msgOnInspect, isMurderWeapon, name, keyWords, weight));
+    public void addItem(int ID){
+        this.itemsInRoom.add(ID);
     }
     
-    public ArrayList<Items> getItems(){
+    public ArrayList<Integer> getItems(){
         return this.itemsInRoom;
     }
     
-    public void addPerson(Person person){
-        this.personsInRoom.add(person);
+    public void addPerson(int personID){
+        this.personsInRoom.add(personID);
     }
     
-    public ArrayList<Person> getPersonsInRoom(){
+    public ArrayList<Integer> getPersonsInRoom(){
         return this.personsInRoom;
     }
 }

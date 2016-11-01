@@ -97,6 +97,10 @@ public class CommandWords{
                     toPrint += command + ", ";
                     break;
                     
+                case "drink":
+                    toPrint += command + ", ";
+                    break;
+                    
                 default:
                     break;
             }

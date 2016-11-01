@@ -8,25 +8,25 @@ package worldofzuulsemesterprojekt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import static worldofzuulsemesterprojekt.Game.itemDatabase;
+import static worldofzuulsemesterprojekt.Game.personDatabase;
 
 /**
  *
  * @author chris
  */
 public class LogBook {
-    private HashMap<Person, String> responses;
-    private HashMap<Items,String> itemsInspected;
-    private ArrayList<Items> murderWeapons;
-    private ArrayList<Items> inventory;
-    private final int invMaxItems;
-    private int currentInv;
+    private HashMap<Integer, String> responses;
+    private HashMap<Integer, String> itemsInspected;
+    private ArrayList<Integer> murderWeapons;
+    private int currentDrink;
+    private final int maxDrink;
     
     public LogBook(){
-        this.invMaxItems = 10;
-        this.currentInv = 0;
+        this.maxDrink = 3;
+        this.currentDrink = 0;
         this.responses = new HashMap<>();
         this.murderWeapons = new ArrayList<>();
-        this.inventory = new ArrayList<>();
         this.itemsInspected = new HashMap<>();
     }
     
@@ -34,43 +34,12 @@ public class LogBook {
      *
      * @return
      */
-    public ArrayList<Items> getInventory(){
-        return this.inventory;
-    }
-    
-    public int getInventorySize(){
-        return this.currentInv;
-    }
-    
-    public boolean isInventoryFull(Items toCheck){
-        if((this.currentInv + toCheck.getWeight()) <= this.invMaxItems){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    public int getMaxInventorySize(){
-        return this.invMaxItems;
-    }
-    
-    public ArrayList<Items> getMurderWeapons(){
+    public ArrayList<Integer> getMurderWeapons(){
         return this.murderWeapons;
     }
     
-    public void addInventory(Items toAdd){
-        if(toAdd.isMurderweapon()){
-            this.murderWeapons.add(toAdd);
-            return;
-        }
-        if(this.isInventoryFull(toAdd)){
-            this.currentInv += toAdd.getWeight();
-            this.inventory.add(toAdd);
-        }
-    }
-    
-    public void addPersonResponse(Person person, String responseKeyWords){
-        this.responses.put(person, responseKeyWords);
+    public void addPersonResponse(Integer personID, String responseKeyWords){
+        this.responses.put(personID, responseKeyWords);
     }
     
     public boolean askedAllPersons(){
@@ -81,19 +50,14 @@ public class LogBook {
         return this.murderWeapons.size() == 5;
     }
     
-    public void addItemDescription(Items item){
-        if(!this.itemsInspected.containsKey(item)){
-            this.itemsInspected.put(item,item.getKeyWords());
+    public void addItemDescription(Integer itemID, String keyWords){
+        if(!this.itemsInspected.containsKey(itemID)){
+            this.itemsInspected.put(itemID,keyWords);
         }
     }
     
-    public boolean containsItem(Items toCheck){
-        return this.inventory.contains(toCheck);
-    }
-    
-    public void removeItem(Items toDrop){
-        this.inventory.remove(toDrop);
-        this.currentInv -= toDrop.getWeight();
+    public void addMurderWeapons(Integer itemID){
+        this.murderWeapons.add(itemID);
     }
 
     public void printAll() {
@@ -111,9 +75,9 @@ public class LogBook {
         if(!this.responses.isEmpty()){
             System.out.println("########################## PERSONS #########################");
         
-            Set<Person> personsAsked = this.responses.keySet();
-            for(Person person : personsAsked){
-                System.out.format(format,person.getName() + " - ", this.responses.get(person));
+            Set<Integer> personsAsked = this.responses.keySet();
+            for(Integer personID : personsAsked){
+                System.out.format(format,personDatabase.get(personID).getName() + " - ", this.responses.get(personID));
             }
             System.out.println("############################################################");
         }
@@ -121,12 +85,20 @@ public class LogBook {
         if(!this.itemsInspected.isEmpty()){
             System.out.println("##########################  ITEMS  #########################");
         
-            Set<Items> inspectedItems = this.itemsInspected.keySet();
-            for(Items item : inspectedItems){
-                System.out.format(format,item.getName() + " - ", this.itemsInspected.get(item));
+            Set<Integer> inspectedItems = this.itemsInspected.keySet();
+            for(Integer itemID : inspectedItems){
+                System.out.format(format,itemDatabase.get(itemID).getName() + " - ", this.itemsInspected.get(itemID));
             }
             System.out.println("############################################################");
         }
         System.out.println("\n");
+    }
+
+    public void addDrink() {
+        this.currentDrink++;
+    }
+
+    public boolean isDrinkMax() {
+        return this.currentDrink < this.maxDrink;
     }
 }
