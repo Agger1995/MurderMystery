@@ -1,6 +1,7 @@
 package worldofzuulsemesterprojekt;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -24,14 +25,14 @@ public class Game {
     private Highscore highScore;
     public static final HashMap<Integer, Item> itemDatabase = new HashMap<>();
     public static final HashMap<Integer, Person> personDatabase = new HashMap<>();
-        
+    private String playerName;
 
     /**
      * The Game class' constructor
      * Calls the method createRooms(), and initiates the game's parser
      * @throws java.io.FileNotFoundException
      */
-    public Game() throws FileNotFoundException{
+    public Game(){
         this.createRooms();
         this.createItems();
         this.createPersons();
@@ -224,15 +225,18 @@ public class Game {
                                 + "sacrificed herself to give birth to Agnes, my angel, she, must sacrifice herself so \n"
                                 + "that the beautiful angel she once was can be restored. But the angel never came back, \n"
                                 + "she just died, never to return to life.\n", "phein");
-        
+        phein.setQuestions("who are you","did you do it?", "are you sorry");
+        phein.setAnswers("mr. phine \n", "yes! \n", "no! \n");
+        phein.setWelcome("Thank you for helping me, Detective! is there anything i can do for you?");
 
         tyrion = new Person(1,"Tyrion Lannister","I do have something; Veronica doesn’t seem to \n"
                                 + "like Agnes very much, she’s been talking about her constantly, if I \n"
                                 + "didn’t know any better I’d say she did it!\n","Veronica hates Agnes, talking about her.",
                                 "What the hell?! Goddammit, I did not do it. You’re making \n"
                                 + "some seriously far-stretched assumptions here, my little boy!\n", "tyrion");
-        
-        
+        tyrion.setQuestions("who are you", "2", "3");
+        tyrion.setAnswers("tyrion Lannister", "2a", "3a");
+        tyrion.setWelcome("hallo");
 
         alfred = new Person(2,"Alfred the Butler","I don’t know who did it, but I did see Veronica Mars, \n"
                                 + "walking quickly away from that room with a guilty smug on her face.\n","Veronica, smug on face, walked from ballroom.",
@@ -275,10 +279,15 @@ public class Game {
      * It's main function is to get the players input in form of commands.
      * Also checks if the player is done playing the game, if yes. The game will stop.
      * Calls processCommand method, for processing the command typed by the player.
+     * @throws java.io.FileNotFoundException
      */
-    public void play(){
-        highScore.readHighscore();
-        
+    public void play() throws FileNotFoundException{
+        try{
+            highScore.createHighscoreFile();
+            highScore.readHighscoreTable();
+        } catch (FileNotFoundException e){
+            System.out.println("Error in highscore system.");
+        }
         this.printWelcome();
         
         boolean finished = false;
@@ -298,7 +307,23 @@ public class Game {
             printer.printLoseMessage();
             pointSystem.addPoints(-100);
         }
+        if(highScore.isFinalPointsHigher(pointSystem.getPoints())){
+            System.out.println("You have earned enough points to get on the highscore.");
+            System.out.println("Please enter your name for the highscore:");
+            this.playerName = input.nextLine();
+            try{
+                highScore.writeToHighscore(this.playerName, pointSystem.getPoints());
+                highScore.writeToFile();
+            } catch(FileNotFoundException fnferr){
+                System.out.println("Error in highscore System");
+            }
+        }
         System.out.println("GAME OVER!");
+        try{
+            highScore.readHighscoreTable();
+        } catch(FileNotFoundException fnferr){
+            System.out.println("Error in highscore System");
+        }
     }
 
     /**
@@ -566,24 +591,26 @@ public class Game {
             return;
         }
         
-        if(!currentRoom.getPersonsInRoom().isEmpty()){
-            String whoToAsk = command.getSecondWord().toLowerCase();
-            for(Integer personID : currentRoom.getPersonsInRoom()){
-                Person tempPersonObject = personDatabase.get(personID);
-                if(tempPersonObject.getAskName().toLowerCase().equals(whoToAsk) || tempPersonObject.getName().toLowerCase().equals(whoToAsk)){
-                    System.out.println(tempPersonObject.getResponse());
-                    logbook.addPersonResponse(personID, tempPersonObject.getKeyWords());
-                    if(!tempPersonObject.isAsked()){
-                        tempPersonObject.setHasBeenAsked(true);
-                        pointSystem.addPoints(5);
-                    }
-                    return;
-                }
-           }
-           System.out.println("There is no person here named: " + command.getSecondWord() + "\n");
-           return;
+        if(currentRoom.getPersonsInRoom().isEmpty()) {
+            System.out.println("There are no persons here!\n");
+            return;
         }
-        System.out.println("There are no persons in the room.\n");
+        for(Integer personID : currentRoom.getPersonsInRoom()){
+            String whoToAsk = command.getSecondWord().toLowerCase();
+            Person tempPersonObject = personDatabase.get(personID);
+            if(tempPersonObject.getAskName().toLowerCase().equals(whoToAsk) || tempPersonObject.getName().toLowerCase().equals(whoToAsk)){
+                System.out.println(tempPersonObject.getWelcome());
+                tempPersonObject.returnQuestions();
+                while(tempPersonObject.chosenAnswer != 4) {
+                    System.out.println(tempPersonObject.conversation());
+                    //time.addMinute(5);//we add 5 minuts for each question we ask the suspect.
+                }
+                if(!tempPersonObject.isAsked()){
+                    pointSystem.addPoints(5);
+                    tempPersonObject.setHasBeenAsked(true);
+                }
+            }
+        }
     }
 
     private boolean drink(Command command) {
