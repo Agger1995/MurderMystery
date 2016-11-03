@@ -18,8 +18,8 @@ public class WorldOfZuulSemesterProjekt {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Game game;
-        game = new Game();
+        LogBook Log = new LogBook();
+        Game game = new Game(Log);
         
         try{
             game.play();

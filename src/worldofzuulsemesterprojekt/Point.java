@@ -18,7 +18,7 @@ public class Point {
     
     public void addPoints(int pointsToAdd){
         this.points += pointsToAdd;
-        System.out.println("You receive " + pointsToAdd + " points.");
+        System.out.println("You receive " + pointsToAdd + " points.\n");
     }
     
     public int getPoints(){

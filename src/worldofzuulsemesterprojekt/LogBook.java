@@ -48,9 +48,9 @@ public class LogBook {
         return this.murderWeapons.size() == 5;
     }
     
-    public void addItemDescription(Item itemToAdd){
+    public void addItemDescription(Item itemToAdd, String keyWords){
         if(!this.itemsInspected.containsKey(itemToAdd)){
-            this.itemsInspected.put(itemToAdd,itemToAdd.getKeyWords());
+            this.itemsInspected.put(itemToAdd,keyWords);
         }
     }
     

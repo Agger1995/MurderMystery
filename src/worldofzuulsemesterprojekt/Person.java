@@ -16,10 +16,11 @@ public class Person {
     private HashMap<Integer, String> questions;
     private HashMap<Integer, String> anwsers;
     public int chosenAnswer;
-    private String welcome;
-    private Scanner input = new Scanner(System.in);
+    private String          welcome;
+    private Scanner         input = new Scanner(System.in);
+    private LogBook         LogConnection;
 
-    public Person(int ID, String name, boolean isMurder, String response, String keyWords, String accusationResponse, String askName) {
+    public Person(int ID, String name, boolean isMurder, String response, String keyWords, String accusationResponse, String askName, LogBook Log) {
         this.ID = ID;
         this.name = name;
         this.isMurder = isMurder;
@@ -32,9 +33,10 @@ public class Person {
         this.anwsers = new HashMap<>();
         this.chosenAnswer = 0;
         this.welcome = "";
+        this.LogConnection = Log;
     }
     
-    public Person(int ID, String name, String response, String keyWords, String accusationResponse, String askName) {
+    public Person(int ID, String name, String response, String keyWords, String accusationResponse, String askName, LogBook Log) {
         this.ID = ID;
         this.name = name;
         this.response = response;
@@ -47,6 +49,7 @@ public class Person {
         this.anwsers = new HashMap<>();
         this.chosenAnswer = 0;
         this.welcome = "";
+        this.LogConnection = Log;
     }
 
     /*
@@ -89,32 +92,32 @@ public class Person {
     }
     
     public void setQuestions(String q1, String q2, String q3) {
-        questions.put(1, q1);
-        questions.put(2, q2);
-        questions.put(3, q3);
-        questions.put(4, "Goodbye. \n");
+        this.questions.put(1, q1);
+        this.questions.put(2, q2);
+        this.questions.put(3, q3);
+        this.questions.put(4, "Goodbye. \n");
         
     }
     
     public void setAnswers(String a1, String a2, String a3) {
-        anwsers.put(-1, "This is not a valid command, please type a number\n");
-        anwsers.put(1, a1);
-        anwsers.put(2, a2);
-        anwsers.put(3, a3);
-        anwsers.put(4, "Farewell! \n");
+        this.anwsers.put(-1, "This is not a valid command, please type a number\n");
+        this.anwsers.put(1, a1);
+        this.anwsers.put(2, a2);
+        this.anwsers.put(3, a3);
+        this.anwsers.put(4, "Farewell! \n");
     }
     
     public void returnQuestions() {
-        chosenAnswer = -1;
+        this.chosenAnswer = -1;
         System.out.println("Please choose one of the following questions:");
-        System.out.println("1: " + questions.get(1));
-        System.out.println("2: " + questions.get(2));
-        System.out.println("3: " + questions.get(3));
-        System.out.println("4: " + questions.get(4));
+        System.out.println("1: " + this.questions.get(1));
+        System.out.println("2: " + this.questions.get(2));
+        System.out.println("3: " + this.questions.get(3));
+        System.out.println("4: " + this.questions.get(4));
     }
     
     public int chosenAnswers() {
-        return chosenAnswer;
+        return this.chosenAnswer;
     }
     
     public String conversation() {
@@ -123,7 +126,7 @@ public class Person {
         System.out.print(">");
         
         try {
-            key = input.nextInt();
+            key = this.input.nextInt();
             if(key >= 5 || key <= 0){
                 throw new IllegalArgumentException();
             }
@@ -131,12 +134,12 @@ public class Person {
             //Print "sets key to -1"
             //when user put other than integer in the input
             key = -1;
-            input.next();
+            this.input.next();
         } catch (IllegalArgumentException err){
             key = -1;
         }
-        value = anwsers.get(key);
-        chosenAnswer = key;
+        value = this.anwsers.get(key);
+        this.chosenAnswer = key;
         return value;
     }
     
@@ -145,6 +148,6 @@ public class Person {
     }
     
     public String getWelcome() {
-        return welcome;
+        return this.welcome;
     }
 }

@@ -20,8 +20,9 @@ public class Item {
     private final String keyWords;
     private final int weight;
     private final boolean isDrinkable;
+    private LogBook LogConnection;
     
-    public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String keyWords, int weight, boolean isDrinkable){
+    public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String keyWords, int weight, boolean isDrinkable, LogBook Log){
         this.ID = ID;
         this.isActive = isActive;
         this.name = name;
@@ -32,6 +33,7 @@ public class Item {
         this.keyWords = keyWords;
         this.weight = weight;
         this.isDrinkable = isDrinkable;
+        this.LogConnection = Log;
     }
     
     public int getWeight(){
@@ -63,6 +65,7 @@ public class Item {
     }
     
     public String getMsgOnInspect(){
+        this.LogConnection.addItemDescription(this, this.getKeyWords());
         return this.msgOnInspect;
     }
     
