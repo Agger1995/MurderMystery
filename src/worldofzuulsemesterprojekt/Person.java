@@ -124,7 +124,7 @@ public class Person {
         
         try {
             key = input.nextInt();
-            if(key >= 5){
+            if(key >= 5 || key <= 0){
                 throw new IllegalArgumentException();
             }
         } catch(InputMismatchException exception) {

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author chris
  */
 public class Inventory {
-    private final ArrayList<Integer> inventoryItems;
+    private final ArrayList<Item> inventoryItems;
     private final int invMaxItems;
     private int currentInv;
     
@@ -22,23 +22,23 @@ public class Inventory {
         this.currentInv = 0;
     }
     
-    public boolean containsItem(Integer idToCheck){
-        return this.inventoryItems.contains(idToCheck);
+    public boolean containsItem(Item itemToCheck){
+        return this.inventoryItems.contains(itemToCheck);
     }
     
-    public void removeItem(Integer idToDrop, int itemWeight){
-        this.inventoryItems.remove(idToDrop);
-        this.currentInv -= itemWeight;
+    public void removeItem(Item itemToDrop){
+        this.inventoryItems.remove(itemToDrop);
+        this.currentInv -= itemToDrop.getWeight();
     }
     
-    public ArrayList<Integer> getInventory(){
+    public ArrayList<Item> getInventory(){
         return this.inventoryItems;
     }
     
-    public void addInventory(Integer idToAdd, Integer itemWeight){
-        if(this.isInventoryFull(itemWeight)){
-            this.currentInv += itemWeight;
-            this.inventoryItems.add(idToAdd);
+    public void addInventory(Item itemToAdd){
+        if(this.isInventoryFull(itemToAdd.getWeight())){
+            this.currentInv += itemToAdd.getWeight();
+            this.inventoryItems.add(itemToAdd);
         }
     }
     
@@ -46,8 +46,8 @@ public class Inventory {
         return this.currentInv;
     }
     
-    public boolean isInventoryFull(Integer itemWeight){
-        return (this.currentInv + itemWeight) <= this.invMaxItems;
+    public boolean isInventoryFull(int weightTocheck){
+        return (this.currentInv + weightTocheck) <= this.invMaxItems;
     }
     
     public int getMaxInventorySize(){

@@ -8,17 +8,15 @@ package worldofzuulsemesterprojekt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-import static worldofzuulsemesterprojekt.Game.itemDatabase;
-import static worldofzuulsemesterprojekt.Game.personDatabase;
 
 /**
  *
  * @author chris
  */
 public class LogBook {
-    private HashMap<Integer, String> responses;
-    private HashMap<Integer, String> itemsInspected;
-    private ArrayList<Integer> murderWeapons;
+    private HashMap<Person, String> responses;
+    private HashMap<Item, String> itemsInspected;
+    private ArrayList<Item> murderWeapons;
     private int currentDrink;
     private final int maxDrink;
     
@@ -34,12 +32,12 @@ public class LogBook {
      *
      * @return
      */
-    public ArrayList<Integer> getMurderWeapons(){
+    public ArrayList<Item> getMurderWeapons(){
         return this.murderWeapons;
     }
     
-    public void addPersonResponse(Integer personID, String responseKeyWords){
-        this.responses.put(personID, responseKeyWords);
+    public void addPersonResponse(Person personToAdd){
+        this.responses.put(personToAdd, personToAdd.getKeyWords());
     }
     
     public boolean askedAllPersons(){
@@ -50,14 +48,14 @@ public class LogBook {
         return this.murderWeapons.size() == 5;
     }
     
-    public void addItemDescription(Integer itemID, String keyWords){
-        if(!this.itemsInspected.containsKey(itemID)){
-            this.itemsInspected.put(itemID,keyWords);
+    public void addItemDescription(Item itemToAdd){
+        if(!this.itemsInspected.containsKey(itemToAdd)){
+            this.itemsInspected.put(itemToAdd,itemToAdd.getKeyWords());
         }
     }
     
-    public void addMurderWeapons(Integer itemID){
-        this.murderWeapons.add(itemID);
+    public void addMurderWeapons(Item itemToAdd){
+        this.murderWeapons.add(itemToAdd);
     }
 
     public void printAll() {
@@ -75,9 +73,9 @@ public class LogBook {
         if(!this.responses.isEmpty()){
             System.out.println("########################## PERSONS #########################");
         
-            Set<Integer> personsAsked = this.responses.keySet();
-            for(Integer personID : personsAsked){
-                System.out.format(format,personDatabase.get(personID).getName() + " - ", this.responses.get(personID));
+            Set<Person> personsAsked = this.responses.keySet();
+            for(Person personToPrint : personsAsked){
+                System.out.format(format,personToPrint.getName() + " - ", this.responses.get(personToPrint));
             }
             System.out.println("############################################################");
         }
@@ -85,9 +83,9 @@ public class LogBook {
         if(!this.itemsInspected.isEmpty()){
             System.out.println("##########################  ITEMS  #########################");
         
-            Set<Integer> inspectedItems = this.itemsInspected.keySet();
-            for(Integer itemID : inspectedItems){
-                System.out.format(format,itemDatabase.get(itemID).getName() + " - ", this.itemsInspected.get(itemID));
+            Set<Item> inspectedItems = this.itemsInspected.keySet();
+            for(Item itemToPrint : inspectedItems){
+                System.out.format(format,itemToPrint.getName() + " - ", this.itemsInspected.get(itemToPrint));
             }
             System.out.println("############################################################");
         }

@@ -3,8 +3,6 @@ package worldofzuulsemesterprojekt;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashMap;
-import static worldofzuulsemesterprojekt.Game.itemDatabase;
-import static worldofzuulsemesterprojekt.Game.personDatabase;
 
 /**
  * Room class is used to create new a new instance object of type room
@@ -16,8 +14,8 @@ import static worldofzuulsemesterprojekt.Game.personDatabase;
 public class Room {
     private String description;
     private HashMap<String, Room> exits;
-    private ArrayList<Integer> itemsInRoom;
-    private ArrayList<Integer> personsInRoom;
+    private ArrayList<Item> itemsInRoom;
+    private ArrayList<Person> personsInRoom;
 
     /**
      * Constructor for Room class.
@@ -94,8 +92,8 @@ public class Room {
     
     private String getItemsString(){
         String toReturn = "Items: ";
-        for(Integer itemID : this.itemsInRoom){
-            toReturn += itemDatabase.get(itemID).getName() + ", ";
+        for(Item item : this.itemsInRoom){
+            toReturn += item.getName() + ", ";
         }
         toReturn = toReturn.substring(0, toReturn.length() - 2);
         
@@ -104,8 +102,8 @@ public class Room {
     
     private String getPersonsString(){
         String toReturn = "Persons: ";
-        for(Integer personID : this.personsInRoom){
-            toReturn += personDatabase.get(personID).getName() + ", ";
+        for(Person person : this.personsInRoom){
+            toReturn += person.getName() + ", ";
         }
         toReturn = toReturn.substring(0, toReturn.length() - 2);
         
@@ -121,19 +119,19 @@ public class Room {
         return this.exits.get(direction);
     }
     
-    public void addItem(int ID){
-        this.itemsInRoom.add(ID);
+    public void addItem(Item toAdd){
+        this.itemsInRoom.add(toAdd);
     }
     
-    public ArrayList<Integer> getItems(){
+    public ArrayList<Item> getItems(){
         return this.itemsInRoom;
     }
     
-    public void addPerson(int personID){
-        this.personsInRoom.add(personID);
+    public void addPerson(Person toAdd){
+        this.personsInRoom.add(toAdd);
     }
     
-    public ArrayList<Integer> getPersonsInRoom(){
+    public ArrayList<Person> getPersonsInRoom(){
         return this.personsInRoom;
     }
 }

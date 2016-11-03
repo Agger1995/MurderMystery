@@ -1,7 +1,6 @@
 package worldofzuulsemesterprojekt;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -11,11 +10,11 @@ import java.util.Scanner;
  * @author chris
  */
 public class Game {
-    private final Parser parser;
-    private final PrintUtility printer;
+    private Parser parser;
+    private PrintUtility printer;
     private Room currentRoom; 
-    private final LogBook logbook;
-    private final Inventory inventory;
+    private LogBook logbook;
+    private Inventory inventory;
     private boolean isCorrectAccusation;
     private Room ballRoom, bathroom, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, bedroom, library, secretRoom;
     private Person tyrion, phein, alfred, veronica, stephanie;
@@ -23,14 +22,11 @@ public class Game {
     private boolean deadByDrink;
     private Point pointSystem;
     private Highscore highScore;
-    public static final HashMap<Integer, Item> itemDatabase = new HashMap<>();
-    public static final HashMap<Integer, Person> personDatabase = new HashMap<>();
     private String playerName;
 
     /**
      * The Game class' constructor
      * Calls the method createRooms(), and initiates the game's parser
-     * @throws java.io.FileNotFoundException
      */
     public Game(){
         this.createRooms();
@@ -168,44 +164,25 @@ public class Game {
         
         skull = new Item(17, "skull", true, "You pick up a human skull", "Hmm, a human skull. I wonder what sick history this mansion has, surely \n"
                                                         + "this can only mean that another murder has happened here in the past.\n",false,"human skull, dungeon",5, false);
-
-        itemDatabase.put(body.getID(), body);
-        itemDatabase.put(carpet.getID(), carpet);
-        itemDatabase.put(toiletPaper.getID(), toiletPaper);
-        itemDatabase.put(whiskey.getID(), whiskey);
-        itemDatabase.put(rope.getID(), rope);
-        itemDatabase.put(bloodyKnife.getID(), bloodyKnife);
-        itemDatabase.put(plasmaTv.getID(), plasmaTv);
-        itemDatabase.put(emptyKnifeholder.getID(), emptyKnifeholder);
-        itemDatabase.put(ratPoison.getID(), ratPoison);
-        itemDatabase.put(apple.getID(), apple);
-        itemDatabase.put(keys.getID(), keys);
-        itemDatabase.put(golfClub.getID(), golfClub);
-        itemDatabase.put(flowers.getID(), flowers);
-        itemDatabase.put(bookshelf.getID(), bookshelf);
-        itemDatabase.put(pistol.getID(), pistol);
-        itemDatabase.put(oddBook.getID(), oddBook);
-        itemDatabase.put(ratCorpse.getID(), ratCorpse);
-        itemDatabase.put(skull.getID(), skull);
         
-        ballRoom.addItem(carpet.getID());
-        bathroom.addItem(body.getID());
-        bathroom.addItem(toiletPaper.getID());
-        upstairsHall.addItem(whiskey.getID());
-        upstairsHall.addItem(rope.getID());
-        bedroom.addItem(bloodyKnife.getID());
-        bedroom.addItem(plasmaTv.getID());
-        kitchen.addItem(emptyKnifeholder.getID());
-        kitchen.addItem(ratPoison.getID());
-        kitchen.addItem(apple.getID());
-        garden.addItem(keys.getID());
-        garden.addItem(golfClub.getID());
-        garden.addItem(flowers.getID());
-        library.addItem(bookshelf.getID());
-        library.addItem(pistol.getID());
-        library.addItem(oddBook.getID());
-        dungeon.addItem(ratCorpse.getID());
-        dungeon.addItem(skull.getID());
+        ballRoom.addItem(carpet);
+        bathroom.addItem(body);
+        bathroom.addItem(toiletPaper);
+        upstairsHall.addItem(whiskey);
+        upstairsHall.addItem(rope);
+        bedroom.addItem(bloodyKnife);
+        bedroom.addItem(plasmaTv);
+        kitchen.addItem(emptyKnifeholder);
+        kitchen.addItem(ratPoison);
+        kitchen.addItem(apple);
+        garden.addItem(keys);
+        garden.addItem(golfClub);
+        garden.addItem(flowers);
+        library.addItem(bookshelf);
+        library.addItem(pistol);
+        library.addItem(oddBook);
+        dungeon.addItem(ratCorpse);
+        dungeon.addItem(skull);
     }
 
     /**
@@ -261,17 +238,11 @@ public class Game {
                                 + "you are, but I damn well didn’t do it, the evidence you’ve say you \n"
                                 + "have does NOT have anything to with me, and if you accuse me again i will sue you.\n", "stephanie");
         
-        personDatabase.put(phein.getID(), phein);
-        personDatabase.put(tyrion.getID(), tyrion);
-        personDatabase.put(alfred.getID(), alfred);
-        personDatabase.put(stephanie.getID(), stephanie);
-        personDatabase.put(veronica.getID(), veronica);
-        
-        ballRoom.addPerson(phein.getID());
-        library.addPerson(tyrion.getID());
-        kitchen.addPerson(alfred.getID());
-        garden.addPerson(stephanie.getID());
-        bedroom.addPerson(veronica.getID());
+        ballRoom.addPerson(phein);
+        library.addPerson(tyrion);
+        kitchen.addPerson(alfred);
+        garden.addPerson(stephanie);
+        bedroom.addPerson(veronica);
     }
     
     /**
@@ -404,8 +375,8 @@ public class Game {
         Room nextRoom = currentRoom.getExit(direction);
         
         if("the garden".contentEquals(currentRoom.getShortDescription()) && "kitchen".contentEquals(direction)){
-            for(int itemID : inventory.getInventory()){
-                if(itemID == 9){
+            for(Item tempItemObject : inventory.getInventory()){
+                if(tempItemObject.getID() == 9){
                     System.out.println("You unlock the kitchen door and enter.");
                     currentRoom = nextRoom;
                     System.out.println(currentRoom.getLongDescription());
@@ -434,8 +405,7 @@ public class Game {
     public void inventory(){
         System.out.println("Your inventory contains: " + inventory.getInventory().size() + " items. Total weight is: " + inventory.getInventorySize() + "/" + inventory.getMaxInventorySize() + ".");
         if(!inventory.getInventory().isEmpty()){
-            for(Integer itemID : inventory.getInventory()){
-                Item tempItemObject = itemDatabase.get(itemID);
+            for(Item tempItemObject : inventory.getInventory()){
                 
                 System.out.print(tempItemObject.getName() + ": Weight: " + tempItemObject.getWeight() + ".\n");  // Print information about each item in inventory
             }
@@ -448,8 +418,7 @@ public class Game {
             if("weapons".equals(command.getSecondWord().toLowerCase())){
                 System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
                 if(!logbook.getMurderWeapons().isEmpty()){
-                    for(Integer itemID : logbook.getMurderWeapons()){
-                        Item tempItemObject = itemDatabase.get(itemID);
+                    for(Item tempItemObject : logbook.getMurderWeapons()){
                         System.out.print(tempItemObject.getName());
                     }
                 }
@@ -462,17 +431,15 @@ public class Game {
 
     public void dropItem(Command command){
         if(command.hasSecondWord()){
-            for(Integer itemID : inventory.getInventory()){
-                Item tempItemObject = itemDatabase.get(itemID);
+            for(Item tempItemObject : inventory.getInventory()){;
                 if(tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())){
-                    inventory.removeItem(itemID, tempItemObject.getWeight());
-                    currentRoom.addItem(itemID);
+                    inventory.removeItem(tempItemObject);
+                    currentRoom.addItem(tempItemObject);
                     System.out.println("You have dropped: " + tempItemObject.getName() + "\n");
                     return;
                 }
             }
-            for(Integer itemID : logbook.getMurderWeapons()){
-                Item tempItemObject = itemDatabase.get(itemID);
+            for(Item tempItemObject : logbook.getMurderWeapons()){
                 if(tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase()) && tempItemObject.isMurderweapon()){
                     System.out.println("You cannot drop potential murder weapons");
                     return;
@@ -495,11 +462,10 @@ public class Game {
 
     private void inspect(Command command) {
         if(command.hasSecondWord()){
-            for(Integer itemID : currentRoom.getItems()){
-                Item tempItemObject = itemDatabase.get(itemID);
+            for(Item tempItemObject : currentRoom.getItems()){
                 if(tempItemObject.getName().equals(command.getSecondWord())){
                     System.out.println(tempItemObject.getMsgOnInspect());
-                    logbook.addItemDescription(itemID, tempItemObject.getKeyWords());
+                    logbook.addItemDescription(tempItemObject);
                     if(!tempItemObject.isInspected()){
                         tempItemObject.setHasBeenInspected(true);
                         pointSystem.addPoints(1);
@@ -520,18 +486,17 @@ public class Game {
 
     private void takeItem(Command command) {
         if(command.hasSecondWord()){
-            Integer idToRemoveFromRoom = null;
-            for(Integer itemID : currentRoom.getItems()){
-                Item tempItemObject = itemDatabase.get(itemID);
+            Item itemToRemoveFromRoom = null;
+            for(Item tempItemObject : currentRoom.getItems()){
                 if(tempItemObject.getName().equals(command.getSecondWord())){
                     if(tempItemObject.isActive()){
                         if(inventory.isInventoryFull(tempItemObject.getWeight())){
                             System.out.println(tempItemObject.getMsgOnPickup() + ". It weights: " + tempItemObject.getWeight() + "\n");
-                            inventory.addInventory(itemID, tempItemObject.getWeight());
+                            inventory.addInventory(tempItemObject);
                             if(tempItemObject.isMurderweapon()){
-                                logbook.addMurderWeapons(itemID);
+                                logbook.addMurderWeapons(tempItemObject);
                             }
-                            idToRemoveFromRoom = itemID;
+                            itemToRemoveFromRoom = tempItemObject;
                         } else {
                             System.out.println("Inventory is full! You are carrying to much weight.\n");
                         }
@@ -540,8 +505,8 @@ public class Game {
                     }
                 }
             }
-            if(idToRemoveFromRoom != null){
-                currentRoom.getItems().remove(idToRemoveFromRoom);
+            if(itemToRemoveFromRoom != null){
+                currentRoom.getItems().remove(itemToRemoveFromRoom);
             }
         } else {
             System.out.println("Take what item?\n");
@@ -558,8 +523,7 @@ public class Game {
             isCorrectAccusation = false;
 
             if(!currentRoom.getPersonsInRoom().isEmpty()){
-                for(Integer personID : currentRoom.getPersonsInRoom()){
-                    Person tempPersonObject = personDatabase.get(personID);
+                for(Person tempPersonObject : currentRoom.getPersonsInRoom()){
                     
                    if(tempPersonObject.getAskName().toLowerCase().equals(whoToAccuse) || tempPersonObject.getName().toLowerCase().equals(whoToAccuse)){
                        if(tempPersonObject.isMurder()){
@@ -571,8 +535,7 @@ public class Game {
                }
                return true;
             }
-            for(Integer itemID : currentRoom.getItems()){
-                Item tempItemObject = itemDatabase.get(itemID);
+            for(Item tempItemObject : currentRoom.getItems()){
                 if(tempItemObject.getName().equals(whoToAccuse)){
                     System.out.println("You cannot accuse an item.\n");
                     return false;
@@ -595,9 +558,8 @@ public class Game {
             System.out.println("There are no persons here!\n");
             return;
         }
-        for(Integer personID : currentRoom.getPersonsInRoom()){
+        for(Person tempPersonObject : currentRoom.getPersonsInRoom()){
             String whoToAsk = command.getSecondWord().toLowerCase();
-            Person tempPersonObject = personDatabase.get(personID);
             if(tempPersonObject.getAskName().toLowerCase().equals(whoToAsk) || tempPersonObject.getName().toLowerCase().equals(whoToAsk)){
                 System.out.println(tempPersonObject.getWelcome());
                 tempPersonObject.returnQuestions();
@@ -615,8 +577,7 @@ public class Game {
 
     private boolean drink(Command command) {
         if(command.hasSecondWord()){
-           for(Integer itemID : currentRoom.getItems()){//tjekker items som er i current room, men manger at den ogsÃ¥ tjeker inventory
-               Item tempItemObject = itemDatabase.get(itemID);
+           for(Item tempItemObject : currentRoom.getItems()){//tjekker items som er i current room, men manger at den ogsÃ¥ tjeker inventory
                 if(tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase()) && tempItemObject.isDrinkable()){//tjek if there is an item with the same name as the input and if it is drinkabel
                     if(logbook.isDrinkMax()){//tjek if max drink is true
                         logbook.addDrink();//if max drik true, we add 1 to drinkCount

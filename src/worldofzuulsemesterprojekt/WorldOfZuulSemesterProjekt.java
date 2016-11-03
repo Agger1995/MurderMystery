@@ -5,6 +5,8 @@
  */
 package worldofzuulsemesterprojekt;
 
+import java.io.FileNotFoundException;
+
 /**
  * Begin the game class
  * @author Agger
@@ -19,6 +21,10 @@ public class WorldOfZuulSemesterProjekt {
         Game game;
         game = new Game();
         
-        game.play();
+        try{
+            game.play();
+        } catch (FileNotFoundException fnferr){
+            System.out.println("Error in highscore system.");
+        }
     }
 }
