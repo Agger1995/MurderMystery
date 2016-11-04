@@ -8,24 +8,24 @@ public class Person {
     private final int       ID;
     private final String    name; //Name of the person
     private final boolean   isMurder; //Is the person the murderer?
-    private final String    response; //Response when talked to.
     private boolean         hasBeenAsked;
-    private final String    keyWords;
     private final String    accusationResponse;
     private final String    askName;
     private HashMap<Integer, String> questions;
     private HashMap<Integer, String> anwsers;
+    private HashMap<Integer, String> keyWords;
     public int chosenAnswer;
     private String          welcome;
     private Scanner         input = new Scanner(System.in);
     private LogBook         LogConnection;
+    private int             timeToAsk;
 
-    public Person(int ID, String name, boolean isMurder, String response, String keyWords, String accusationResponse, String askName, LogBook Log) {
+    public Person(int ID, String name, boolean isMurder, String keyWords1, String keyWords2, String keyWords3, String accusationResponse, String askName, int time, LogBook Log) {
         this.ID = ID;
         this.name = name;
         this.isMurder = isMurder;
-        this.response = response;
-        this.keyWords = keyWords;
+        this.keyWords = new HashMap<>();
+        this.addKeyWordsToMap(keyWords1,keyWords2,keyWords3);
         this.accusationResponse = accusationResponse;
         this.askName = askName;
         this.hasBeenAsked = false;
@@ -33,22 +33,7 @@ public class Person {
         this.anwsers = new HashMap<>();
         this.chosenAnswer = 0;
         this.welcome = "";
-        this.LogConnection = Log;
-    }
-    
-    public Person(int ID, String name, String response, String keyWords, String accusationResponse, String askName, LogBook Log) {
-        this.ID = ID;
-        this.name = name;
-        this.response = response;
-        this.keyWords = keyWords;
-        this.accusationResponse = accusationResponse;
-        this.askName = askName;
-        this.isMurder = false;
-        this.hasBeenAsked = false;
-        this.questions = new HashMap<>();
-        this.anwsers = new HashMap<>();
-        this.chosenAnswer = 0;
-        this.welcome = "";
+        this.timeToAsk = time;
         this.LogConnection = Log;
     }
 
@@ -78,13 +63,9 @@ public class Person {
     public boolean isMurder() {
         return this.isMurder;
     }
-
-    public String getResponse() {
-        return this.response;
-    }
     
-    public String getKeyWords(){
-        return this.keyWords;
+    public String getKeyWords(Integer toGet){
+        return this.keyWords.get(toGet);
     }
     
     public String getAccusationResponse(){
@@ -134,12 +115,13 @@ public class Person {
             //Print "sets key to -1"
             //when user put other than integer in the input
             key = -1;
-            this.input.next();
+            this.input.nextLine();
         } catch (IllegalArgumentException err){
             key = -1;
         }
         value = this.anwsers.get(key);
         this.chosenAnswer = key;
+        this.LogConnection.addPersonResponse(this, this.getKeyWords(key));
         return value;
     }
     
@@ -149,5 +131,15 @@ public class Person {
     
     public String getWelcome() {
         return this.welcome;
+    }
+    
+    public int getTimeItTakes(){
+        return this.timeToAsk;
+    }
+
+    private void addKeyWordsToMap(String keyWords1, String keyWords2, String keyWords3) {
+        this.keyWords.put(1,keyWords1);
+        this.keyWords.put(2,keyWords2);
+        this.keyWords.put(3,keyWords3);
     }
 }

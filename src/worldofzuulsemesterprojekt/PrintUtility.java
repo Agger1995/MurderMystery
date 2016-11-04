@@ -86,13 +86,19 @@ public class PrintUtility {
                 + "not, then return == null. We had a lot of fun making this short game, thank you for playing!\n");
     }
     
-    public void printLoseMessage(){
-        System.out.println("Well, that was a surprise, he/she didn’t do it. I wonder who did then?\n" +
-                               "You have used the one try you have, as you fail the guess a sharp sting is felt on your shoulder.\n");
-        System.out.println("Press ENTER to continue.");
-        input.nextLine();
+    public void printLoseMessageAcussation(){
+        System.out.println("Well, that was a surprise, you acussed the wrong person. I wonder who did then?\n" +
+                               "just as you realise who the correct murdere is, you feel a sharp sting in you bag.\n");
         System.out.println("Blood arising down you right chest and your vision becomes blurry. "
-                + "The real murderer killed you, you damn fool. ");
+                            + "The real murderer killed you, you damn fool. ");
+    }
+    public void printLoseTimeRanOutMessage(){
+        System.out.println("Fail message if time runs out:\n" 
+                           + "Oh my, the time! Itâ€™s already kl.08.00, and the cops are arriving,"
+                           + "with their usual â€œhardâ€� work and â€œtrusty understanding of Mr. Pheinâ€™s current lossâ€�"
+                           + "and subsequently his financial situation I doubt this case will be solved, "
+                           + "buried in money and secrets so that Mr. Pheins family name remains intact. "
+                           + "It will forever remain a Mystery, a Mystery Mansion.");
     }
     
     public void printHelp(){

@@ -22,23 +22,28 @@ public class Game {
     private Point pointSystem;
     private Highscore highScore;
     private String playerName;
+    private Time time;
+    private boolean timeRanOut;
+    private PersonWithRiddle ghost, troll;
 
     /**
      * The Game class' constructor
      * Calls the method createRooms(), and initiates the game's parser
-     * @param LogToParse
+     * @param logToParse
      */
-    public Game(LogBook LogToParse){
+    public Game(LogBook logToParse){
         this.createRooms();
-        this.createItems(LogToParse);
-        this.createPersons(LogToParse);
+        this.createItems(logToParse);
+        this.createPersons(logToParse);
         this.highScore = new Highscore();
         this.pointSystem = new Point();
         this.deadByDrink = false;
         this.inventory = new Inventory(10);
-        this.logbook = LogToParse;
+        this.logbook = logToParse;
         this.parser = new Parser();
         this.printer = new PrintUtility();
+        this.time = new Time(18*60, 14*60);
+        this.createPersonWithRiddles();
     }
 
     /**
@@ -51,18 +56,18 @@ public class Game {
      * Lastly it defines where the player begins his mission.
      */
     private void createRooms(){
-        ballRoom = new Room("the ball room");
-        bathroom = new Room("the bathroom");
-        kitchen = new Room("the kitchen");
-        groundFloorHall = new Room("the ground floor hall");
-        dungeon = new Room("the dungeon");
-        dungeonHall1 = new Room("the western dungeon hall");
-        dungeonHall2 = new Room("the eastern dungeon hall");
-        garden = new Room("the garden");
-        upstairsHall = new Room("the upstairs hall");
-        bedroom = new Room("the bedroom");
-        library = new Room("the library");
-        secretRoom = new Room("the secret room");
+        ballRoom = new Room("the ball room",5);
+        bathroom = new Room("the bathroom",5);
+        kitchen = new Room("the kitchen",5);
+        groundFloorHall = new Room("the ground floor hall",5);
+        dungeon = new Room("the dungeon",5);
+        dungeonHall1 = new Room("the western dungeon hall",5);
+        dungeonHall2 = new Room("the eastern dungeon hall",5);
+        garden = new Room("the garden",5);
+        upstairsHall = new Room("the upstairs hall",5);
+        bedroom = new Room("the bedroom",5);
+        library = new Room("the library",5);
+        secretRoom = new Room("the secret room",5);
         
         ballRoom.setExit("bathroom",bathroom);
         ballRoom.setExit("hall",groundFloorHall);
@@ -101,69 +106,70 @@ public class Game {
     }
     
     private void createItems(LogBook logToParse) {
-        carpet = new Item(0,"carpet",false, "UNUSED", "Hmm, that’s a ugly carpet compared to the rest of this mansion. \n"
+        carpet = new Item(0,"carpet",false, "UNUSED", "Hmm, thatâ€™s a ugly carpet compared to the rest of this mansion. \n"
                                         + "*Wind gushing from the open windows* suddenly a trapdoor \n"
-                                        + "became visible as the wind grabbed a bit of the carpet.\n", false, "Dusty, revealed trapdoor",0, false, logToParse);
+                                        + "became visible as the wind grabbed a bit of the carpet.\n", false, "Dusty, revealed trapdoor",0, false, 5, 10, 0,logToParse);
         
         body = new Item(1, "body", false, "UNUSED", "Such a shame, Agnes known for her beauty resembling from her \n"
                                         + "mother, now had a face resembling massacred raw beef with \n"
                                         + "hair. A bit of dust is around her face, could be anything from \n"
-                                        + "flour to baby powder *sniff* hmm fits the case, it has a very distinctive smell.\n", false, "Poisoned knife caused it, Bathroom.",0, false, logToParse);
+                                        + "flour to baby powder *sniff* hmm fits the case, it has a very distinctive smell.\n", false, "Poisoned knife caused it, Bathroom.",0, false,0, 15, 0,logToParse);
 
-        toiletPaper = new Item(2, "toilet paper", true, "You pick up some toilet paper","Hmm, appropriately placed toilet paper. It would be a shame, if someone, stole it.\n",false,"once a tree, what a cruel destiny, Bathroom",1, false, logToParse);
+        toiletPaper = new Item(2, "toilet paper", true, "You pick up some toilet paper","Hmm, appropriately placed toilet paper. It would be a shame, if someone, stole it.\n",false,"once a tree, what a cruel destiny, Bathroom",1, false, 5, 5, 0,logToParse);
 
         whiskey = new Item(3, "whiskey", true, "You pick up the whiskey", "A bottle of whiskey on the floor in hallway on \n"
-                                                        + "the 1st floor, who could be leaving such a beauty there? *drink* ahh… \n"
-                                                        + "that’s the stuff. Oh, better get back to work, otherwise \n"
-                                                        + "I’ll be spending all my time here.\n", false, "very strong taste, but good",3, true, logToParse);
+                                                        + "the 1st floor, who could be leaving such a beauty there? *drink* ahhâ€¦ \n"
+                                                        + "thatâ€™s the stuff. Oh, better get back to work, otherwise \n"
+                                                        + "Iâ€™ll be spending all my time here.\n", false, "very strong taste, but good",3, true,5, 10, 30,logToParse);
         
         bloodyKnife = new Item(4, "bloody knife", true, "You pick up the bloody knife", "A knife wrapped in a handkerchief soaked in blood... \n"
-                                                            + "in Mr. Phine’s room... the knife seems to also have some powder on it. \n"
+                                                            + "in Mr. Phineâ€™s room... the knife seems to also have some powder on it. \n"
                                                             + "It looks like the same powder as the one on the body. \n"
                                                             + "*sniff*, yeah this is ratpoison. Odd to find something like \n"
-                                                            + "that in his room, I wonder who dropped this here.\n", true, "bloody and powdered, suspicious, bedroom",0, false, logToParse);
+                                                            + "that in his room, I wonder who dropped this here.\n", true, "bloody and powdered, suspicious, bedroom",0, false,5, 15, 0,logToParse);
         
-        plasmaTv = new Item(5, "plasma tv", true, "You pick up a Plasma TV", "Hmm, very fine and expensive looking plasma TV. Might be worth something.\n", false,"new expensive tv, bedroom",7, false, logToParse);
+        plasmaTv = new Item(5, "plasma tv", true, "You pick up a Plasma TV", "Hmm, very fine and expensive looking plasma TV. Might be worth something.\n", false,"new expensive tv, bedroom",7, false,5, 5, 0,logToParse);
 
-        emptyKnifeholder = new Item(6, "empty knifeholder", false, "UNUSED", "Hmm, an empty knifeholder in the kitchen. Wonder where the knife is?\n",false, "Knife-holder with missing knife, Kitchen",0, false, logToParse);
+        emptyKnifeholder = new Item(6, "empty knifeholder", false, "UNUSED", "Hmm, an empty knifeholder in the kitchen. Wonder where the knife is?\n",false, "Knife-holder with missing knife, Kitchen",0, false,5, 5, 0,logToParse);
         
         ratPoison = new Item(7, "rat poison", true, "You pick up the rat poison", "Odd to find an empty bottle of rat poison in the kitchen, \n"
                                                             + "the powdery substance matches the one found by the body. \n"
                                                             + "The amount is rather small to cause the murder. \n"
                                                             + "*Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell, \n"
                                                             + "only alfred have been in the kitchen all night. \n"
-                                                            + "This could be a good idea to keep this in mind though.\n", true, "powder, resemble powder on knife, kitchen.",0, false, logToParse);
-        apple = new Item(8, "apple", true, "You pick up an apple", "Hmm, a delicious red apple. Wonder if it has anything to do with the murder?\n", false,"red apple, kitchen",1, false, logToParse);
-
-        keys = new Item(9, "keys", true, "You pick up a set of rusty keys", "These are some old rusty looking keys\n", false, "rusty keys, says 'kitchen', garden",2, false, logToParse);
+                                                            + "This could be a good idea to keep this in mind though.\n", true, "powder, resemble powder on knife, kitchen.", 0, false,5, 15, 0,logToParse);
         
-        golfClub = new Item(10, "golf club", true, "You pick up a golf club", "A golf club in the garden, doesn’t seems suspicious so far. There is \n"
+        apple = new Item(8, "apple", true, "You pick up an apple", "Hmm, a delicious red apple. Wonder if it has anything to do with the murder?\n", false,"red apple, kitchen",1,false,5,5,0,logToParse);
+
+        keys = new Item(9, "keys", true, "You pick up a set of rusty keys", "These are some old rusty looking keys\n", false, "rusty keys, says 'kitchen', garden",2,false,5,10,0,logToParse);
+        
+        golfClub = new Item(10, "golf club", true, "You pick up a golf club", "A golf club in the garden, doesnâ€™t seems suspicious so far. There is \n"
                                                         + "no blood on it, and it seems to be clean and shiny, yet it \n"
-                                                        + "has been left alone in the garden.\n", true, "dirty with grass, no blood, garden.",0, false, logToParse);
+                                                        + "has been left alone in the garden.\n", true, "dirty with grass, no blood, garden.",0, false,5, 15,0,logToParse);
         
         flowers = new Item(11, "flowers", true, "You pick up a beautiful bouquet of flowers", "Those are some great looking flowers, i could bring back a bouquet \n"
-                                                                            + "to my darling wife, once i solve this mystery.\n", false,"beautiful flowers, garden",4, false, logToParse);
+                                                                            + "to my darling wife, once i solve this mystery.\n", false,"beautiful flowers, garden",4, false,5, 5,0,logToParse);
         
-        rope = new Item(12, "rope", true, "You pick up a rope", "A rope with a tied knot, not usually something you’d find in a hallway \n"
+        rope = new Item(12, "rope", true, "You pick up a rope", "A rope with a tied knot, not usually something youâ€™d find in a hallway \n"
                                                         + "on the 2nd hall. Perhaps someone were trying to off themselves. \n"
                                                         + "Interesting case, but irrelevant right now. We gotta find the \n"
-                                                        + "murderer of Agnes, before that monster escapes. \n", true, "unused with a knot, 2nd floor Hall.",0, false, logToParse);
+                                                        + "murderer of Agnes, before that monster escapes. \n", true, "unused with a knot, 2nd floor Hall.",0, false,5, 15,0,logToParse);
 
         bookshelf = new Item(13, "bookshelf", false, "UNUSED", "As I inspected the bookshelf it cracks and creaks. The bookshelf slowly \n"
-                                        + "moves itself and a door appears, I wonder where it leads.\n", false, "revealed secret room, library",0, false, logToParse);
+                                        + "moves itself and a door appears, I wonder where it leads.\n", false, "revealed secret room, library",0, false,5, 15,0,logToParse);
         
         pistol = new Item(14, "pistol", true, "You pick up a pistol", "Finding a pistol in the library, odd place to find a pistol. \n"
                                                     + "All bullets are still in the case, but no bullets \n"
-                                                    + "or gunpowder were found by the scene. It didn’t seem \n"
-                                                    + "to have caused the murder.\n", true, "all bullets intact, Library",0, false, logToParse);
+                                                    + "or gunpowder were found by the scene. It didnâ€™t seem \n"
+                                                    + "to have caused the murder.\n", true, "all bullets intact, Library",0, false,5, 15,0,logToParse);
         
         oddBook = new Item(15, "odd book", true, "You pick up a book", "Hmm, that's curious. A crime book about a murder happening in a mansion at a \n"
-                                                    + "dinner party, just like this! That's a bit odd.\n", false,"book regarding murder, library",2, false, logToParse);
+                                                    + "dinner party, just like this! That's a bit odd.\n", false,"book regarding murder, library",2, false,5, 5,0,logToParse);
         
-        ratCorpse = new Item(16, "rat corpse", true, "You pick up a rat corpse","Ew, a disgusting rat corpse.. Looks like it has been lying here for quite some time now.\n",false,"rotten rat corpse, dungeon",3, false, logToParse);
+        ratCorpse = new Item(16, "rat corpse", true, "You pick up a rat corpse","Ew, a disgusting rat corpse.. Looks like it has been lying here for quite some time now.\n",false,"rotten rat corpse, dungeon",3, false,5, 10,0,logToParse);
         
         skull = new Item(17, "skull", true, "You pick up a human skull", "Hmm, a human skull. I wonder what sick history this mansion has, surely \n"
-                                                        + "this can only mean that another murder has happened here in the past.\n",false,"human skull, dungeon",5, false, logToParse);
+                                                        + "this can only mean that another murder has happened here in the past.\n",false,"human skull, dungeon",5, false,5, 5,0,logToParse);
         
         ballRoom.addItem(carpet);
         bathroom.addItem(body);
@@ -191,58 +197,55 @@ public class Game {
      * 
      */
     private void createPersons(LogBook logToParse) {
-        phein = new Person(0,"Mr. Phein", true, "Thank you for helping me, Detective! \n"
-                                + "I hope that you find my daughter's murderer as quickly as possible. \n"
-                                + "I don’t know anything about the murder I just heard a scream, ran and saw \n"
-                                + "the body of my daughter, and I’ve been down here ever since. The gruesome \n"
-                                + "body, I can’t even look at it!\n","Thanks you, heard scream, been by body since.",
+        phein = new Person(0,"Mr. Phein", true,"empty","empty","empty",
                                 "She was an angel, my daughter. An angel, so wonderful and beautiful, just like her mother. \n"
                                 + "After you found her, the angel, she, had a lost her beauty and innocence, I tried to \n"
                                 + "take her to therapy, but my angel never became the same again. Just like her mother \n"
                                 + "sacrificed herself to give birth to Agnes, my angel, she, must sacrifice herself so \n"
                                 + "that the beautiful angel she once was can be restored. But the angel never came back, \n"
-                                + "she just died, never to return to life.\n", "phein", logToParse);
+                                + "she just died, never to return to life.\n", "phein", 5,logToParse);
         phein.setQuestions("who are you","did you do it?", "are you sorry");
         phein.setAnswers("mr. phine \n", "yes! \n", "no! \n");
         phein.setWelcome("Thank you for helping me, Detective! is there anything i can do for you?");
 
-        tyrion = new Person(1,"Tyrion Lannister","I do have something; Veronica doesn’t seem to \n"
-                                + "like Agnes very much, she’s been talking about her constantly, if I \n"
-                                + "didn’t know any better I’d say she did it!\n","Veronica hates Agnes, talking about her.",
+        tyrion = new Person(1,"Tyrion Lannister",false,"empty","empty","empty",
                                 "What the hell?! Goddammit, I did not do it. You’re making \n"
-                                + "some seriously far-stretched assumptions here, my little boy!\n", "tyrion", logToParse);
+                                + "some seriously far-stretched assumptions here, my little boy!\n", "tyrion", 5,logToParse);
         tyrion.setQuestions("who are you", "2", "3");
         tyrion.setAnswers("tyrion Lannister", "2a", "3a");
         tyrion.setWelcome("hallo");
 
-        alfred = new Person(2,"Alfred the Butler","I don’t know who did it, but I did see Veronica Mars, \n"
-                                + "walking quickly away from that room with a guilty smug on her face.\n","Veronica, smug on face, walked from ballroom.",
+        alfred = new Person(2,"Alfred the Butler",false,"empty","empty","empty",
                                 "I’m afraid I didn’t have anything to do with the murder, Detective. Agnes \n"
                                 + "was a wonderful girl, such an angel to have in the mansion, I could never \n"
-                                + "do anything like that to her. How dare you ask that question?\n", "alfred", logToParse);
+                                + "do anything like that to her. How dare you ask that question?\n", "alfred", 5,logToParse);
         
 
-        veronica = new Person(3,"Veronica Mars","Gush! I haven’t heard anything about this! Oh my god, that is horrible! \n"
-                                + "*Cell phone rings* Oh, I better take this, it’s an \n"
-                                + "important call for an investigation, if you need \n"
-                                + "me for anything, please ask!\n","Surprised response, not ruling her out yet.",
+        veronica = new Person(3,"Veronica Mars",false,"empty","empty","empty",
                                 "Are you stupid? Can’t you tell that the others are lying?! I have \n"
                                 + "tried just like you to solve this, yet you accuse me? This is stupid, \n"
                                 + "as you can see the evidence clearly doesn’t point towards any of the guest, \n"
                                 + "I might have planted some ratpoison on the weapon, but that was only to lead \n"
-                                + "you to obvious murderer!\n", "veronica", logToParse);
+                                + "you to obvious murderer!\n", "veronica",5,logToParse);
         
-        stephanie = new Person(4,"Stephanie Richburg","Wow, what the hell! Damn, I do have one thing to say though; Veronica seems \n"
-                                + "to have been involving herself a lot with that room.\n","Veronica being a lot in ballroom.",
+        stephanie = new Person(4,"Stephanie Richburg",false,"empty","empty","empty",
                                 "OMG!!! you think i did it? I don’t know who you think \n"
                                 + "you are, but I damn well didn’t do it, the evidence you’ve say you \n"
-                                + "have does NOT have anything to with me, and if you accuse me again i will sue you.\n", "stephanie", logToParse);
+                                + "have does NOT have anything to with me, and if you accuse me again i will sue you.\n", "stephanie", 5,logToParse);
         
         ballRoom.addPerson(phein);
         library.addPerson(tyrion);
         kitchen.addPerson(alfred);
         garden.addPerson(stephanie);
         bedroom.addPerson(veronica);
+    }
+    
+    public void createPersonWithRiddles(){
+        ghost = new PersonWithRiddle("ghost","UUuuuh, you are right mortal. \nI shall grant you some more time in the mortal world.\n","HAHAHA, you answered wrong mortal. I shall take your time away in this world!\n",60,20,time);
+        troll = new PersonWithRiddle("troll","Ugh, me smas u for right anser\n", "haha, puny human. u so dumb.\n",60,20,time);
+        
+        dungeon.addPersonWithRiddle(troll);
+        secretRoom.addPersonWithRiddle(ghost);
     }
     
     /**
@@ -261,10 +264,13 @@ public class Game {
         }
         this.printWelcome();
         
+
         boolean finished = false;
-        while (! finished) {
+        while (! finished || timeRanOut) {
+            System.out.println("kl: "+time.getTime() + "\n");
             Command command = this.parser.getCommand();
             finished = this.processCommand(command);
+            this.whenTimeRunsOut();
         }
         Scanner input = new Scanner(System.in);
         System.out.println("Press ENTER to continue..");
@@ -272,10 +278,14 @@ public class Game {
         if(isCorrectAccusation){
             pointSystem.addPoints(100);
             printer.printWinMessage();
+            pointSystem.addPoints(time.PointsIfWin());
         } else if(deadByDrink){
             pointSystem.addPoints(-100);
+        } else if(timeRanOut){
+            printer.printLoseTimeRanOutMessage();//if lose you get a lose message
+            pointSystem.addPoints(-100);//if you lose you lose 100 points
         } else {
-            printer.printLoseMessage();
+            printer.printLoseMessageAcussation();
             pointSystem.addPoints(-100);
         }
         if(highScore.isFinalPointsHigher(pointSystem.getPoints())){
@@ -319,35 +329,49 @@ public class Game {
 
         CommandWord commandWord = command.getCommandWord();
 
-        if(commandWord == CommandWord.UNKNOWN) {
-            System.out.println("Unknown command!");
-            return false;
-        }
-
-        if (commandWord == CommandWord.HELP) {
-            this.printHelp();
-        } else if (commandWord == CommandWord.GO) {
-            this.goRoom(command);
-        } else if (commandWord == CommandWord.QUIT) {
-            wantToQuit = this.quit(command);
-        } else if (commandWord == CommandWord.INSPECT){
-            this.inspect(command);
-        } else if (commandWord == CommandWord.ASK){
-            this.interrogate(command);
-        } else if (commandWord == CommandWord.ACCUSE){
-            wantToQuit = this.accuse(command);
-        } else if (commandWord == CommandWord.LOGBOOK){
-            this.printLog(command);
-        } else if (commandWord == CommandWord.TAKE){
-            this.takeItem(command);
-        } else if (commandWord == CommandWord.DROP){
-            this.dropItem(command);
-        } else if (commandWord == CommandWord.INVENTORY){
-            this.inventory();
-        } else if (commandWord == CommandWord.INFORMATION){
-            System.out.println(currentRoom.getLongDescription());
-        } else if( commandWord == CommandWord.DRINK){
-            wantToQuit = this.drink(command);
+        if (commandWord != null) switch (commandWord) {
+            case HELP:
+                this.printHelp();
+                break;
+            case GO:
+                this.goRoom(command);
+                break;
+            case QUIT:
+                wantToQuit = this.quit(command);
+                break;
+            case INSPECT:
+                this.inspect(command);
+                break;
+            case ASK:
+                this.interrogate(command);
+                break;
+            case ACCUSE:
+                wantToQuit = this.accuse(command);
+                break;
+            case LOGBOOK:
+                this.printLog(command);
+                break;
+            case TAKE:
+                this.takeItem(command);
+                break;
+            case DROP:
+                this.dropItem(command);
+                break;
+            case INVENTORY:
+                this.inventory();
+                break;
+            case INFORMATION:
+                System.out.println(currentRoom.getLongDescription());
+                break;
+            case DRINK:
+                wantToQuit = this.drink(command);
+                break;
+                
+            case UNKNOWN:
+                System.out.println("Unknown command!");
+                return false;
+            default:
+                break;
         }
         return wantToQuit;
     }
@@ -380,6 +404,7 @@ public class Game {
                     System.out.println("You unlock the kitchen door and enter.");
                     currentRoom = nextRoom;
                     System.out.println(currentRoom.getLongDescription());
+                    time.addMinute(currentRoom.getTimeToMove());
                     return;
                 }
             }
@@ -392,6 +417,7 @@ public class Game {
             currentRoom = roomArray[(int)(Math.random() * 12)];
             
             System.out.println(currentRoom.getLongDescription());
+            time.addMinute(currentRoom.getTimeToMove());
             return;
         }
         if (nextRoom == null) {
@@ -399,6 +425,7 @@ public class Game {
         } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            time.addMinute(currentRoom.getTimeToMove());
         }
     }
     
@@ -436,6 +463,7 @@ public class Game {
                     inventory.removeItem(tempItemObject);
                     currentRoom.addItem(tempItemObject);
                     System.out.println("You have dropped: " + tempItemObject.getName() + "\n");
+                    time.addMinute(tempItemObject.getTimeToTake());
                     return;
                 }
             }
@@ -474,6 +502,7 @@ public class Game {
                     } else if("bookshelf".equals(tempItemObject.getName())){
                         library.setExit("bookshelf",secretRoom);
                     }
+                    time.addMinute(tempItemObject.getTimeToInspect());
                     return;
                 }
             }
@@ -496,6 +525,7 @@ public class Game {
                                 logbook.addMurderWeapons(tempItemObject);
                             }
                             itemToRemoveFromRoom = tempItemObject;
+                            time.addMinute(tempItemObject.getTimeToTake());
                         } else {
                             System.out.println("Inventory is full! You are carrying to much weight.\n");
                         }
@@ -553,7 +583,7 @@ public class Game {
             return;
         }
         
-        if(currentRoom.getPersonsInRoom().isEmpty()) {
+        if(currentRoom.getPersonsInRoom().isEmpty() && currentRoom.getRiddlersInRoom().isEmpty()) {
             System.out.println("There are no persons here!\n");
             return;
         }
@@ -564,7 +594,9 @@ public class Game {
                 tempPersonObject.returnQuestions();
                 while(tempPersonObject.chosenAnswer != 4) {
                     System.out.println(tempPersonObject.conversation());
-                    //time.addMinute(5);//we add 5 minuts for each question we ask the suspect.
+                    if(tempPersonObject.chosenAnswer !=4){
+                        time.addMinute(tempPersonObject.getTimeItTakes());//we add 5 minuts for each question we ask the suspect. (- farewell option)
+                    }
                 }
                 System.out.println(currentRoom.getLongDescription());
                 if(!tempPersonObject.isAsked()){
@@ -573,6 +605,13 @@ public class Game {
                 }
             }
         }
+        for(PersonWithRiddle tempPersonWithRiddleObject : currentRoom.getRiddlersInRoom()){
+            String whoToAsk = command.getSecondWord().toLowerCase();
+            if(tempPersonWithRiddleObject.getName().toLowerCase().equals(whoToAsk)){
+                tempPersonWithRiddleObject.runRiddle();
+            }
+        }
+        System.out.println(currentRoom.getLongDescription());
     }
 
     private boolean drink(Command command) {
@@ -584,16 +623,24 @@ public class Game {
                     } else{
                         System.out.println("*Drink* I feel kind of wierd maybe i shouldn't have been drinking so much tonight.");//if drink is > maxDrink den we die
                        deadByDrink = true; //end game
+                       time.addMinute(tempItemObject.getTimeToDrink());
                        return true;
                     }
                     System.out.println("*Drink* mmmm... that was a good tasting " + command.getSecondWord() + ".\n");//if drink is < maxDrink den we drink
+                    time.addMinute(tempItemObject.getTimeToDrink());
                     return false; //continue game
                 } else {
                    System.out.println("You can not drink the " + command.getSecondWord() + ".\n");//if the item is not drikabel we can't drink it
                    return false; //continue game
                 }
-            }  
+            }
         }
        return false;//continue game
+    }
+    
+    private void whenTimeRunsOut(){
+        if (time.getTimeElapsed() >= 14*60){//time runs out at kl: 08:00
+            timeRanOut = true; //end game
+        }
     }
 }

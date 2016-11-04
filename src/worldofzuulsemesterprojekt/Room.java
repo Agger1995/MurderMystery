@@ -16,6 +16,8 @@ public class Room {
     private HashMap<String, Room> exits;
     private ArrayList<Item> itemsInRoom;
     private ArrayList<Person> personsInRoom;
+    private ArrayList<PersonWithRiddle> personRiddleInRoom;
+    private int timeToMove;
 
     /**
      * Constructor for Room class.
@@ -23,12 +25,23 @@ public class Room {
      * The hashmap contains directions in form of "String" and the Room the direction
      * leads to as an object of type "Room".
      * @param description
+     * @param timeToMove
      */
-    public Room(String description){
+    public Room(String description, int timeToMove){
         this.description = description;
         this.exits = new HashMap<>();
         this.itemsInRoom = new ArrayList<>();
         this.personsInRoom = new ArrayList<>();
+        this.timeToMove = timeToMove;
+        this.personRiddleInRoom = new ArrayList<>();
+    }
+    
+    public void addPersonWithRiddle(PersonWithRiddle toAdd){
+        this.personRiddleInRoom.add(toAdd);
+    }
+    
+    public ArrayList<PersonWithRiddle> getRiddlersInRoom(){
+        return this.personRiddleInRoom;
     }
 
     /**
@@ -46,6 +59,10 @@ public class Room {
      */
     public String getShortDescription(){
         return this.description;
+    }
+    
+    public int getTimeToMove(){
+        return this.timeToMove;
     }
 
     /**
@@ -68,7 +85,7 @@ public class Room {
         if(!this.itemsInRoom.isEmpty()){
             toReturn += this.getItemsString() + ".\n";
         }
-        if(!this.personsInRoom.isEmpty()){
+        if(!this.personsInRoom.isEmpty() && !this.personRiddleInRoom.isEmpty()){
             toReturn += this.getPersonsString() + ".\n";
         }
         
@@ -104,6 +121,9 @@ public class Room {
         String toReturn = "Persons: ";
         for(Person person : this.personsInRoom){
             toReturn += person.getName() + ", ";
+        }
+        for(PersonWithRiddle specialPerson : this.personRiddleInRoom){
+            toReturn += specialPerson.getName() + ", ";
         }
         toReturn = toReturn.substring(0, toReturn.length() - 2);
         

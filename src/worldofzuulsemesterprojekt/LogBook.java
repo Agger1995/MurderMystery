@@ -36,8 +36,8 @@ public class LogBook {
         return this.murderWeapons;
     }
     
-    public void addPersonResponse(Person personToAdd){
-        this.responses.put(personToAdd, personToAdd.getKeyWords());
+    public void addPersonResponse(Person personToAdd, String keyWords){
+        this.responses.put(personToAdd, keyWords);
     }
     
     public boolean askedAllPersons(){

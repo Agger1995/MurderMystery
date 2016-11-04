@@ -21,8 +21,11 @@ public class Item {
     private final int weight;
     private final boolean isDrinkable;
     private LogBook LogConnection;
+    private final int timeToTake;
+    private final int timeToInspect;
+    private final int timeToDrink;
     
-    public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String keyWords, int weight, boolean isDrinkable, LogBook Log){
+    public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String keyWords, int weight, boolean isDrinkable, int timeToTake, int timeToInspect, int timeToDrink, LogBook Log){
         this.ID = ID;
         this.isActive = isActive;
         this.name = name;
@@ -33,6 +36,9 @@ public class Item {
         this.keyWords = keyWords;
         this.weight = weight;
         this.isDrinkable = isDrinkable;
+        this.timeToTake = timeToTake;
+        this.timeToInspect = timeToInspect;
+        this.timeToDrink = timeToDrink;
         this.LogConnection = Log;
     }
     
@@ -42,6 +48,18 @@ public class Item {
     
     public int getID(){
         return this.ID;
+    }
+    
+    public int getTimeToTake(){
+        return timeToTake;//returnes the time it takes to take the item
+    }
+    
+    public int getTimeToInspect(){
+        return timeToInspect;//returnes the time it takes to inspect the item
+    }
+    
+    public int getTimeToDrink(){
+        return timeToDrink;//returnes the time it takes to drink the item
     }
     
     public boolean isActive(){
