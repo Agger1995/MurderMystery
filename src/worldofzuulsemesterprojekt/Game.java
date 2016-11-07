@@ -1,6 +1,7 @@
 package worldofzuulsemesterprojekt;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -25,6 +26,8 @@ public class Game {
     private Time time;
     private boolean timeRanOut;
     private PersonWithRiddle ghost, troll;
+    private ArrayList<Room> rooms = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
 
     /**
      * The Game class' constructor
@@ -56,18 +59,18 @@ public class Game {
      * Lastly it defines where the player begins his mission.
      */
     private void createRooms(){
-        ballRoom = new Room("the ball room",5);
-        bathroom = new Room("the bathroom",5);
-        kitchen = new Room("the kitchen",5);
-        groundFloorHall = new Room("the ground floor hall",5);
-        dungeon = new Room("the dungeon",5);
-        dungeonHall1 = new Room("the western dungeon hall",5);
-        dungeonHall2 = new Room("the eastern dungeon hall",5);
-        garden = new Room("the garden",5);
-        upstairsHall = new Room("the upstairs hall",5);
-        bedroom = new Room("the bedroom",5);
-        library = new Room("the library",5);
-        secretRoom = new Room("the secret room",5);
+        ballRoom = new Room("the ball room",5,false,false);
+        bathroom = new Room("the bathroom",5,false,false);
+        groundFloorHall = new Room("the ground floor hall",5,false,false);
+        dungeon = new Room("the dungeon",5,false,false);
+        dungeonHall1 = new Room("the western dungeon hall",5,false,false);
+        dungeonHall2 = new Room("the eastern dungeon hall",5,false,false);
+        garden = new Room("the garden",5,false,false);
+        kitchen = new Room("the kitchen",5,true,false);
+        upstairsHall = new Room("the upstairs hall",5,false,false);
+        bedroom = new Room("the bedroom",5,false,false);
+        library = new Room("the library",5,false,false);
+        secretRoom = new Room("the secret room",5,false,true);
         
         ballRoom.setExit("bathroom",bathroom);
         ballRoom.setExit("hall",groundFloorHall);
@@ -77,8 +80,9 @@ public class Game {
         
         kitchen.setExit("ballroom",ballRoom);
         kitchen.setExit("garden",garden);
+        kitchen.setLockedFrom(garden);
         
-        garden.setExit("kitchen",kitchen);      //
+        garden.setExit("kitchen",kitchen);
         
         dungeon.setExit("westhall",dungeonHall1);
         
@@ -100,7 +104,20 @@ public class Game {
         library.setExit("hall",upstairsHall);
         library.setExit("bedroom",bedroom);
         
-        secretRoom.setExit("exit",null);
+        secretRoom.setExit("exit",secretRoom);
+        
+        rooms.add(ballRoom);
+        rooms.add(bathroom);
+        rooms.add(kitchen);
+        rooms.add(garden);
+        rooms.add(dungeon);
+        rooms.add(bedroom);
+        rooms.add(groundFloorHall);
+        rooms.add(upstairsHall);
+        rooms.add(dungeonHall1);
+        rooms.add(dungeonHall2);
+        rooms.add(library);
+        rooms.add(secretRoom);
         
         currentRoom = bathroom;
     }
@@ -109,7 +126,8 @@ public class Game {
         carpet = new Item(0,"carpet",false, "UNUSED", "Hmm, thatâ€™s a ugly carpet compared to the rest of this mansion. \n"
                                         + "*Wind gushing from the open windows* suddenly a trapdoor \n"
                                         + "became visible as the wind grabbed a bit of the carpet.\n", false, "Dusty, revealed trapdoor",0, false, 5, 10, 0,logToParse);
-        
+        carpet.setIsSecretEntrance(true);
+        carpet.setSecretExit("trapdoor", dungeon);
         body = new Item(1, "body", false, "UNUSED", "Such a shame, Agnes known for her beauty resembling from her \n"
                                         + "mother, now had a face resembling massacred raw beef with \n"
                                         + "hair. A bit of dust is around her face, could be anything from \n"
@@ -157,6 +175,8 @@ public class Game {
 
         bookshelf = new Item(13, "bookshelf", false, "UNUSED", "As I inspected the bookshelf it cracks and creaks. The bookshelf slowly \n"
                                         + "moves itself and a door appears, I wonder where it leads.\n", false, "revealed secret room, library",0, false,5, 15,0,logToParse);
+        bookshelf.setIsSecretEntrance(true);
+        bookshelf.setSecretExit("bookshelf", secretRoom);
         
         pistol = new Item(14, "pistol", true, "You pick up a pistol", "Finding a pistol in the library, odd place to find a pistol. \n"
                                                     + "All bullets are still in the case, but no bullets \n"
@@ -189,6 +209,29 @@ public class Game {
         library.addItem(oddBook);
         dungeon.addItem(ratCorpse);
         dungeon.addItem(skull);
+        
+        items.add(carpet);
+        items.add(body);
+        items.add(toiletPaper);
+        items.add(whiskey);
+        items.add(rope);
+        items.add(bloodyKnife);
+        items.add(plasmaTv);
+        items.add(emptyKnifeholder);
+        items.add(ratPoison);
+        items.add(apple);
+        items.add(keys);
+        items.add(golfClub);
+        items.add(flowers);
+        items.add(bookshelf);
+        items.add(pistol);
+        items.add(oddBook);
+        items.add(ratCorpse);
+        items.add(skull);
+        
+        kitchen.setItemRequiredToUnlock(keys);
+        
+        
     }
 
     /**
@@ -241,8 +284,8 @@ public class Game {
     }
     
     public void createPersonWithRiddles(){
-        ghost = new PersonWithRiddle("ghost","UUuuuh, you are right mortal. \nI shall grant you some more time in the mortal world.\n","HAHAHA, you answered wrong mortal. I shall take your time away in this world!\n",60,20,time);
-        troll = new PersonWithRiddle("troll","Ugh, me smas u for right anser\n", "haha, puny human. u so dumb.\n",60,20,time);
+        ghost = new PersonWithRiddle("ghost","UUuuuh, you are right mortal. \nI shall grant you some more time in the mortal world.\nThe clock is rewinded 1 hour.\n","HAHAHA, you answered wrong mortal. I shall take your time away in this world!\nThe troll added 20 minutes to the time.\n",60,20,time);
+        troll = new PersonWithRiddle("troll","Ugh, me smas u for right anser\nThe clock is rewinded 1 hour.\n", "haha, puny human. u so dumb.\nThe troll added 20 minutes to the time.\n",60,20,time);
         
         dungeon.addPersonWithRiddle(troll);
         secretRoom.addPersonWithRiddle(ghost);
@@ -398,28 +441,26 @@ public class Game {
 
         Room nextRoom = currentRoom.getExit(direction);
         
-        if("the garden".contentEquals(currentRoom.getShortDescription()) && "kitchen".contentEquals(direction)){
-            for(Item tempItemObject : inventory.getInventory()){
-                if(tempItemObject.getID() == 9){
-                    System.out.println("You unlock the kitchen door and enter.");
-                    currentRoom = nextRoom;
-                    System.out.println(currentRoom.getLongDescription());
-                    time.addMinute(currentRoom.getTimeToMove());
-                    return;
-                }
+        if(nextRoom.isLocked()){
+            if(inventory.containsItem(nextRoom.getItemToUnlock()) && currentRoom.getShortDescription().equals(nextRoom.getlockedFrom().getShortDescription())){
+                nextRoom.setIsLocked(false);
+                System.out.println("You unlock " + nextRoom.getShortDescription() + " and enter.");
+                currentRoom = nextRoom;
+                System.out.println(currentRoom.getLongDescription());
+                time.addMinute(currentRoom.getTimeToMove());
+                return;
             }
             System.out.println("The door is locked! You need the keys for it.\n");
             return;
         }
-        if("the secret room".contentEquals(currentRoom.getShortDescription()) && "exit".contentEquals(direction)){
-            Room[] roomArray = {ballRoom, bathroom, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, library, bedroom, secretRoom};
-            
-            currentRoom = roomArray[(int)(Math.random() * 12)];
-            
+        
+        if(currentRoom.isTransportRoom()){
+            currentRoom = this.rooms.get((int) ((Math.random() * this.rooms.size())));
             System.out.println(currentRoom.getLongDescription());
             time.addMinute(currentRoom.getTimeToMove());
             return;
         }
+        
         if (nextRoom == null) {
             System.out.println("There is no door!\n");
         } else {
@@ -497,10 +538,8 @@ public class Game {
                         tempItemObject.setHasBeenInspected(true);
                         pointSystem.addPoints(1);
                     }
-                    if("carpet".equals(tempItemObject.getName())){
-                        ballRoom.setExit("trapdoor",dungeon);
-                    } else if("bookshelf".equals(tempItemObject.getName())){
-                        library.setExit("bookshelf",secretRoom);
+                    if(tempItemObject.isSecretEntrance()){
+                        currentRoom.setExit(tempItemObject.getSecretExitFirst(), tempItemObject.getSecretExitSecond());
                     }
                     time.addMinute(tempItemObject.getTimeToInspect());
                     return;

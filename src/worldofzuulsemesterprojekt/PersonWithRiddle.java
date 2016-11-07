@@ -77,7 +77,7 @@ public class PersonWithRiddle {
             }
             processAnswer(key); //processes the answer and rewards if correct.
         } else {
-            System.out.println(name + ": I have already given you a riddle earlier....");
+            System.out.println(name + ": I have already given you a riddle earlier...\n");
         }
     }
 

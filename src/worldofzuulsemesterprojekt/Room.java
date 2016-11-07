@@ -17,7 +17,11 @@ public class Room {
     private ArrayList<Item> itemsInRoom;
     private ArrayList<Person> personsInRoom;
     private ArrayList<PersonWithRiddle> personRiddleInRoom;
+    private boolean isLocked;
+    private Room lockedFrom;
+    private Item itemRequiredToUnlock;
     private int timeToMove;
+    private boolean isTransportRoom;
 
     /**
      * Constructor for Room class.
@@ -26,14 +30,50 @@ public class Room {
      * leads to as an object of type "Room".
      * @param description
      * @param timeToMove
+     * @param isLocked
+     * @param isTransportRoom
      */
-    public Room(String description, int timeToMove){
+    public Room(String description, int timeToMove, boolean isLocked, boolean isTransportRoom){
         this.description = description;
         this.exits = new HashMap<>();
         this.itemsInRoom = new ArrayList<>();
         this.personsInRoom = new ArrayList<>();
         this.timeToMove = timeToMove;
         this.personRiddleInRoom = new ArrayList<>();
+        this.isLocked = isLocked;
+        this.isTransportRoom = isTransportRoom;
+    }
+    
+    public boolean isLocked(){
+        return this.isLocked;
+    }
+    
+    public Room getlockedFrom(){
+        return this.lockedFrom;
+    }
+    
+    public Item getItemToUnlock(){
+        return this.itemRequiredToUnlock;
+    }
+    
+    public void setIsLocked(boolean newState){
+        this.isLocked = newState;
+    }
+    
+    public void setLockedFrom(Room toLockFrom){
+        this.lockedFrom = toLockFrom;
+    }
+    
+    public void setItemRequiredToUnlock(Item itemToUnlock){
+        this.itemRequiredToUnlock = itemToUnlock;
+    }
+    
+    public void setIsTransportRoom(boolean state){
+        this.isTransportRoom = state;
+    }
+    
+    public boolean isTransportRoom(){
+        return this.isTransportRoom;
     }
     
     public void addPersonWithRiddle(PersonWithRiddle toAdd){
@@ -85,7 +125,7 @@ public class Room {
         if(!this.itemsInRoom.isEmpty()){
             toReturn += this.getItemsString() + ".\n";
         }
-        if(!this.personsInRoom.isEmpty() && !this.personRiddleInRoom.isEmpty()){
+        if(!this.personsInRoom.isEmpty() || !this.personRiddleInRoom.isEmpty()){
             toReturn += this.getPersonsString() + ".\n";
         }
         
