@@ -3,6 +3,7 @@ package worldofzuulsemesterprojekt;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * The game class is the class which connects all the classes and uses them appropriately
@@ -26,8 +27,8 @@ public class Game {
     private Time time;
     private boolean timeRanOut;
     private PersonWithRiddle ghost, troll;
-    private ArrayList<Room> rooms = new ArrayList<>();
-    private ArrayList<Item> items = new ArrayList<>();
+    private final ArrayList<Room> ROOMS = new ArrayList<>();
+    private ArrayList<Person> PERSONS = new ArrayList<>();
 
     /**
      * The Game class' constructor
@@ -35,9 +36,11 @@ public class Game {
      * @param logToParse
      */
     public Game(LogBook logToParse){
-        this.createRooms();
-        this.createItems(logToParse);
-        this.createPersons(logToParse);
+//        this.createRooms();
+//        this.createItems(logToParse);
+//        this.createPersons(logToParse);
+        new ScenarioLoader("scenarios/Not a Phine Day", logToParse, this.ROOMS, this.PERSONS);
+        currentRoom = this.ROOMS.get(0);
         this.highScore = new Highscore();
         this.pointSystem = new Point();
         this.deadByDrink = false;
@@ -46,7 +49,7 @@ public class Game {
         this.parser = new Parser();
         this.printer = new PrintUtility();
         this.time = new Time(18*60, 14*60);
-        this.createPersonWithRiddles();
+        //this.createPersonWithRiddles();
     }
 
     /**
@@ -58,7 +61,7 @@ public class Game {
      * Each Room's exits are later defined in the createRoom's method.
      * Lastly it defines where the player begins his mission.
      */
-    private void createRooms(){
+   /* private void createRooms(){
         ballRoom = new Room("the ball room",5,false,false);
         bathroom = new Room("the bathroom",5,false,false);
         groundFloorHall = new Room("the ground floor hall",5,false,false);
@@ -105,19 +108,7 @@ public class Game {
         library.setExit("bedroom",bedroom);
         
         secretRoom.setExit("exit",secretRoom);
-        
-        rooms.add(ballRoom);
-        rooms.add(bathroom);
-        rooms.add(kitchen);
-        rooms.add(garden);
-        rooms.add(dungeon);
-        rooms.add(bedroom);
-        rooms.add(groundFloorHall);
-        rooms.add(upstairsHall);
-        rooms.add(dungeonHall1);
-        rooms.add(dungeonHall2);
-        rooms.add(library);
-        rooms.add(secretRoom);
+
         
         currentRoom = bathroom;
     }
@@ -210,35 +201,17 @@ public class Game {
         dungeon.addItem(ratCorpse);
         dungeon.addItem(skull);
         
-        items.add(carpet);
-        items.add(body);
-        items.add(toiletPaper);
-        items.add(whiskey);
-        items.add(rope);
-        items.add(bloodyKnife);
-        items.add(plasmaTv);
-        items.add(emptyKnifeholder);
-        items.add(ratPoison);
-        items.add(apple);
-        items.add(keys);
-        items.add(golfClub);
-        items.add(flowers);
-        items.add(bookshelf);
-        items.add(pistol);
-        items.add(oddBook);
-        items.add(ratCorpse);
-        items.add(skull);
         
         kitchen.setItemRequiredToUnlock(keys);
         
         
-    }
+    }*/
 
     /**
      * createPersons is responsible for creating persons for the game
      * They are instantiated objects of the data type Person.
      * 
-     */
+     *//*
     private void createPersons(LogBook logToParse) {
         phein = new Person(0,"Mr. Phein", true,"empty","empty","empty",
                                 "She was an angel, my daughter. An angel, so wonderful and beautiful, just like her mother. \n"
@@ -281,15 +254,15 @@ public class Game {
         kitchen.addPerson(alfred);
         garden.addPerson(stephanie);
         bedroom.addPerson(veronica);
-    }
-    
+    }*/
+    /*
     public void createPersonWithRiddles(){
         ghost = new PersonWithRiddle("ghost","UUuuuh, you are right mortal. \nI shall grant you some more time in the mortal world.\nThe clock is rewinded 1 hour.\n","HAHAHA, you answered wrong mortal. I shall take your time away in this world!\nThe troll added 20 minutes to the time.\n",60,20,time);
         troll = new PersonWithRiddle("troll","Ugh, me smas u for right anser\nThe clock is rewinded 1 hour.\n", "haha, puny human. u so dumb.\nThe troll added 20 minutes to the time.\n",60,20,time);
         
         dungeon.addPersonWithRiddle(troll);
         secretRoom.addPersonWithRiddle(ghost);
-    }
+    }*/
     
     /**
      * The game's main method. When the game is played, this method is always running.
@@ -314,6 +287,7 @@ public class Game {
             Command command = this.parser.getCommand();
             finished = this.processCommand(command);
             this.whenTimeRunsOut();
+            this.generateRandomPersonMovement();
         }
         Scanner input = new Scanner(System.in);
         System.out.println("Press ENTER to continue..");
@@ -441,7 +415,12 @@ public class Game {
 
         Room nextRoom = currentRoom.getExit(direction);
         
-        if(nextRoom.isLocked()){
+        if (nextRoom == null) {
+            System.out.println("There is no door!\n");
+            return;
+        }
+        
+        if(nextRoom.isLocked() && nextRoom.getlockedFrom().equals(currentRoom)){
             if(inventory.containsItem(nextRoom.getItemToUnlock()) && currentRoom.getShortDescription().equals(nextRoom.getlockedFrom().getShortDescription())){
                 nextRoom.setIsLocked(false);
                 System.out.println("You unlock " + nextRoom.getShortDescription() + " and enter.");
@@ -455,19 +434,14 @@ public class Game {
         }
         
         if(currentRoom.isTransportRoom()){
-            currentRoom = this.rooms.get((int) ((Math.random() * this.rooms.size())));
+            currentRoom = this.ROOMS.get((int) ((Math.random() * this.ROOMS.size())));
             System.out.println(currentRoom.getLongDescription());
             time.addMinute(currentRoom.getTimeToMove());
             return;
         }
-        
-        if (nextRoom == null) {
-            System.out.println("There is no door!\n");
-        } else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
-            time.addMinute(currentRoom.getTimeToMove());
-        }
+        currentRoom = nextRoom;
+        System.out.println(currentRoom.getLongDescription());
+        time.addMinute(currentRoom.getTimeToMove());
     }
     
     public void inventory(){
@@ -631,10 +605,13 @@ public class Game {
             if(tempPersonObject.getAskName().toLowerCase().equals(whoToAsk) || tempPersonObject.getName().toLowerCase().equals(whoToAsk)){
                 System.out.println(tempPersonObject.getWelcome());
                 tempPersonObject.returnQuestions();
+                String logBookStringToAdd = "";
                 while(tempPersonObject.chosenAnswer != 4) {
                     System.out.println(tempPersonObject.conversation());
+                    logBookStringToAdd += tempPersonObject.getPersonKeywordsForQuestion(tempPersonObject.chosenAnswer);
                     if(tempPersonObject.chosenAnswer !=4){
                         time.addMinute(tempPersonObject.getTimeItTakes());//we add 5 minuts for each question we ask the suspect. (- farewell option)
+                        tempPersonObject.addToLogBook(logBookStringToAdd);
                     }
                 }
                 System.out.println(currentRoom.getLongDescription());
@@ -680,6 +657,27 @@ public class Game {
     private void whenTimeRunsOut(){
         if (time.getTimeElapsed() >= 14*60){//time runs out at kl: 08:00
             timeRanOut = true; //end game
+        }
+    }
+    
+    private void generateRandomPersonMovement(){
+        if((int) (Math.random() * 4) == 0){
+            Set<String> nearbyRooms = currentRoom.getAllExits().keySet();
+            ArrayList<Person> personsWhoCantMove = new ArrayList<>();
+            int randomGeneratedPerson;
+            Person foundPerson;
+            for(String roomString : nearbyRooms){
+                personsWhoCantMove.addAll(currentRoom.getExit(roomString).getPersonsInRoom());
+            }
+            do{
+                randomGeneratedPerson = (int) (Math.random() * this.PERSONS.size());
+                foundPerson = this.PERSONS.get(randomGeneratedPerson);
+            } while (personsWhoCantMove.contains(foundPerson));
+            for(Room tempRoom : this.ROOMS){
+                if(tempRoom.getPersonsInRoom().contains(foundPerson)){
+                    tempRoom.movePerson(foundPerson);
+                }
+            }
         }
     }
 }

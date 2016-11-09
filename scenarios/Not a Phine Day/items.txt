@@ -1,0 +1,32 @@
+[Item]:
+ballroom
+0
+carpet
+false
+UNUSED
+Hmm, that's an ugly carpet compared to the rest of this mansion. *Wind gushing from the open windows* suddenly a trapdoor became visible as the wind grabbed a bit of the carpet.
+false
+Dusty, revealed a trapdoor
+0
+false
+5
+10
+0
+[Item]:
+garden
+1
+rusty key
+true
+UNUSED
+Hmm, that's an ugly carpet compared to the rest of this mansion. *Wind gushing from the open windows* suddenly a trapdoor became visible as the wind grabbed a bit of the carpet.
+false
+Dusty, revealed a trapdoor
+0
+false
+5
+10
+0
+[Secret Room]:
+carpet,trapdoor,dungeon
+[Locked Door]:
+rusty key,garden,kitchen

@@ -1,0 +1,100 @@
+[Person]:
+0
+Mr. Phein
+true
+empty
+empty
+empty
+She was an angel, my daughter. An angel, so wonderful and beautiful, just like her mother. After you found her, the angel, she, had a lost her beauty and innocence, I tried to take her to therapy, but my angel never became the same again. Just like her mother sacrificed herself to give birth to Agnes, my angel, she, must sacrifice herself so that the beautiful angel she once was can be restored. But the angel never came back, she just died, never to return to life.
+phein
+5
+ballroom
+Thank you for helping me, Detective! is there anything i can do for you?
+[Questions]:
+Who are you?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+I’m the Mr. Phein, part of the beauty of me is that I’m very rich. I had the perfect family, up until my wife died, and now, now they are both gone.
+No, I didn’t do it, that’s what I know. None of the allegations are true. 
+We have a tremendous problem, listen we have a problem and we need someone to solve it. We need someone to solve this problem, and he has to be tough. We need someone tough and tremendous to solve this.  
+[Person]:
+1
+Tyrion Lannister
+false
+empty
+empty
+empty
+"What the hell?! Goddammit, I did not do it. You’re making some seriously far-stretched assumptions here, my little boy!
+tyrion
+5
+library
+hello
+[Questions]:
+who are you?
+do you know anything pertaining to the case of Agnes murder?
+do you have any idea as to who committed the murder?
+[Answers]:
+I am part of the Lannister family business, we have a very exclusive consultancy firm, we consult everyone from queens to presidents. I’m a dwarf, I’m not physically strong, so my job in order to be a good Lannister is to know things. My job is to drink and know things, that’s who I am.
+whoa wait, what!? Agnes murdered, what are you talking about is Agnes dead? oh my love, my dear Agnes is dead no, no, no. I Don’t have any information.
+Absolutely no idea, thought your second question cleared that up. You wouldn’t happen to know, where they store the wine, when i talked to Mr. Phein in his bedroom earlier he wouldn’t tell me, that cheap ass bastard?
+[Person]:
+2
+Alfred the Butler
+false
+empty
+empty
+empty
+I’m afraid I didn’t have anything to do with the murder, Detective. Agnes was a wonderful girl, such an angel to have in the mansion, I could never do anything like that to her. How dare you ask that question?
+alfred
+5
+kitchen
+hello
+[Questions]:
+Who are you?
+Do you know anything pertaining to the case?
+Do you have any idea as to who committed the murder?
+[Answers]:
+I am Alfred, I have been Mr. Pheins butler for over 20 years. 
+well i don’t if if helps anything but, this party was different from any other, it was to celebrate the return of poor miss. Agnes, mr. phein was even out here in the kitchen himself to make sure everything was a it should be for his princess. 
+I have no idea who did this, but if you find who took that lovely girl away from this world I would be very pleased.
+[Person]:
+3
+Veronica Mars
+false
+empty
+empty
+empty
+Are you stupid? Can’t you tell that the others are lying?! I have tried just like you to solve this, yet you accuse me? This is stupid, as you can see the evidence clearly doesn’t point towards any of the guest, I might have planted some ratpoison on the weapon, but that was only to lead you to obvious murderer!
+veronica
+5
+bedroom
+hello
+[Questions]:
+who are you?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+I’m Veronica, I’m a private investigator, and my clearing rate i over 80%, i am looking into this case myself, agnes was after all my childhood friend.
+As far as I can tell, there are few evidence in this case,I don’t know much more than i did when i started. You probably have more than me at this point. but i can tell you that agnes boyfriend tyrion seems to have had an affair with stephanie Richburg.
+well even though it would be tempting to say Stephanie did it out of jealousy, the brain in that girl just don’t seem to work well enough to cover a crime like this up that good. But i do have a suspicion, however insane it may sound that maybe Mr. Phein did it. For now it’s just an assumption, let’s hope it stays that way.
+[Person]:
+4
+Stephanie Richburg
+false
+empty
+empty
+empty
+OMG!!! you think i did it? I don’t know who you think you are, but I damn well didn’t do it, the evidence you’ve say you have does NOT have anything to with me, and if you accuse me again i will sue you.
+stephanie
+5
+garden
+hello
+[Questions]:
+who are you?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+you don’t know who i am!! I’m rich, Stephanie Richburg, my daddy own the biggest hotel chain in this country! and i am like.. Agnes BFF.
+I’ve had for the time I’ve known Mr. Phein suspected him to have quite an obsession with his daughter after his wife’s death. I don’t have any evidence to the case other than my history with Mr. Phein.
+Mr. Phein, as much as I don’t want it to be the case, I think Mr. Phein did it. 

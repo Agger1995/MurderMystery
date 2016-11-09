@@ -121,8 +121,11 @@ public class Person {
         }
         value = this.anwsers.get(key);
         this.chosenAnswer = key;
-        this.LogConnection.addPersonResponse(this, this.getKeyWords(key));
         return value;
+    }
+    
+    public String getPersonKeywordsForQuestion(int responseToWhichQuestion){
+        return this.keyWords.get(responseToWhichQuestion);
     }
     
     public void setWelcome(String welcome) {
@@ -141,5 +144,9 @@ public class Person {
         this.keyWords.put(1,keyWords1);
         this.keyWords.put(2,keyWords2);
         this.keyWords.put(3,keyWords3);
+    }
+
+    void addToLogBook(String logBookStringToAdd) {
+        this.LogConnection.addPersonResponse(this, logBookStringToAdd);
     }
 }

@@ -44,6 +44,25 @@ public class Room {
         this.isTransportRoom = isTransportRoom;
     }
     
+    public HashMap<String, Room> getAllExits(){
+        return this.exits;
+    }
+    
+    public void movePerson(Person toMove){
+        int randomRoomChoose = (int) (Math.random() * this.exits.size());
+        Set<String> nearbyExits = this.exits.keySet();
+        String chosenRoomExit = "";
+        int i = 0;
+        for(String roomString : nearbyExits){
+            if(i == randomRoomChoose){
+                chosenRoomExit = roomString;
+            }
+            i++;
+        }
+        this.getExit(chosenRoomExit).addPerson(toMove);
+        this.personsInRoom.remove(toMove);
+    }
+    
     public boolean isLocked(){
         return this.isLocked;
     }

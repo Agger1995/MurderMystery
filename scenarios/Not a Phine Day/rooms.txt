@@ -1,0 +1,79 @@
+[Room]:
+bathroom
+5
+false
+false
+[Room]:
+ballroom
+5
+false
+false
+[Room]:
+kitchen
+5
+false
+false
+[Room]:
+ground floor hall
+5
+false
+false
+[Room]:
+dungeon
+5
+false
+false
+[Room]:
+western dungeon hall
+5
+false
+false
+[Room]:
+eastern dungeon hall
+5
+false
+false
+[Room]:
+garden
+5
+false
+false
+[Room]:
+upstairs hall
+5
+false
+false
+[Room]:
+bedroom
+5
+false
+false
+[Room]:
+library
+5
+false
+false
+[Room]:
+secret room
+5
+false
+false
+[Connections]:
+ballroom,kitchen
+ballroom,bathroom
+ballroom,ground floor hall
+bathroom,ballroom
+kitchen,ballroom
+kitchen,garden
+garden,kitchen
+dungeon,western dungeon hall
+western dungeon hall,eastern dungeon hall
+eastern dungeon hall,garden
+ground floor hall,ballroom
+ground floor hall,upstairs hall
+upstairs hall,ground floor hall
+upstairs hall,library
+bedroom,upstairs hall
+bedroom,library
+library,upstairs hall
+library,bedroom
