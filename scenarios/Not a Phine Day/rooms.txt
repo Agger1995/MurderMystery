@@ -57,7 +57,7 @@ false
 secret room
 5
 false
-false
+true
 [Connections]:
 ballroom,kitchen
 ballroom,bathroom

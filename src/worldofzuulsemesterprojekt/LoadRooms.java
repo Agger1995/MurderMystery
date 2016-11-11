@@ -18,21 +18,19 @@ import java.util.logging.Logger;
  *
  * @author kristian
  */
-public final class LoadRooms {
+public final class LoadRooms extends ScenarioLoader {
 
-    private String path;
     private int state;
     private final int LOAD_ATTRIBUTES = 0;
     private final int LOAD_CONNECTIONS = 1;
-    private ArrayList<Room> rooms_list;
 
-    public LoadRooms(String path, ArrayList<Room> rooms_list) {
-        this.path = path;
-        this.rooms_list = rooms_list;
-        state = LOAD_ATTRIBUTES;
+    public LoadRooms(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, PrintUtility printer, Time time) {
+        super(path, log, rooms_list, persons_list, printer, time);
         load();
     }
 
+
+    @Override
     public void load() {
         File file = new File(path + "/" + "rooms.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
         Scanner scanner = null; //if the scanner can't load the file.
@@ -67,6 +65,9 @@ public final class LoadRooms {
                     boolean isLocked = Boolean.parseBoolean(scanner.nextLine());
                     boolean isTransportRoom = Boolean.parseBoolean(scanner.nextLine());
                     Room newRoom = new Room(name, timeToTravel, isLocked, isTransportRoom);
+                    if (name.equals("secret room")) {
+                        newRoom.setExit("exit", newRoom);
+                    }
                     rooms_list.add(newRoom);
                     break;
                 case LOAD_CONNECTIONS:
@@ -79,14 +80,5 @@ public final class LoadRooms {
                     break;
             }
         }
-    }
-    
-    public Room getRoomByName(String name) {
-        for(Room room : rooms_list) {
-            if (room.getShortDescription().equals(name)) {
-                return room;
-            }
-        }
-        return null;
     }
 }

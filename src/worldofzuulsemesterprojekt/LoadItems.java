@@ -18,24 +18,21 @@ import java.util.logging.Logger;
  *
  * @author kristian
  */
-public final class LoadItems {
+public final class LoadItems extends ScenarioLoader {
 
-    private String path;
     private int state;
     private final int LOAD_ATTRIBUTES = 0;
-    private ArrayList<Room> rooms_list;
     private HashMap<String, Item> items_list;
-    private LogBook log;
 
-    public LoadItems(String path, LogBook log, ArrayList<Room> rooms_list) {
+    public LoadItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, PrintUtility printer, Time time) {
+        super(path, log, rooms_list, persons_list, printer, time);
         items_list = new HashMap();
-        this.log = log;
-        this.path = path;
-        this.rooms_list = rooms_list;
-        state = LOAD_ATTRIBUTES;
         load();
     }
 
+
+
+    @Override
     public void load() {
         File file = new File(path + "/" + "items.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
         Scanner scanner = null; //if the scanner can't load the file.

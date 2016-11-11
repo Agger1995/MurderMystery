@@ -28,6 +28,9 @@ public class Util {
                 temp_string+="\n";
             }
         }
+        if(temp_string!="") {
+            temp_string = temp_string.substring(0, temp_string.length()-1);
+        }
         return temp_string;
     }
 }

@@ -18,25 +18,19 @@ import java.util.logging.Logger;
  *
  * @author kristian
  */
-public final class LoadPersons {
+public final class LoadPersons extends ScenarioLoader {
 
-    private String path;
     private int state;
     private final int LOAD_ATTRIBUTES = 0;
     private final int LOAD_QUESTIONS = 1;
     private final int LOAD_ANSWERS = 2;
-    private LogBook log;
-    private ArrayList<Room> rooms_list;
-    private ArrayList<Person> persons_list;
 
-    public LoadPersons(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list) {
-        this.persons_list = persons_list;
-        this.path = path;
-        this.rooms_list = rooms_list;
-        this.log = log;
-        state = LOAD_ATTRIBUTES;
+    public LoadPersons(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, PrintUtility printer, Time time) {
+        super(path, log, rooms_list, persons_list, printer, time);
         load();
     }
+
+
 
     public void load() {
         File file = new File(path + "/" + "persons.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
@@ -98,14 +92,5 @@ public final class LoadPersons {
                     break;
             }
         }
-    }
-    
-    public Room getRoomByName(String name) {
-        for(Room room : rooms_list) {
-            if (room.getShortDescription().equals(name)) {
-                return room;
-            }
-        }
-        return null;
     }
 }

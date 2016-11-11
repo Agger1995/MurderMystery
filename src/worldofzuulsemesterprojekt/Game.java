@@ -17,9 +17,6 @@ public class Game {
     private LogBook logbook;
     private Inventory inventory;
     private boolean isCorrectAccusation;
-    private Room ballRoom, bathroom, kitchen, groundFloorHall, dungeon, dungeonHall1, dungeonHall2, garden, upstairsHall, bedroom, library, secretRoom;
-    private Person tyrion, phein, alfred, veronica, stephanie;
-    private Item carpet, body, toiletPaper, whiskey, bloodyKnife, plasmaTv, emptyKnifeholder, ratPoison, apple, keys, golfClub, flowers, rope, bookshelf, oddBook, pistol, ratCorpse, skull;
     private boolean deadByDrink;
     private Point pointSystem;
     private Highscore highScore;
@@ -34,235 +31,21 @@ public class Game {
      * The Game class' constructor
      * Calls the method createRooms(), and initiates the game's parser
      * @param logToParse
+     * @param chosenScenarioPath
      */
-    public Game(LogBook logToParse){
-//        this.createRooms();
-//        this.createItems(logToParse);
-//        this.createPersons(logToParse);
-        new ScenarioLoader("scenarios/Not a Phine Day", logToParse, this.ROOMS, this.PERSONS);
+    public Game(LogBook logToParse, String chosenScenarioPath){
+        this.logbook = logToParse;
+        this.printer = new PrintUtility();
+        this.time = new Time(18*60, 14*60);
+        ScenarioLoader loader = new ScenarioLoader(chosenScenarioPath, logToParse, this.ROOMS, this.PERSONS, printer, time);
+        loader.load();
         currentRoom = this.ROOMS.get(0);
         this.highScore = new Highscore();
         this.pointSystem = new Point();
         this.deadByDrink = false;
         this.inventory = new Inventory(10);
-        this.logbook = logToParse;
         this.parser = new Parser();
-        this.printer = new PrintUtility();
-        this.time = new Time(18*60, 14*60);
-        //this.createPersonWithRiddles();
     }
-
-    /**
-     * When createRooms is called, it is responsible for creating the rooms
-     * It is done with the class Room. 
-     * When defining the object instance of class Room, it takes 2 parameters currently
-     * Parameter 1 is type String and is a brief description of the Room.
-     * Parameter 2 is type String and is a description of the Room's contents.
-     * Each Room's exits are later defined in the createRoom's method.
-     * Lastly it defines where the player begins his mission.
-     */
-   /* private void createRooms(){
-        ballRoom = new Room("the ball room",5,false,false);
-        bathroom = new Room("the bathroom",5,false,false);
-        groundFloorHall = new Room("the ground floor hall",5,false,false);
-        dungeon = new Room("the dungeon",5,false,false);
-        dungeonHall1 = new Room("the western dungeon hall",5,false,false);
-        dungeonHall2 = new Room("the eastern dungeon hall",5,false,false);
-        garden = new Room("the garden",5,false,false);
-        kitchen = new Room("the kitchen",5,true,false);
-        upstairsHall = new Room("the upstairs hall",5,false,false);
-        bedroom = new Room("the bedroom",5,false,false);
-        library = new Room("the library",5,false,false);
-        secretRoom = new Room("the secret room",5,false,true);
-        
-        ballRoom.setExit("bathroom",bathroom);
-        ballRoom.setExit("hall",groundFloorHall);
-        ballRoom.setExit("kitchen",kitchen);
-        
-        bathroom.setExit("ballroom",ballRoom);
-        
-        kitchen.setExit("ballroom",ballRoom);
-        kitchen.setExit("garden",garden);
-        kitchen.setLockedFrom(garden);
-        
-        garden.setExit("kitchen",kitchen);
-        
-        dungeon.setExit("westhall",dungeonHall1);
-        
-        dungeonHall1.setExit("easthall",dungeonHall2);
-        
-        dungeonHall2.setExit("westhall",dungeonHall1);
-        dungeonHall2.setExit("garden",garden);
-        
-        groundFloorHall.setExit("ballroom",ballRoom);
-        groundFloorHall.setExit("upstairs",upstairsHall);
-        
-        upstairsHall.setExit("downstairs",groundFloorHall);
-        upstairsHall.setExit("bedroom",bedroom);
-        upstairsHall.setExit("library",library);
-        
-        bedroom.setExit("hall",upstairsHall);
-        bedroom.setExit("library",library);
-        
-        library.setExit("hall",upstairsHall);
-        library.setExit("bedroom",bedroom);
-        
-        secretRoom.setExit("exit",secretRoom);
-
-        
-        currentRoom = bathroom;
-    }
-    
-    private void createItems(LogBook logToParse) {
-        carpet = new Item(0,"carpet",false, "UNUSED", "Hmm, thatâ€™s a ugly carpet compared to the rest of this mansion. \n"
-                                        + "*Wind gushing from the open windows* suddenly a trapdoor \n"
-                                        + "became visible as the wind grabbed a bit of the carpet.\n", false, "Dusty, revealed trapdoor",0, false, 5, 10, 0,logToParse);
-        carpet.setIsSecretEntrance(true);
-        carpet.setSecretExit("trapdoor", dungeon);
-        body = new Item(1, "body", false, "UNUSED", "Such a shame, Agnes known for her beauty resembling from her \n"
-                                        + "mother, now had a face resembling massacred raw beef with \n"
-                                        + "hair. A bit of dust is around her face, could be anything from \n"
-                                        + "flour to baby powder *sniff* hmm fits the case, it has a very distinctive smell.\n", false, "Poisoned knife caused it, Bathroom.",0, false,0, 15, 0,logToParse);
-
-        toiletPaper = new Item(2, "toilet paper", true, "You pick up some toilet paper","Hmm, appropriately placed toilet paper. It would be a shame, if someone, stole it.\n",false,"once a tree, what a cruel destiny, Bathroom",1, false, 5, 5, 0,logToParse);
-
-        whiskey = new Item(3, "whiskey", true, "You pick up the whiskey", "A bottle of whiskey on the floor in hallway on \n"
-                                                        + "the 1st floor, who could be leaving such a beauty there? *drink* ahhâ€¦ \n"
-                                                        + "thatâ€™s the stuff. Oh, better get back to work, otherwise \n"
-                                                        + "Iâ€™ll be spending all my time here.\n", false, "very strong taste, but good",3, true,5, 10, 30,logToParse);
-        
-        bloodyKnife = new Item(4, "bloody knife", true, "You pick up the bloody knife", "A knife wrapped in a handkerchief soaked in blood... \n"
-                                                            + "in Mr. Phineâ€™s room... the knife seems to also have some powder on it. \n"
-                                                            + "It looks like the same powder as the one on the body. \n"
-                                                            + "*sniff*, yeah this is ratpoison. Odd to find something like \n"
-                                                            + "that in his room, I wonder who dropped this here.\n", true, "bloody and powdered, suspicious, bedroom",0, false,5, 15, 0,logToParse);
-        
-        plasmaTv = new Item(5, "plasma tv", true, "You pick up a Plasma TV", "Hmm, very fine and expensive looking plasma TV. Might be worth something.\n", false,"new expensive tv, bedroom",7, false,5, 5, 0,logToParse);
-
-        emptyKnifeholder = new Item(6, "empty knifeholder", false, "UNUSED", "Hmm, an empty knifeholder in the kitchen. Wonder where the knife is?\n",false, "Knife-holder with missing knife, Kitchen",0, false,5, 5, 0,logToParse);
-        
-        ratPoison = new Item(7, "rat poison", true, "You pick up the rat poison", "Odd to find an empty bottle of rat poison in the kitchen, \n"
-                                                            + "the powdery substance matches the one found by the body. \n"
-                                                            + "The amount is rather small to cause the murder. \n"
-                                                            + "*Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell, \n"
-                                                            + "only alfred have been in the kitchen all night. \n"
-                                                            + "This could be a good idea to keep this in mind though.\n", true, "powder, resemble powder on knife, kitchen.", 0, false,5, 15, 0,logToParse);
-        
-        apple = new Item(8, "apple", true, "You pick up an apple", "Hmm, a delicious red apple. Wonder if it has anything to do with the murder?\n", false,"red apple, kitchen",1,false,5,5,0,logToParse);
-
-        keys = new Item(9, "keys", true, "You pick up a set of rusty keys", "These are some old rusty looking keys\n", false, "rusty keys, says 'kitchen', garden",2,false,5,10,0,logToParse);
-        
-        golfClub = new Item(10, "golf club", true, "You pick up a golf club", "A golf club in the garden, doesnâ€™t seems suspicious so far. There is \n"
-                                                        + "no blood on it, and it seems to be clean and shiny, yet it \n"
-                                                        + "has been left alone in the garden.\n", true, "dirty with grass, no blood, garden.",0, false,5, 15,0,logToParse);
-        
-        flowers = new Item(11, "flowers", true, "You pick up a beautiful bouquet of flowers", "Those are some great looking flowers, i could bring back a bouquet \n"
-                                                                            + "to my darling wife, once i solve this mystery.\n", false,"beautiful flowers, garden",4, false,5, 5,0,logToParse);
-        
-        rope = new Item(12, "rope", true, "You pick up a rope", "A rope with a tied knot, not usually something youâ€™d find in a hallway \n"
-                                                        + "on the 2nd hall. Perhaps someone were trying to off themselves. \n"
-                                                        + "Interesting case, but irrelevant right now. We gotta find the \n"
-                                                        + "murderer of Agnes, before that monster escapes. \n", true, "unused with a knot, 2nd floor Hall.",0, false,5, 15,0,logToParse);
-
-        bookshelf = new Item(13, "bookshelf", false, "UNUSED", "As I inspected the bookshelf it cracks and creaks. The bookshelf slowly \n"
-                                        + "moves itself and a door appears, I wonder where it leads.\n", false, "revealed secret room, library",0, false,5, 15,0,logToParse);
-        bookshelf.setIsSecretEntrance(true);
-        bookshelf.setSecretExit("bookshelf", secretRoom);
-        
-        pistol = new Item(14, "pistol", true, "You pick up a pistol", "Finding a pistol in the library, odd place to find a pistol. \n"
-                                                    + "All bullets are still in the case, but no bullets \n"
-                                                    + "or gunpowder were found by the scene. It didnâ€™t seem \n"
-                                                    + "to have caused the murder.\n", true, "all bullets intact, Library",0, false,5, 15,0,logToParse);
-        
-        oddBook = new Item(15, "odd book", true, "You pick up a book", "Hmm, that's curious. A crime book about a murder happening in a mansion at a \n"
-                                                    + "dinner party, just like this! That's a bit odd.\n", false,"book regarding murder, library",2, false,5, 5,0,logToParse);
-        
-        ratCorpse = new Item(16, "rat corpse", true, "You pick up a rat corpse","Ew, a disgusting rat corpse.. Looks like it has been lying here for quite some time now.\n",false,"rotten rat corpse, dungeon",3, false,5, 10,0,logToParse);
-        
-        skull = new Item(17, "skull", true, "You pick up a human skull", "Hmm, a human skull. I wonder what sick history this mansion has, surely \n"
-                                                        + "this can only mean that another murder has happened here in the past.\n",false,"human skull, dungeon",5, false,5, 5,0,logToParse);
-        
-        ballRoom.addItem(carpet);
-        bathroom.addItem(body);
-        bathroom.addItem(toiletPaper);
-        upstairsHall.addItem(whiskey);
-        upstairsHall.addItem(rope);
-        bedroom.addItem(bloodyKnife);
-        bedroom.addItem(plasmaTv);
-        kitchen.addItem(emptyKnifeholder);
-        kitchen.addItem(ratPoison);
-        kitchen.addItem(apple);
-        garden.addItem(keys);
-        garden.addItem(golfClub);
-        garden.addItem(flowers);
-        library.addItem(bookshelf);
-        library.addItem(pistol);
-        library.addItem(oddBook);
-        dungeon.addItem(ratCorpse);
-        dungeon.addItem(skull);
-        
-        
-        kitchen.setItemRequiredToUnlock(keys);
-        
-        
-    }*/
-
-    /**
-     * createPersons is responsible for creating persons for the game
-     * They are instantiated objects of the data type Person.
-     * 
-     *//*
-    private void createPersons(LogBook logToParse) {
-        phein = new Person(0,"Mr. Phein", true,"empty","empty","empty",
-                                "She was an angel, my daughter. An angel, so wonderful and beautiful, just like her mother. \n"
-                                + "After you found her, the angel, she, had a lost her beauty and innocence, I tried to \n"
-                                + "take her to therapy, but my angel never became the same again. Just like her mother \n"
-                                + "sacrificed herself to give birth to Agnes, my angel, she, must sacrifice herself so \n"
-                                + "that the beautiful angel she once was can be restored. But the angel never came back, \n"
-                                + "she just died, never to return to life.\n", "phein", 5,logToParse);
-        phein.setQuestions("who are you","did you do it?", "are you sorry");
-        phein.setAnswers("mr. phine \n", "yes! \n", "no! \n");
-        phein.setWelcome("Thank you for helping me, Detective! is there anything i can do for you?");
-
-        tyrion = new Person(1,"Tyrion Lannister",false,"empty","empty","empty",
-                                "What the hell?! Goddammit, I did not do it. You’re making \n"
-                                + "some seriously far-stretched assumptions here, my little boy!\n", "tyrion", 5,logToParse);
-        tyrion.setQuestions("who are you", "2", "3");
-        tyrion.setAnswers("tyrion Lannister", "2a", "3a");
-        tyrion.setWelcome("hallo");
-
-        alfred = new Person(2,"Alfred the Butler",false,"empty","empty","empty",
-                                "I’m afraid I didn’t have anything to do with the murder, Detective. Agnes \n"
-                                + "was a wonderful girl, such an angel to have in the mansion, I could never \n"
-                                + "do anything like that to her. How dare you ask that question?\n", "alfred", 5,logToParse);
-        
-
-        veronica = new Person(3,"Veronica Mars",false,"empty","empty","empty",
-                                "Are you stupid? Can’t you tell that the others are lying?! I have \n"
-                                + "tried just like you to solve this, yet you accuse me? This is stupid, \n"
-                                + "as you can see the evidence clearly doesn’t point towards any of the guest, \n"
-                                + "I might have planted some ratpoison on the weapon, but that was only to lead \n"
-                                + "you to obvious murderer!\n", "veronica",5,logToParse);
-        
-        stephanie = new Person(4,"Stephanie Richburg",false,"empty","empty","empty",
-                                "OMG!!! you think i did it? I don’t know who you think \n"
-                                + "you are, but I damn well didn’t do it, the evidence you’ve say you \n"
-                                + "have does NOT have anything to with me, and if you accuse me again i will sue you.\n", "stephanie", 5,logToParse);
-        
-        ballRoom.addPerson(phein);
-        library.addPerson(tyrion);
-        kitchen.addPerson(alfred);
-        garden.addPerson(stephanie);
-        bedroom.addPerson(veronica);
-    }*/
-    /*
-    public void createPersonWithRiddles(){
-        ghost = new PersonWithRiddle("ghost","UUuuuh, you are right mortal. \nI shall grant you some more time in the mortal world.\nThe clock is rewinded 1 hour.\n","HAHAHA, you answered wrong mortal. I shall take your time away in this world!\nThe troll added 20 minutes to the time.\n",60,20,time);
-        troll = new PersonWithRiddle("troll","Ugh, me smas u for right anser\nThe clock is rewinded 1 hour.\n", "haha, puny human. u so dumb.\nThe troll added 20 minutes to the time.\n",60,20,time);
-        
-        dungeon.addPersonWithRiddle(troll);
-        secretRoom.addPersonWithRiddle(ghost);
-    }*/
     
     /**
      * The game's main method. When the game is played, this method is always running.
@@ -575,7 +358,8 @@ public class Game {
                        return true; // end game
                    }
                }
-               return true;
+               System.out.println("There are no persons here named: " + whoToAccuse + "\n");
+               return false;
             }
             for(Item tempItemObject : currentRoom.getItems()){
                 if(tempItemObject.getName().equals(whoToAccuse)){

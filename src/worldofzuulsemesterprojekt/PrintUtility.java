@@ -5,6 +5,7 @@
  */
 package worldofzuulsemesterprojekt;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -12,15 +13,33 @@ import java.util.Scanner;
  * @author chris
  */
 public class PrintUtility {
+
     private final Parser parser;
     private final Scanner input;
-    
-    public PrintUtility(){
+    private ArrayList<String> descriptions;
+
+    public PrintUtility() {
         this.parser = new Parser();
         this.input = new Scanner(System.in);
     }
-    
-    public void printIntroMessage(){
+
+    public void printIntroMessage() {
+        for (String s : descriptions) {
+            switch (s) {
+                case "[break]:":
+                    input.nextLine();
+                    break;
+                    
+                case "":
+                    System.out.println("");
+                    break;
+                    
+                default:
+                    System.out.println(s);
+                    break;
+            }
+        }
+        /*
         System.out.println();
         System.out.println("Welcome to Murder Mansion!");
         System.out.println();
@@ -46,7 +65,7 @@ public class PrintUtility {
         input.nextLine();
         System.out.println("The room was empty, growing cold, dark and silent except for the faint shock in my mind. ");
         System.out.println("I will find the monster who did this, this is too gruesome to let be.");
-        System.out.println();
+        System.out.println(); */
         System.out.println("Here comes a small tutorial on how to play the game.");
         System.out.println("Press ENTER to begin the tutorial.");
         input.nextLine();
@@ -75,33 +94,35 @@ public class PrintUtility {
         System.out.println("Let the mysteries begin!");
         System.out.println("Press ENTER to begin.");
         input.nextLine();
+
     }
-    
-    public void printWinMessage(){
+
+    public void printWinMessage() {
         System.out.println("After that moment, it was like he snapped. From the mansion all the way \n"
-                    + "to prison, he had the expression of “regret” plastered all over his face. \n");
+                + "to prison, he had the expression of “regret” plastered all over his face. \n");
         System.out.println("Press ENTER to continue.");
         input.nextLine();
         System.out.println("The murder is now solved, very well done. We hoped you enjoyed our game, if \n"
                 + "not, then return == null. We had a lot of fun making this short game, thank you for playing!\n");
     }
-    
-    public void printLoseMessageAcussation(){
-        System.out.println("Well, that was a surprise, you acussed the wrong person. I wonder who did then?\n" +
-                               "just as you realise who the correct murdere is, you feel a sharp sting in you bag.\n");
+
+    public void printLoseMessageAcussation() {
+        System.out.println("Well, that was a surprise, you acussed the wrong person. I wonder who did then?\n"
+                + "just as you realise who the correct murdere is, you feel a sharp sting in you bag.\n");
         System.out.println("Blood arising down you right chest and your vision becomes blurry. "
-                            + "The real murderer killed you, you damn fool. ");
+                + "The real murderer killed you, you damn fool. ");
     }
-    public void printLoseTimeRanOutMessage(){
-        System.out.println("Fail message if time runs out:\n" 
-                           + "Oh my, the time! Itâ€™s already kl.08.00, and the cops are arriving,"
-                           + "with their usual â€œhardâ€� work and â€œtrusty understanding of Mr. Pheinâ€™s current lossâ€�"
-                           + "and subsequently his financial situation I doubt this case will be solved, "
-                           + "buried in money and secrets so that Mr. Pheins family name remains intact. "
-                           + "It will forever remain a Mystery, a Mystery Mansion.");
+
+    public void printLoseTimeRanOutMessage() {
+        System.out.println("Fail message if time runs out:\n"
+                + "Oh my, the time! Itâ€™s already kl.08.00, and the cops are arriving,"
+                + "with their usual â€œhardâ€� work and â€œtrusty understanding of Mr. Pheinâ€™s current lossâ€�"
+                + "and subsequently his financial situation I doubt this case will be solved, "
+                + "buried in money and secrets so that Mr. Pheins family name remains intact. "
+                + "It will forever remain a Mystery, a Mystery Mansion.");
     }
-    
-    public void printHelp(){
+
+    public void printHelp() {
         System.out.println("You are the detective at a party.");
         System.out.println("Your job is to figure out who comitted the murder");
         System.out.println("Throughout the game you can interact with items and interrogate persons.");
@@ -112,7 +133,11 @@ public class PrintUtility {
 
     void printAccuseErrorMsg() {
         System.out.println("You haven't gathered enough evidence to point out a murderer yet!\n"
-                         + "You ought to ask all the guests and find the murder weapon.\n");
+                + "You ought to ask all the guests and find the murder weapon.\n");
     }
-    
+
+    public void setIntroMessage(ArrayList<String> descriptions) {
+        this.descriptions = descriptions;
+    }
+
 }
