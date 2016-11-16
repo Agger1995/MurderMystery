@@ -21,16 +21,20 @@ import java.util.logging.Logger;
 public class Riddle {
 
     private static final ArrayList<Riddle> RIDDLES = new ArrayList(); // A database filled with all of the riddles.
+    private static String path;
     private String question; //one question per riddle
     private String correctAnswer; //one answer per riddle
     private String[] wrongAnswers = new String[2]; //2 wrong answers pr riddle.
 
+    /**
+     *
+     */
     public Riddle() {
     }
 
     private static void load() {
 
-        File file = new File("riddles.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
+        File file = new File(path+"/riddles.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
         Scanner scanner = null; //if the scanner can't load the file.
 
         try {
@@ -55,6 +59,10 @@ public class Riddle {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static Riddle getRandomRiddle() {
         if (RIDDLES.isEmpty()) { //loads all the riddles, if not used before.
             load();
@@ -68,6 +76,10 @@ public class Riddle {
         RIDDLES.remove(random_index); //removes the riddle from the list, so it won't be drawn twice on the same playthrough.
         
         return temp;  //returns a random riddle object
+    }
+    
+    public static void setPath(String path) {
+        Riddle.path = path;
     }
 
     /**

@@ -22,8 +22,12 @@ public class Parser{
     }
 
     /**
-     * getCommand is the command that listens for input and interprets the input given
+     * getCommand is the command that listens for input
      * Splits up the input into more than one word
+     * The first word is assigned to the variable word1, the second word is assigned to the variable word2
+     * The method is made so it interprets everything that comes after the first word, as a whole sentence.
+     * This sentence is the assigned to word2.
+     * This is made so that we can interact with items and persons whose name consists of more than 1 word.
      * @return an Object of type Command, containing the input words as commands
      */
     public Command getCommand(){
@@ -47,7 +51,7 @@ public class Parser{
     }
 
     /**
-     * Shows the commands available to the player
+     * Calls the method showAll in CommandWords class.
      */
     public void showCommands(){
         this.commands.showAll();

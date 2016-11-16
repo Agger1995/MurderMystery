@@ -34,6 +34,7 @@ public class ScenarioLoader {
         new LoadPersons(this.path, log, rooms_list, persons_list, printer, time);
         new LoadPersonsWithRiddle(this.path, log, rooms_list, persons_list, printer, time);
         new LoadItems(this.path, log, rooms_list, persons_list, printer, time);
+        new LoadSpecialItems(this.path, log, rooms_list, persons_list, printer, time);
         new LoadWelcomeDescription(this.path, printer); //Loads and shows the description of the game.
     }
 

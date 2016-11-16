@@ -22,7 +22,8 @@ public class CheckFile {
         try {
             scanner = new Scanner(file);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(CheckFile.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("There is an error in the files used to load game scenarios.");
+            System.out.println("Please check that there is the correct amount of lines for each object.");
         }
         if(scanner!=null) {
             int count = 0;

@@ -39,33 +39,6 @@ public class PrintUtility {
                     break;
             }
         }
-        /*
-        System.out.println();
-        System.out.println("Welcome to Murder Mansion!");
-        System.out.println();
-        System.out.println("You’re a snarky detective, who discovered a dead body during a party after a couple of drinks.");
-        System.out.println("Your job as a now slightly intoxicated detective is to find the murderer, and what weapon he/she used and not die in the process.");
-        System.out.println("Good luck and try your best, now for the introduction!");
-        System.out.println("Press ENTER to hear the story.");
-        input.nextLine();
-        System.out.println("I wish I wasn’t at this party…");
-        System.out.println();
-        System.out.println("Working with these people through years, lousy work and cold coffee");
-        System.out.println("you’d imagine their parties wouldn’t be a blast. Well that’s because they aren’t.");
-        System.out.println("Press ENTER to continue the story.");
-        input.nextLine();
-        System.out.println("*DRINK* as the whisky ran down my throat I felt better but more is necessary to cope with this.");
-        System.out.println("*DRINK* Better, but damn I need more.");
-        System.out.println("*DRINK* Finally, the whisky is taking its toll on my body and I had to go to the bathroom.");
-        System.out.println("Press ENTER to continue the story.");
-        input.nextLine();
-        System.out.println("I run towards the bathroom in desperate need, only to find a dead body in the middle of the bathroom, ");
-        System.out.println("smeared in blood, it appears to be Mr. Phein’s daughter Agnes.");
-        System.out.println("Press ENTER to continue the story.");
-        input.nextLine();
-        System.out.println("The room was empty, growing cold, dark and silent except for the faint shock in my mind. ");
-        System.out.println("I will find the monster who did this, this is too gruesome to let be.");
-        System.out.println(); */
         System.out.println("Here comes a small tutorial on how to play the game.");
         System.out.println("Press ENTER to begin the tutorial.");
         input.nextLine();

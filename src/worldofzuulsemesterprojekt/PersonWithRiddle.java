@@ -26,6 +26,8 @@ public class PersonWithRiddle {
     private final Time time; //refence to the time object used
     private final String rightAnswerMessage; // message when answered correctly
     private final String wrongAnswerMessage; // ^ when answered poorly
+    private String introMessage; //This is the message received, when the person is first seen
+    private boolean hasToldIntroMessage;
 
     /**
      *
@@ -46,14 +48,23 @@ public class PersonWithRiddle {
         hasRiddle = true;
         riddle = Riddle.getRandomRiddle();
         answers = new HashMap();
+        hasToldIntroMessage = false;
     }
-    
-    public String getName(){
+
+    /**
+     *
+     * @return
+     */
+    public String getName() {
         return this.name;
     }
+
     /*
     call runRiddle(), when the player asks PersonWithRiddle.
-    */
+     */
+    /**
+     *
+     */
     public void runRiddle() {
         if (hasRiddle) { //checks if a the riddle has already been solved
             System.out.println(name + ": " + riddle.getQuestion()); //prints the question
@@ -81,6 +92,10 @@ public class PersonWithRiddle {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public HashMap<Integer, String> getAnswers() {
         HashMap<Integer, String> temp = new HashMap(); //temp hashmap
         int right_answer = (int) (random() * 3) + 1; //puts the right answer somewhere.
@@ -102,12 +117,19 @@ public class PersonWithRiddle {
         return temp; //returns hashmap reference
     }
 
+    /**
+     *
+     */
     public void printAnswers() {
         for (int i = 1; i < 4; i++) {
             System.out.println(i + ": " + answers.get(i)); //prints all the answers.
         }
     }
 
+    /**
+     *
+     * @param key
+     */
     public void processAnswer(int key) {
         if (answers.get(key) == riddle.getCorrectAnswer()) { //prints reward message
             System.out.println(name + ": " + rightAnswerMessage);
@@ -117,5 +139,17 @@ public class PersonWithRiddle {
             time.addMinute(timeLost);
         }
         hasRiddle = false; //makes it so the person won't tell another riddle until next playthrough.
+    }
+
+    public void setIntroMessage(String str) {
+        introMessage = str; //Set's intro message.
+    }
+
+    public String tellIntroMessage() {
+        if (!hasToldIntroMessage) {
+            hasToldIntroMessage = true;
+            return introMessage;
+        }
+        return "";
     }
 }

@@ -26,8 +26,8 @@ public class Item {
     private final int timeToTake;
     private final int timeToInspect;
     private final int timeToDrink;
-    private boolean isSecretEntrance;
-    private Pair<String, Room> secretExit;
+    /*private boolean isSecretEntrance;
+    private Pair<String, Room> secretExit;*/
     
     public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String keyWords, int weight, boolean isDrinkable, int timeToTake, int timeToInspect, int timeToDrink, LogBook Log){
         this.ID = ID;
@@ -44,10 +44,10 @@ public class Item {
         this.timeToInspect = timeToInspect;
         this.timeToDrink = timeToDrink;
         this.LogConnection = Log;
-        this.isSecretEntrance = false;
+        //this.isSecretEntrance = false;
     }
     
-    public void setSecretExit(String exitString, Room exitRoom){
+    /*public void setSecretExit(String exitString, Room exitRoom){
         this.secretExit = new Pair<>(exitString, exitRoom);
     }
     
@@ -66,7 +66,7 @@ public class Item {
     public boolean isSecretEntrance(){
         return this.isSecretEntrance;
     }
-    
+    */
     public int getWeight(){
         return this.weight;
     }

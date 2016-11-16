@@ -295,13 +295,28 @@ public class Game {
                         tempItemObject.setHasBeenInspected(true);
                         pointSystem.addPoints(1);
                     }
-                    if(tempItemObject.isSecretEntrance()){
+                    /*if(tempItemObject.isSecretEntrance()){
                         currentRoom.setExit(tempItemObject.getSecretExitFirst(), tempItemObject.getSecretExitSecond());
-                    }
+                    }*/
                     time.addMinute(tempItemObject.getTimeToInspect());
                     return;
                 }
             }
+            for(SpecialItem tempSpecialItemObject : currentRoom.getSpecialItems()){
+                if(tempSpecialItemObject.getName().equals(command.getSecondWord())){
+                    System.out.println(tempSpecialItemObject.getMsgOnInspect());
+                    if(!tempSpecialItemObject.isInspected()){
+                        tempSpecialItemObject.setHasBeenInspected(true);
+                        pointSystem.addPoints(1);
+                    }
+                    if(tempSpecialItemObject.isSecretEntrance()){
+                        currentRoom.setExit(tempSpecialItemObject.getSecretExitFirst(), tempSpecialItemObject.getSecretExitSecond());
+                    }
+                    time.addMinute(tempSpecialItemObject.getTimeToInspect());
+                    return;
+                }
+            }
+            
             System.out.println("There is no item named: " + command.getSecondWord() + "\n");
         } else {
             System.out.println("Inspect what item?\n");
@@ -332,6 +347,29 @@ public class Game {
             }
             if(itemToRemoveFromRoom != null){
                 currentRoom.getItems().remove(itemToRemoveFromRoom);
+            }
+            SpecialItem specialItemToRemoveFromRoom = null;
+            for(Item tempSpecialItemObject : currentRoom.getSpecialItems()){
+                if(tempSpecialItemObject.getName().equals(command.getSecondWord())){
+                    if(tempSpecialItemObject.isActive()){
+                        if(inventory.isInventoryFull(tempSpecialItemObject.getWeight())){
+                            System.out.println(tempSpecialItemObject.getMsgOnPickup() + ". It weights: " + tempSpecialItemObject.getWeight() + "\n");
+                            inventory.addInventory(tempSpecialItemObject);
+                            if(tempSpecialItemObject.isMurderweapon()){
+                                logbook.addMurderWeapons(tempSpecialItemObject);
+                            }
+                            itemToRemoveFromRoom = tempSpecialItemObject;
+                            time.addMinute(tempSpecialItemObject.getTimeToTake());
+                        } else {
+                            System.out.println("Inventory is full! You are carrying to much weight.\n");
+                        }
+                    } else {
+                        System.out.println("You could not pick up the " + tempSpecialItemObject.getName() + "\n");
+                    }
+                }
+            }
+            if(specialItemToRemoveFromRoom != null){
+                currentRoom.getSpecialItems().remove(specialItemToRemoveFromRoom);
             }
         } else {
             System.out.println("Take what item?\n");
