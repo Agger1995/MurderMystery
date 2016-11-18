@@ -1,0 +1,54 @@
+[Room]:
+bathroom
+5
+false
+false
+[Room]:
+top left corner
+5
+false
+false
+[Room]:
+bottom left corner
+5
+false
+false
+[Room]:
+middle of the room
+5
+false
+false
+[Room]:
+top right corner
+5
+false
+false
+[Room]:
+bottom right corner
+5
+false
+false
+[Room]:
+toilet
+5
+true
+false
+[Room]:
+telephone box
+5
+false
+true
+[Connections]:
+bathroom,top left corner
+top left corner,bathroom
+top left corner,middle of the room
+middle of the room,top left corner
+top left corner,bottom left corner
+bottom left corner,top left corner
+middle of the room,top right corner
+top right corner,middle of the room
+middle of the room,bottom right corner
+bottom right corner,middle of the room
+bottom right corner,top right corner
+top right corner,bottom right corner
+toilet,bathroom

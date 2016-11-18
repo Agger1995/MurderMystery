@@ -1,0 +1,17 @@
+[SpecialItem]:
+living room
+0
+lamp
+false
+UNUSED
+That’s a really smart lamp.
+false
+Really cool lamp.
+0
+false
+5
+10
+0
+true
+light
+bedroom

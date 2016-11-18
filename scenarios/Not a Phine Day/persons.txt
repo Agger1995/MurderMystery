@@ -2,9 +2,9 @@
 0
 Mr. Phein
 true
-empty
-empty
-empty
+Suspicious Phein
+tremendous problem
+Sounds like Trump.
 She was an angel, my daughter. An angel, so wonderful and beautiful, just like her mother. After you found her, the angel, she, had a lost her beauty and innocence, I tried to take her to therapy, but my angel never became the same again. Just like her mother sacrificed herself to give birth to Agnes, my angel, she, must sacrifice herself so that the beautiful angel she once was can be restored. But the angel never came back, she just died, never to return to life.
 phein
 5
@@ -22,9 +22,9 @@ We have a tremendous problem, listen we have a problem and we need someone to so
 1
 Tyrion Lannister
 false
-empty
-empty
-empty
+Boyfriend Tyrion
+Surprised about Agnes’s death
+no idea who did it
 "What the hell?! Goddammit, I did not do it. You’re making some seriously far-stretched assumptions here, my little boy!
 tyrion
 5
@@ -42,9 +42,9 @@ Absolutely no idea, thought your second question cleared that up. You wouldn’t
 2
 Alfred the Butler
 false
-empty
-empty
-empty
+Alfred
+Mr. Phein in kitchen
+no idea who did it.
 I’m afraid I didn’t have anything to do with the murder, Detective. Agnes was a wonderful girl, such an angel to have in the mansion, I could never do anything like that to her. How dare you ask that question?
 alfred
 5
@@ -62,9 +62,9 @@ I have no idea who did this, but if you find who took that lovely girl away from
 3
 Veronica Mars
 false
-empty
-empty
-empty
+Veronica private Investigator
+little evidence
+suspects Mr. Phein
 Are you stupid? Can’t you tell that the others are lying?! I have tried just like you to solve this, yet you accuse me? This is stupid, as you can see the evidence clearly doesn’t point towards any of the guest, I might have planted some ratpoison on the weapon, but that was only to lead you to obvious murderer!
 veronica
 5
@@ -82,9 +82,9 @@ well even though it would be tempting to say Stephanie did it out of jealousy, t
 4
 Stephanie Richburg
 false
-empty
-empty
-empty
+Stephanie rich bitch
+history with Mr.Phein
+believes him to have done it
 OMG!!! you think i did it? I don’t know who you think you are, but I damn well didn’t do it, the evidence you’ve say you have does NOT have anything to with me, and if you accuse me again i will sue you.
 stephanie
 5

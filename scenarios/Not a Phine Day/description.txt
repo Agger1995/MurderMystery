@@ -1,19 +1,9 @@
-
-Welcome to our game!
- 
+﻿
+Welcome to our game! 
 You’re a snarky detective, who are at a party. After a couple of drinks you discover a dead body. Your job - as a now slightly intoxicated detective is to find the murderer,  and what weapon the murderer used. But try not die in the process!
-
-Press ENTER to hear the story
-[break]:
-I wish I wasn’t at this party…
-Working with these people through years, lousy work and cold coffee
-you’d imagine their parties wouldn’t be a blast. Well that’s because they aren’t.
-
-Press ENTER to hear the story
-[break]:
+A party is happening to “celebrate” our solving a mystery for a quite rich and eloquent Mr. Phein, whose daughter (Agnes) went missing last fall. He was very flustered by this, his wife had after all died during childbirth, so he was alone without her. Luckily we found her, though her spirit was broken, she was alive, and that is the most important thing.
 *DRINK* as the whisky ran down my throat I felt better but more is necessary to cope with this.
 *DRINK* Better, but damn I need more.
 *DRINK* Finally, the whisky is taking its toll on my body and I had to go to the bathroom. 
-I walk towards the bathroom in desperate need, only to find a dead body in the middle of the bathroom, smeared in blood, it appears to be Mr. Phein’s daughter Agnes.
-The room was empty, growing cold, dark and silent except for the faint shock in my mind.
-I will find the monster who did this, this is too gruesome to let be.
+I walk towards the bathroom in desperate need, only to find a dead body in the middle of the bathroom, smeared in blood, it appears to be Mr. Phein’s daughter Agnes. The room was empty, growing cold, dark and silent except for the puzzle brewing in my mind. I will find the one who did this.
+Now the mystery begins!

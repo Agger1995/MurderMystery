@@ -1,7 +1,7 @@
 [Person]:
 secret room
 ghost
-intro message when you enter room
+I’m the white lady, and I will guide you to more time helping a fellow “passed” to finally pass away if you answer the following riddle I will add time to your existing time, giving you more levy to solve the mystery.
 Uuuuuh, you are right mortal. I'll grant you some more time in the mortal world, as a gift for your wisdom! *The clock rewinded an hour*
 Hahaha, you answered incorrectly! I will take some of your time, as a punishment!
 60
@@ -9,7 +9,7 @@ Hahaha, you answered incorrectly! I will take some of your time, as a punishment
 [Person]:
 dungeon
 troll
-intro message when you enter room
+Riddle me this…
 Ugh, me smas u for right anser! *The clock is rewinded 1 hour.*
 haha, puny human. u so dumb. *The troll added 20 minutes to the time*
 60

@@ -32,7 +32,7 @@ bathroom
 body
 false
 UNUSED
-Such a shame, Agnes known for her beauty resembling from her mother, now had a face resembling massacred raw beef with hair. A bit of dust is around her face, could be anything from flour to baby powder *sniff* hmm fits the case, it has a very distinctive smell.
+Such a shame, Agnes known for her beauty resembling from her mother, now had a face with multiple cuts. A bit of dust is around her face, could be anything from flour to baby powder *sniff* hmm some sort of poison, fits the case, it has a very distinctive smell.
 false
 Poisoned knife caused it, Bathroom.
 0
@@ -60,7 +60,7 @@ upstairs hall
 whiskey
 true
 You pick up the whiskey.
-A bottle of whiskey on the floor in hallway on the 1st floor, who could be leaving such a beauty there? *drink* ahh… that’s the stuff. Oh, better get back to work, otherwise I’ll be spending all my time here.
+A bottle of whiskey on the floor in hallway on the 1st floor, who could be leaving such a beauty there? *drink* ahh… that’s the stuff. Oh, better get back to work, otherwise I’ll be spending all my time here. I’ll take it with me for later.
 false
 Very strong taste, but good.
 3
@@ -74,7 +74,7 @@ bedroom
 bloody knife
 true
 You pick up the bloody knife.
-A knife wrapped in a handkerchief soaked in blood...in Mr. Phine’s room... the knife seems to also have some powder on it. It looks like the same powder as the one on the body. *sniff*, yeah this is ratpoison. Odd to find something like that in his room, I wonder who dropped this here.
+A knife wrapped in a handkerchief soaked in blood... in Mr. Phein’s room... the knife seems to also have some powder on it. It looks like the same powder as the one on the body. *sniff*, yeah this is ratpoison. Odd to find something like that in his room, I wonder who dropped this here. Better bring it with me.
 true
 Bloody and powdered, suspicious, Bedroom.
 0
@@ -116,7 +116,7 @@ kitchen
 rat poison
 true
 You pick up the rat poison.
-Odd ro find an empty bottle of rat poison in the kitchen, the powdery substance matches the one found by the body. The amount is rather small to cause the murder. *Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell, only Alfred have been in the kitchen all night. This could be a good idea to keep this in mind though.
+Odd to find an empty bottle of rat poison in the kitchen, the powdery substance matches the one found by the body. The amount is rather small to cause the murder. *Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell. I definitely should bring this with me.  
 true
 Powder, resemble powder on knife, Kitchen.
 0
@@ -144,7 +144,7 @@ garden
 golf club
 true
 You pick up a golf club.
-A golf club in the garden, doesn’t seems suspicious so far. There is no blood on it, and it seems to be clean and shiny, yet it has been left alone in the garden.
+A golf club in the garden, doesn’t seems suspicious so far. There is no blood on it, and it seems to be clean and shiny, yet it has been left alone in the garden. I do like golf, maybe I should “confiscate the evidence” and inconspicuously bring this back home.
 true
 Dirty with grass, no blood, Garden.
 0
@@ -158,7 +158,7 @@ upstairs hall
 rope
 true
 You pick up a rope.
-A rope with a tied knot, not usually something you’d find in a hallway on the 2nd hall. Perhaps someone were trying to off themselves. Interesting case, but irrelevant right now. We gotta find the murderer of Agnes, before that monster escapes.  
+A rope with a tied knot, not usually something you’d find in a hallway on the 2nd hall. Perhaps someone were trying to off themselves out of guilt. Only Agnes and Mr. Phein lives here. Interesting case, we better include this one.  
 true
 Unused with a knot, 2nd floor Hall.
 0
@@ -172,7 +172,7 @@ library
 pistol
 true 
 You pick up a pistol.
-Finding a pistol in the library, odd place to find a pistol. All bullets are still in the case, but no bullets or gunpowder were found by the scene. It didn’t seem to have caused the murder.
+Finding a pistol in the library, odd place to find a pistol. All bullets are still in the case, but no bullets or gunpowder were found by the scene. It didn’t seem to have caused the murder, yet I’m gonna have to add this one, I can’t have the murderer using this on me.
 true
 All bullets intact, Library.
 0

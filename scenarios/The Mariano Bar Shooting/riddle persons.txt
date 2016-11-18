@@ -1,0 +1,8 @@
+[Person]:
+toilet
+midget
+ I’m a time midget, a special midget that can hand you time, due to your strict time limit.
+Wonderfully done, Mr. Detective, x-minutes will be subtracted from your total amount of time spend. Glad to see that you answered correctly, I will now disappear into the magical kingdom in the toilet, only to be found by typing “ask Midget”.
+You have failed Mr. Detective, you will now be penalized. Always be vary of time, it is your greatest ally and your greatest enemy. Goodbye now and good luck in your endeavours, I will now go back to the magic kingdom in the toilet.
+60
+20

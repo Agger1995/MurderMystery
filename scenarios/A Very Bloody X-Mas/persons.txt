@@ -1,0 +1,100 @@
+[Person]:
+0
+Charlie Specter
+true
+visit a friend
+blood in the kitchen
+rumor say Ezra killed his son
+the murder is solved, on this bloody X-mas.you did it with grace and pride and quickness. you: “Now the heavy day is over, leave Steve's body’s coloured pride underneath the grass and clover, with his feet laid side by side. Did the kiss of Mother Mary Put that music in his face? Yet she goes with footstep wary, Full of earth's old timid grace.” now it’s time to go to bed, forget this sad and awful day,tomorrow another case is led. this was success, that's what they say. 
+charlie
+5
+kitchen
+*drinking a shoot*
+[Questions]:
+who are you, and why are you here?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+my first name’s charlie but call me Mr. Specter. i work with treasures i´m a real collector. i came tonight to visit a friend. but then tonight a life would end.
+i was in the livingroom when the cry was heard. i was shocked when they ran i was lost for words. i went to the kitchen to gather my thoughts, and that's where i found some bloody red spots
+you've heard of the man they call Erza Scrooge. they tell the stories, and his sins are huge i can't really say but i pains me so. they say he killed his son, named joe.  
+[Person]:
+1
+Ezra Scrooge
+false
+talked to mary
+neighbour, bad feeling about charlie
+noise form below
+you accuse the wrong perpetrador, the hate towards you is now even greater.the killer got away, you act like a rover. the story has ended, and this is GAME OVER!!
+ezra
+5
+living room
+hello
+[Questions]:
+who are you, and why are you here?
+do you know anything pertaining to the case of Agnes murder?
+do you have any idea as to who committed the murder?
+[Answers]:
+my name is Ezra Scrooge, i live across the street i’ve lived her all my life, i came to meet and greet.
+i don’t know many people here tonight. i talked to mary, what a pretty sight i think i’ve seen him charlie before? but something about him reminds me of war.
+i’m sorry i can’t, i definitely don’t know. we heard a noise, coming from below. mary was gone she ran down the stairs. filled with sorrow and her eyes with tears.
+[Person]:
+2
+Mary Joachimson
+false
+tall man
+carrying shawl
+talked with Ezra
+you accuse the wrong perpetrador, the hate towards you is now even greater.the killer got away, you act like a rover. the story has ended, and this is GAME OVER!!
+mary
+5
+child room
+i cry and i cry i can’t believe, my son is dead how can that be? 
+[Questions]:
+whats your name and whats your game?
+Do you know anything pertaining to the case?
+Do you have any idea as to who committed the murder?
+[Answers]:
+My name is Mary, i live here now, please find the killer, please find that swine. 
+this party we held for neighbours and friends it started so good go, but look how it ends i’ve been talking all night with Ezra Scrooge 
+dear detective, beg your pardon, i think i saw a man in the garden i was very dark, but the man was tall, but on his arm, i saw a shawl
+[Person]:
+3
+Peter Kringel
+false
+Ezra affair w. mary?
+Charlie Red suit
+talked with Ezra, mary, james
+you accuse the wrong perpetrador, the hate towards you is now even greater.the killer got away, you act like a rover. the story has ended, and this is GAME OVER!!
+peter
+5
+hall
+hello
+[Questions]:
+who are you, and why are you here?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+my name is Peter I’m friends with James. i came to this party to make amends me and james we had a big fight. but at the end of the tunnel i see a light.
+i’ve been drinking eggnog all night long. os maybe, but clearly i could be wrong. i think i saw Ezra kiss, james´s wife on the lips. and have you seen the suit Specter wheres? red as blood, like he don’t care. 
+i’ve talked to Ezra, i talked to james. i’ve talked to mary about my claims. i think i talked all night long how come this night is suddenly gone.
+[Person]:
+4
+James Joachimson
+false
+mary blames james
+the killer is a man
+killed in crip
+you accuse the wrong perpetrador, the hate towards you is now even greater.the killer got away, you act like a rover. the story has ended, and this is GAME OVER!!
+james
+5
+garden
+hello
+[Questions]:
+who are you, and why are you here?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+My name is James, i own of this house, my son was killed, i’m in a rouse… We moved to this house, just last Christmas eve, my son was born and his name was steve. The house was bad tis were in a rot, we fixed it up and now it's not.
+my wife is Mary she blames me so, my son was killed in his crib below.
+who would kill, my dear little son, i know it’s a man, just not which one. 

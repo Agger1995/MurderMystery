@@ -1,0 +1,100 @@
+[Person]:
+0
+Stacy
+true
+Stacy
+heard gunshot
+hides murder
+How dare you… my Robert is all that matters, whatever he does it’s always the right thing to do. I don’t care if you accuse me, I would help him kill any day. Gary was a terrible person, did you hear how many he fired? He fired 50 people, 50 fucking people, so he could afford a new boat. 50 lives ruined for a goddamn boat, are you kidding me? Of course I’d seduce Gary and make him come over to this old school bar, with no security and no cameras it would an easy job. I didn’t murder him, Robert did, you have nothing on me. I can’t go to jail. 
+stacy
+5
+bottom right corner
+*drinking a shoot*
+[Questions]:
+Who are you?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+Hi, I’m Stacy.
+Not much, just heard a gunshot. 
+Might have, might not, you know the smoke machines and the loud music at this place do a good job of hiding a potential murder.  
+[Person]:
+1
+Dora
+false
+Dora
+dial phone, other detective arrived
+no idea
+What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
+dora
+5
+middle of the room
+hello
+[Questions]:
+who are you?
+do you know anything pertaining to the case of Agnes murder?
+do you have any idea as to who committed the murder?
+[Answers]:
+I’m Dora, I like partying, cheap booze and loud music. My favourite part time occupation is the center of the dancefloor.
+Just as confused as you, heard a gunshot and hurried over, i tried to dial the phone to the cops, there was no signal, but luckily another detective fellow arrived.
+Absolutely no idea, but there was so many people, especially one guy who bumped into me so i dropped my phone, and in that ugly trench coat with a odd color.
+[Person]:
+2
+Stanley
+false
+Stanley - owns bar
+one man walking away
+special coat
+What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
+stanley
+5
+top right corner
+hello
+[Questions]:
+Who are you?
+Do you know anything pertaining to the case?
+Do you have any idea as to who committed the murder?
+[Answers]:
+My name is stanley i own this bar, i would be pleased if you could hurry up, all this scares off customers. BTW if you need to go to the bathroom, here’s the key to the toilet. 
+i was in the bar all evening serving drinks i suddenly her a gunshot coming from the far corner in the north, but there were so many people rushing over there i couldn’t see anything. but as everybody was walking towards the gunshot, one man was walking away. 
+I do have an idea as to who, I guy wearing a very special coat with a certain color probably did it. I saw him run away from the scene at the corner of my eye. He was with his “friend” Stacy, go ask her, maybe she knows something.
+[Person]:
+3
+Herman
+false
+Herman
+Gary of Trump company
+funny coat did it
+What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
+herman
+5
+bottom left corner
+hello
+[Questions]:
+who are you?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+I’m Herman, just Herman, no last name.
+I saw a guy with a funny coat ran away from the club right after the murder. That girl over there, I think her name is Stacy, she was together a lot with him. The guy murdered, his name is Gary, he’s the Vice President for the Trump company. What he’s doing at a bar in the middle of nowhere, is our guess, but here he is.
+The guy with the funny coat did it.
+[Person]:
+4
+Andrew
+false
+Andrew
+good friend of Stacy
+Gary is murdered and motive
+What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
+andrew
+5
+top left corner
+hello
+[Questions]:
+who are you?
+do you know anything pertaining to the case?
+do you have any idea as to who committed the murder?
+[Answers]:
+My name is Andrew-
+I’m a good friend of Stacy, she’s been together with another guy for awhile now. She told me that she would do anything for him, you know, she’s totally crazy for him. At first I thought, alright, that’s nice, then I met him. He’s crazy, absolutely fucked in the head, man.
+Probably Stacy’s guy, his name’s Robert, don’t know his last name. He wears a blue coat with red stripes. The guy murdered, his name is Gary, he’s the ceo of the company that Robert used to work at. Robert really hated that guy, every time I spoke with him, Gary was the only thing he talked about. 

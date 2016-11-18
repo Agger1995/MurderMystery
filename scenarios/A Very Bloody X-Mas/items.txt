@@ -1,0 +1,158 @@
+[Item]:
+living room
+0
+christmas tree
+false
+UNUSED
+A tree so high, right out of a story with stars and light, in all it’s glory.
+false
+Christmas tree.
+0
+false
+5
+10
+0
+[Item]:
+living room
+1
+eggnog
+true
+You pick up the eggnog.
+The taste is strong the smell is worse. But on my soul I swear it works. 
+false
+Very strong taste, but good.
+3
+true
+5
+10
+30
+[Item]:
+child room
+2
+crib
+false
+UNUSED
+a crib so little, a light so bright. Now it’s red it used to be white. Who would kill a baby so small. I must find out or else i’ll wrawl. There is so much blood how did he die. A hammer, a knife, i could simply cry.
+false
+Crib.
+0
+false
+5
+10
+0
+[Item]:
+child room
+3
+doll
+true
+You pick up a doll.
+A little doll for little steve, how sad it is on Christmas eve.
+false
+A little doll.
+2
+false
+5
+10
+0
+[Item]:
+hall
+4
+hospital bracelet
+true
+You pick up the hospital bracelet.
+There's blood on the hospital bracelet i can’t see it, but i can taste it. Whoever this bracelet belongs to, must be the killer, this must be a clue.
+false
+Hospital bracelet.
+1
+false
+5
+10
+0
+[Item]:
+stairs
+5
+news article
+true
+You pick up a news article.
+What is this paper, what can it be? An article new, about a killing spree. A man so tall all dressed in red, He killed a kid and then he fled.  
+false
+News article
+2
+false
+5
+10
+0
+[Item]:
+bedroom
+6
+news article
+true
+You pick up a shawl.
+I can se a shawl.  
+false
+Shawl
+2
+false
+5
+10
+0
+[Item]:
+living room
+7
+hammer
+true
+You pick up a hammer.
+Hammer.  
+true
+hammer.
+0
+false
+5
+10
+0
+[Item]:
+shed
+8
+pillow
+true
+You pick up a pillow.
+feathers are white and pillows are white. but this one is red, because steve is dead. is this what killed him i still don’t know, but why the hell, is it covered in snow?  
+true
+White pillow.
+0
+false
+5
+10
+0
+[Item]:
+garden
+9
+wire
+true
+You pick up a wire.
+Wire  
+true
+Wire.
+0
+false
+5
+10
+0
+[Item]:
+kitchen
+10
+knife
+true
+You pick up a knife.
+a knife in its holder, can do no wrong. But in the right hands it sings a song. A drop of blood on the butt of the knife Can sing a song of an ended life.  
+true
+Knife drop of blood.
+0
+false
+5
+10
+0
+[Secret Room]:
+lamp,light,bedroom
+[Locked Door]:
+news article,stairs,living room

@@ -1,0 +1,58 @@
+[Room]:
+garden
+5
+false
+false
+[Room]:
+child room
+5
+false
+false
+[Room]:
+bedroom
+5
+false
+false
+[Room]:
+hall
+5
+false
+false
+[Room]:
+stairs
+5
+false
+false
+[Room]:
+shed
+5
+false
+false
+[Room]:
+living room
+5
+true
+false
+[Room]:
+kitchen
+5
+false
+false
+[Connections]:
+kitchen,living room
+living room,kitchen
+living room,garden
+garden,living room
+living room,hall
+hall,living room
+living room,stairs
+stairs,living room
+garden,shed
+shed,garden
+stairs,bedroom
+bedroom,stairs
+stairs,hall
+hall,stairs
+bedroom,child room
+child room,garden
+garden,child room
