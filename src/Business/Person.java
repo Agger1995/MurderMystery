@@ -5,20 +5,20 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Person {
-    private final int       ID;
-    private final String    name; //Name of the person
-    private final boolean   isMurder; //Is the person the murderer?
-    private boolean         hasBeenAsked;
-    private final String    accusationResponse;
-    private final String    askName;
+    private final int ID;
+    private final String name; //Name of the person
+    private final boolean isMurder; //Is the person the murderer?
+    private boolean hasBeenAsked;
+    private final String accusationResponse;
+    private final String askName;
     private HashMap<Integer, String> questions;
     private HashMap<Integer, String> anwsers;
     private HashMap<Integer, String> keyWords;
     public int chosenAnswer;
-    private String          welcome;
-    private Scanner         input = new Scanner(System.in);
-    private LogBook         LogConnection;
-    private int             timeToAsk;
+    private String welcome;
+    private Scanner input = new Scanner(System.in);
+    private LogBook LogConnection;
+    private int timeToAsk;
 
     public Person(int ID, String name, boolean isMurder, String keyWords1, String keyWords2, String keyWords3, String accusationResponse, String askName, int time, LogBook Log) {
         this.ID = ID;

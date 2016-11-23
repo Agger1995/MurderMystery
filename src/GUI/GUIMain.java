@@ -26,20 +26,6 @@ public class GUIMain extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
-    @Override
-    public void stop() throws IOException{
-        this.startGame();
-    }
-    
-    public void startGame() throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("GameFXML.fxml"));
-        Scene scene = new Scene(root);
-        
-        Stage secondaryStage = new Stage();
-        secondaryStage.setScene(scene);
-        secondaryStage.show();
-    }
 
     /**
      * @param args the command line arguments

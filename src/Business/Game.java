@@ -12,7 +12,7 @@ import java.util.Set;
  It uses class Item to create new instances of the type Item, the same goes for Person
  * @author chris
  */
-public class Game {
+public class Game implements PlayAble{
     private Parser parser;
     private PrintUtility printer;
     private Room currentRoom; 
@@ -25,7 +25,6 @@ public class Game {
     private String playerName;
     private Time time;
     private boolean timeRanOut;
-    private PersonWithRiddle ghost, troll;
     private final ArrayList<Room> ROOMS = new ArrayList<>();
     private ArrayList<Person> PERSONS = new ArrayList<>();
 

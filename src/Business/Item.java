@@ -5,30 +5,89 @@
  */
 package Business;
 
-import javafx.util.Pair;
-
 /**
- *
+ * The Item class is used to create new Objects of type Item.
+ * Item objects are used throughout the game, where they are placed in Room objects.
+ * The Item objects can be picked up by the player and added to their Inventory.
+ * Item objects are containing information which will be added to the LogBook once inspected.
  * @author chris
  */
 public class Item {
+    /**
+     * True if an item should be active, meaning it can be picked up. False otherwise.
+     */
     private final boolean isActive;
+    /**
+     * The ID for an item. This should be unique for an Item object.
+     */
     private final int ID;
+    /**
+     * True if this Item is a murder weapon, meaning it will be treated differently when inspected. False otherwise.
+     */
     private final boolean isMurderweapon;
+    /**
+     * The message to be displayed to the player when Inspecting an Item in game.
+     */
     private final String msgOnInspect;
+    /**
+     * The Item objects name. Is used to refer to this Item in game.
+     */
     private final String name;
+    /**
+     * The message to be displayed to the player when picking up the item in game.
+     */
     private final String msgOnPickup;
+    /**
+     * True if this Item has been inspected before. False otherwise
+     */
     private boolean hasBeenInspected;
+    /**
+     * String of keywords describing the Item. This will be added to the LogBook upon inspecting the Item.
+     */
     private final String keyWords;
+    /**
+     * An Items weight. This defines how much this Item weighs and how much space it takes in the Inventory.
+     */
     private final int weight;
+    /**
+     * True if this Item can be drunk from. False otherwise.
+     */
     private final boolean isDrinkable;
+    /**
+     * The Item object's own reference to the LogBook. This is here so that every Item object themselves will add their own descriptions to the LogBook upon inspectiong etc.
+     */
     private LogBook LogConnection;
+    /**
+     * An Items time parameter it takes to pick up the item.
+     */
     private final int timeToTake;
+    /**
+     * An Items time parameter it takes to inspect the Item.
+     */
     private final int timeToInspect;
+    /**
+     * An items time parameter it takes to Drink the Item.
+     */
     private final int timeToDrink;
-    /*private boolean isSecretEntrance;
-    private Pair<String, Room> secretExit;*/
     
+    /**
+     * The Item class' constructor.
+     * Is used when creating new instances of Item.
+     * Sets all the instance attributes from the parameter list.
+     * @param ID int, is this Items unique ID
+     * @param name String, is this Items 'name'
+     * @param isActive boolean, if this Item can be picked up
+     * @param msgOnPickup String, the message to be displayed on pickup
+     * @param msgOnInspect String, the message to be displayed on inspect
+     * @param isMurderWeapon boolean, if this Item is a murder weapon
+     * @param keyWords String, the keywords describing this Item to be added to LogBook
+     * @param weight int, is this Item's weight. How much space it takes in Inventory
+     * @param isDrinkable boolean, if this Item is drinkable
+     * @param timeToTake int, time it takes to pickup this Item
+     * @param timeToInspect int, time it takes to inspect this Item
+     * @param timeToDrink int, time it takes to drink this Item
+     * @param Log LogBook, reference to the LogBook object created in Game class.
+     */
     public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String keyWords, int weight, boolean isDrinkable, int timeToTake, int timeToInspect, int timeToDrink, LogBook Log){
         this.ID = ID;
         this.isActive = isActive;
@@ -44,82 +103,118 @@ public class Item {
         this.timeToInspect = timeToInspect;
         this.timeToDrink = timeToDrink;
         this.LogConnection = Log;
-        //this.isSecretEntrance = false;
     }
     
-    /*public void setSecretExit(String exitString, Room exitRoom){
-        this.secretExit = new Pair<>(exitString, exitRoom);
-    }
-    
-    public String getSecretExitFirst(){
-        return this.secretExit.getKey();
-    }
-    
-    public Room getSecretExitSecond(){
-        return this.secretExit.getValue();
-    }
-    
-    public void setIsSecretEntrance(boolean state){
-        this.isSecretEntrance = state;
-    }
-    
-    public boolean isSecretEntrance(){
-        return this.isSecretEntrance;
-    }
-    */
+    /**
+     * Method which gets this Item's weight
+     * @return int of this Items weight
+     */
     public int getWeight(){
         return this.weight;
     }
     
+    /**
+     * Method which gets this Item's ID
+     * @return int of this Items ID
+     */
     public int getID(){
         return this.ID;
     }
     
+    /**
+     * Method which gets this Items time it takes to pickup
+     * @return int of this Items timeToTake
+     */
     public int getTimeToTake(){
-        return timeToTake;//returnes the time it takes to take the item
+        return timeToTake;
     }
     
+    /**
+     * Method which gets this Items time it takes to inspect
+     * @return int of this items timeToInspect
+     */
     public int getTimeToInspect(){
-        return timeToInspect;//returnes the time it takes to inspect the item
+        return timeToInspect;
     }
     
+    /**
+     * Method which gets this Items time it takes to drink
+     * @return int of this items timeToDrink
+     */
     public int getTimeToDrink(){
-        return timeToDrink;//returnes the time it takes to drink the item
+        return timeToDrink;
     }
     
+    /**
+     * Method which gets this Items active state
+     * @return true if this Item is active, false otherwise
+     */
     public boolean isActive(){
         return this.isActive;
     }
     
+    /**
+     * Method which sets this Items hasBeenInspected attributes
+     * @param condition is the new state of this.hasBeenInspected. True if this Item has been Inspected, false otherwise.
+     */
     public void setHasBeenInspected(boolean condition){
         this.hasBeenInspected = condition;
     }
     
+    /**
+     * Method which gets this Items hasBeenInspected state
+     * @return true if this Item has been inspected, false otherwise.
+     */
     public boolean isInspected(){
         return this.hasBeenInspected;
     }
     
+    /**
+     * Method which gets this Items isMuderweapon state
+     * @return true if this Item is a murder weapon, false otherwise.
+     */
     public boolean isMurderweapon(){
         return this.isMurderweapon;
     }
     
+    /**
+     * Method which gets this Items name attribute
+     * @return String of this items name
+     */
     public String getName(){
         return this.name;
     }
     
+    /**
+     * Method which gets this Items msgOnInspect
+     * Also adds this Items keywords to the LogBook through this.LogConnection.
+     * @return String of this items msgOnInspect
+     */
     public String getMsgOnInspect(){
         this.LogConnection.addItemDescription(this, this.getKeyWords());
         return this.msgOnInspect;
     }
     
+    /**
+     * Method which gets this Items msgOnPickup
+     * @return String of this items msgOnPickup
+     */
     public String getMsgOnPickup(){
         return this.msgOnPickup;
     }
     
+    /**
+     * Method which gets this Items keyWords
+     * @return String of this Items keyWords
+     */
     public String getKeyWords(){
         return this.keyWords;
     }
     
+    /**
+     * Method which gets this Items isDrinkable state
+     * @return true if this Item is drinkable, false otherwise.
+     */
     public boolean isDrinkable(){
         return this.isDrinkable;
     }
