@@ -1,4 +1,8 @@
 102
 christian agger
+50
+bob
+50
+bob
 40
 Kristian

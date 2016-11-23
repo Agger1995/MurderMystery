@@ -20,11 +20,25 @@ public class GUIMain extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("MainMenuFXML.fxml"));
         Scene scene = new Scene(root);
         
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    
+    @Override
+    public void stop() throws IOException{
+        this.startGame();
+    }
+    
+    public void startGame() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("GameFXML.fxml"));
+        Scene scene = new Scene(root);
+        
+        Stage secondaryStage = new Stage();
+        secondaryStage.setScene(scene);
+        secondaryStage.show();
     }
 
     /**
@@ -33,5 +47,4 @@ public class GUIMain extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
 }

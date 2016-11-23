@@ -65,10 +65,9 @@ public class Game {
         //}
         this.printWelcome();
         
-
         boolean finished = false;
         while (! finished || timeRanOut) {
-            System.out.println("kl: "+time.getTime() + "\n");
+            System.out.println("kl: " + time.getTime() + "\n");
             Command command = this.parser.getCommand();
             finished = this.processCommand(command);
             this.whenTimeRunsOut();
@@ -500,5 +499,9 @@ public class Game {
                 }
             }
         }
+    }
+    
+    public Highscore getHighscoreRef(){
+        return this.highScore;
     }
 }

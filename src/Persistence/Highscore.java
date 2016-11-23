@@ -93,4 +93,12 @@ public class Highscore {
     public boolean isFinalPointsHigher(int finalPoints){
         return finalPoints > this.savedPoints[this.actualSavedArrayLength];
     }
+    
+    public String[] getStringArray(){
+        return this.savedName;
+    }
+    
+    public int[] getIntArray(){
+        return this.savedPoints;
+    }
 }
