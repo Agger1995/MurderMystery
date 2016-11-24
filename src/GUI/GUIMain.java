@@ -20,7 +20,10 @@ public class GUIMain extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("MainMenuFXML.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("MainMenuFXML.fxml").openStream());
+        MainMenuController controller = (MainMenuController) loader.getController();
+        controller.setCurrentStage(primaryStage);
         Scene scene = new Scene(root);
         
         primaryStage.setScene(scene);

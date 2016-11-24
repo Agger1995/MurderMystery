@@ -19,11 +19,15 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -33,6 +37,7 @@ import javafx.scene.control.TextArea;
 public class MainMenuController implements Initializable {
     private Game game;
     private Highscore highscore;
+    private Stage currentStage;
     @FXML
     private Button ButtonChoseScenario;
     @FXML
@@ -45,6 +50,10 @@ public class MainMenuController implements Initializable {
     private Button ButtonPlay;
     
 
+    public void setCurrentStage(Stage stage){
+        this.currentStage = stage;
+    }
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -119,6 +128,12 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void handlePlayButton() throws Exception {
-        
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("GameFXML.fxml").openStream());
+        GameController controller = (GameController) loader.getController();
+        controller.setGame(game);
+        Scene scene = new Scene(root);
+        currentStage.setScene(scene);
+        currentStage.show();
     }
 }

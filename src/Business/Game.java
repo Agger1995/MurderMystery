@@ -65,7 +65,7 @@ public class Game implements PlayAble{
         this.printWelcome();
         
         boolean finished = false;
-        while (! finished || timeRanOut) {
+        while (!finished || timeRanOut) {
             System.out.println("kl: " + time.getTime() + "\n");
             Command command = this.parser.getCommand();
             finished = this.processCommand(command);
@@ -502,5 +502,9 @@ public class Game implements PlayAble{
     
     public Highscore getHighscoreRef(){
         return this.highScore;
+    }
+
+    public String getTime() {
+        return this.time.getTime();
     }
 }
