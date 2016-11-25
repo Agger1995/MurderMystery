@@ -19,6 +19,8 @@
 
 package Business;
 
+import GUI.CommandWord;
+
 public class Command{
     private CommandWord commandWord;
     private String secondWord;

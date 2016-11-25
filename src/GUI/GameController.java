@@ -6,8 +6,12 @@
 package GUI;
 
 import Business.Game;
+import Business.Item;
+import Business.LogBook;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,9 +20,18 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import Business.ObjectsInRoom;
+import java.io.IOException;
+import java.util.ArrayList;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -27,40 +40,32 @@ import javafx.scene.layout.Pane;
  */
 public class GameController implements Initializable {
     private Game game;
+    private LogBook logbook;
+    private Stage logbookStage;
+    ObservableList<CommandWord> actionListData = FXCollections.observableArrayList();
+    ArrayList<String> welcomeMsg;
+    int welcomeMsgCounter = 0;
+    
     @FXML
-    private ListView<?> ActionListView;
+    private ListView<CommandWord> ActionListView;
     @FXML
     private TextField TimeLeft;
     @FXML
-    private Label TimeLabel;
+    private Label TimeLabel, ActionLabel, InRoomLabel, InRoomLabel1;
     @FXML
-    private ScrollPane GameText;
+    private TextArea GameText;
     @FXML
     private Pane MiniMap;
     @FXML
-    private ListView<?> InRoomListView;
+    //Muligvis tilføj dette som et interface der implementeres af både Item og Person. På denne måde kan et listview indeholde begge datatyper.
+    //Definer derefter listview til at indeholde det pågældende interface som datatype.
+    private ListView<ObjectsInRoom> InRoomListView;
     @FXML
-    private Label ActionLabel;
+    private Button PreformActionButtom, GoWest, GoEast, GoSouth, GoNorth, LogBookButton, HelpButton;
     @FXML
-    private Label InRoomLabel;
+    private ListView<Item> InventoryListView;
     @FXML
-    private Button PreformActionButtom;
-    @FXML
-    private Button GoWest;
-    @FXML
-    private Button GoEast;
-    @FXML
-    private Button GoSouth;
-    @FXML
-    private Button GoNorth;
-    @FXML
-    private Button LogBookButton;
-    @FXML
-    private Button HelpButton;
-    @FXML
-    private ListView<?> InventoryListView;
-    @FXML
-    private Label InRoomLabel1;
+    private Button continueWelcomeMsgBtn;
     /**
      * Initializes the controller class.
      */
@@ -71,7 +76,10 @@ public class GameController implements Initializable {
 
     void setGame(Game game) {
         this.game = game;
+        this.game.setTextAreaRef(GameText);
         this.updateTime();
+        this.addActions();
+        this.getWelcomeText();
     }
 
     @FXML
@@ -95,7 +103,25 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    private void onLogbook(ActionEvent event) {
+    private void onLogbook(ActionEvent event) throws IOException {
+        if (logbookStage == null || logbookStage.getScene() == null){
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("LogbookFXML.fxml").openStream());
+        LogbookController controller = (LogbookController) loader.getController();
+        Scene scene = new Scene(root);
+        logbookStage = new Stage();
+        logbookStage.setScene(scene);
+        logbookStage.show();
+        logbookStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+          @Override
+          public void handle(WindowEvent we) {
+              logbookStage.setScene(null);
+          }
+      }); 
+        } else {
+            logbookStage.close();
+            logbookStage = null;
+        }
     }
 
     @FXML
@@ -105,9 +131,33 @@ public class GameController implements Initializable {
         alert.setContentText("There is no info available atm");
         alert.setHeaderText("");
         alert.showAndWait();
+        this.game.printHelp();
+    }
+    
+    @FXML
+    private void continueWelcomeMsg(){
+        if(this.welcomeMsgCounter < this.welcomeMsg.size()){
+            this.GameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter) + "\n");
+            this.welcomeMsgCounter++;
+        } else {
+            this.continueWelcomeMsgBtn.setDisable(true);
+        }
+    }
+    
+    private void getWelcomeText(){
+        this.welcomeMsg = this.game.printWelcome();
+        this.GameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter));
+        this.welcomeMsgCounter++;
     }
     
     private void updateTime(){
         this.TimeLeft.setText(game.getTime());
+    }
+
+    private void addActions() {
+        for(CommandWord CW : CommandWord.values()){
+            this.actionListData.add(CW);
+        }
+        this.ActionListView.setItems(actionListData);
     }
 }

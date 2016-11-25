@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Person {
+public class Person implements ObjectsInRoom{
     private final int ID;
     private final String name; //Name of the person
     private final boolean isMurder; //Is the person the murderer?

@@ -1,4 +1,4 @@
-package Business;
+package GUI;
 
 /**
  * The CommandWord class is where we define new commands for the game.

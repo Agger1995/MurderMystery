@@ -12,7 +12,7 @@ package Business;
  * Item objects are containing information which will be added to the LogBook once inspected.
  * @author chris
  */
-public class Item {
+public class Item implements ObjectsInRoom{
     /**
      * True if an item should be active, meaning it can be picked up. False otherwise.
      */

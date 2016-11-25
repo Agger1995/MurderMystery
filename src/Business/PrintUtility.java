@@ -5,6 +5,7 @@
  */
 package Business;
 
+import GUI.CommandWord;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,51 +24,42 @@ public class PrintUtility {
         this.input = new Scanner(System.in);
     }
 
-    public void printIntroMessage() {
+    public ArrayList<String> printIntroMessage() {
+        ArrayList<String> toReturn = new ArrayList<>();
+        int index = 0;
         for (String s : descriptions) {
-            switch (s) {
-                case "[break]:":
-                    input.nextLine();
-                    break;
-                    
-                case "":
-                    System.out.println("");
-                    break;
-                    
-                default:
-                    System.out.println(s);
-                    break;
-            }
+            toReturn.add(index, s);
+            index++;
         }
-        System.out.println("Here comes a small tutorial on how to play the game.");
-        System.out.println("Press ENTER to begin the tutorial.");
-        input.nextLine();
-        System.out.println("Throughout this game you can use many different commands, they are listed here:");
-        parser.showCommands();
-        System.out.println();
-        System.out.println("You can move around to the different rooms using the command 'go' followed by the exit you want to go to.");
-        System.out.println("Press ENTER to continue.");
-        input.nextLine();
-        System.out.println("Throughout the mansion you will find various items with which you can 'inspect' or 'take'.");
-        System.out.println("You will also find various persons in the mansion, you can 'ask' these persons for clues.");
-        System.out.println("Press ENTER to continue.");
-        input.nextLine();
-        System.out.println("All clues you gather and all items you 'inspect' will be added to your 'logbook'.");
-        System.out.println("You can always look at your logbook with the command 'logbook'.");
-        System.out.println("Use it to make a qualified guess on who the murderer is.");
-        System.out.println("Press ENTER to continue.");
-        input.nextLine();
-        System.out.println("Once you have gathered all the clues from all the persons and gathered all the murder weapons, you can 'accuse' a person.");
-        System.out.println("But beware, you only have 1 accusation. If you pick the wrong person to accuse, you will die and lose the game.");
-        System.out.println("Press ENTER to continue.");
-        input.nextLine();
-        System.out.println("That was all the tutorial had to offer.");
-        System.out.println();
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help, or cannot remember the commandwords.");
-        System.out.println("Let the mysteries begin!");
-        System.out.println("Press ENTER to begin.");
-        input.nextLine();
-
+//        System.out.println("Here comes a small tutorial on how to play the game.");
+//        System.out.println("Press ENTER to begin the tutorial.");
+//        input.nextLine();
+//        System.out.println("Throughout this game you can use many different commands, they are listed here:");
+//        parser.showCommands();
+//        System.out.println();
+//        System.out.println("You can move around to the different rooms using the command 'go' followed by the exit you want to go to.");
+//        System.out.println("Press ENTER to continue.");
+//        input.nextLine();
+//        System.out.println("Throughout the mansion you will find various items with which you can 'inspect' or 'take'.");
+//        System.out.println("You will also find various persons in the mansion, you can 'ask' these persons for clues.");
+//        System.out.println("Press ENTER to continue.");
+//        input.nextLine();
+//        System.out.println("All clues you gather and all items you 'inspect' will be added to your 'logbook'.");
+//        System.out.println("You can always look at your logbook with the command 'logbook'.");
+//        System.out.println("Use it to make a qualified guess on who the murderer is.");
+//        System.out.println("Press ENTER to continue.");
+//        input.nextLine();
+//        System.out.println("Once you have gathered all the clues from all the persons and gathered all the murder weapons, you can 'accuse' a person.");
+//        System.out.println("But beware, you only have 1 accusation. If you pick the wrong person to accuse, you will die and lose the game.");
+//        System.out.println("Press ENTER to continue.");
+//        input.nextLine();
+//        System.out.println("That was all the tutorial had to offer.");
+//        System.out.println();
+//        System.out.println("Type '" + CommandWord.HELP + "' if you need help, or cannot remember the commandwords.");
+//        System.out.println("Let the mysteries begin!");
+//        System.out.println("Press ENTER to begin.");
+//        input.nextLine();
+        return toReturn;
     }
 
     public void printWinMessage() {

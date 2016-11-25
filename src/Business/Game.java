@@ -1,11 +1,13 @@
 package Business;
 
+import GUI.CommandWord;
 import Persistence.ScenarioLoader;
 import Persistence.Highscore;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
+import javafx.scene.control.TextArea;
 
 /**
  * The game class is the class which connects all the classes and uses them appropriately
@@ -27,6 +29,7 @@ public class Game implements PlayAble{
     private boolean timeRanOut;
     private final ArrayList<Room> ROOMS = new ArrayList<>();
     private ArrayList<Person> PERSONS = new ArrayList<>();
+    TextArea gameText;
 
     /**
      * The Game class' constructor
@@ -72,6 +75,9 @@ public class Game implements PlayAble{
             this.whenTimeRunsOut();
             this.generateRandomPersonMovement();
         }
+    }
+    
+    private void afterGameActions() throws FileNotFoundException{
         Scanner input = new Scanner(System.in);
         System.out.println("Press ENTER to continue..");
         input.nextLine();
@@ -112,10 +118,9 @@ public class Game implements PlayAble{
      * Displays the general information regarding the game.
      * Command list and a description of the room the player is in at the beginning.
      */
-    private void printWelcome(){
-        printer.printIntroMessage();
-        System.out.println(currentRoom.getLongDescription());
-        System.out.println("Maybe i should inspect the body for clues.");
+    public ArrayList<String> printWelcome(){
+        return printer.printIntroMessage();// + "\n" + currentRoom.getLongDescription + "\nMaybe i should inspect the body for clues.";
+//        System.out.println(currentRoom.getLongDescription());
     }
 
     /**
@@ -180,8 +185,8 @@ public class Game implements PlayAble{
      * Prints a brief help description about the game and it's objectives.
      * Prints all the commands available to the player.
      */
-    private void printHelp(){
-        printer.printHelp();
+    public void printHelp(){
+        this.gameText.appendText("asdf"/*printer.printHelp()*/);
     }
 
     /**
@@ -506,5 +511,9 @@ public class Game implements PlayAble{
 
     public String getTime() {
         return this.time.getTime();
+    }
+    
+    public void setTextAreaRef(TextArea ref){
+        this.gameText = ref;
     }
 }
