@@ -27,6 +27,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -133,6 +134,8 @@ public class MainMenuController implements Initializable {
         GameController controller = (GameController) loader.getController();
         controller.setGame(game);
         Scene scene = new Scene(root);
+        currentStage.getIcons().add(new Image("Sherlock-Holmes.jpg"));
+        currentStage.setResizable(false);
         currentStage.setScene(scene);
         currentStage.show();
     }

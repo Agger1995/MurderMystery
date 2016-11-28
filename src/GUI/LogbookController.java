@@ -9,6 +9,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
@@ -23,6 +26,8 @@ public class LogbookController implements Initializable {
     private Label WeaponLabel;
     @FXML
     private TextArea LogbookTextArea;
+    @FXML
+    private Button logbookHelpBtn;
 
     /**
      * Initializes the controller class.
@@ -32,8 +37,13 @@ public class LogbookController implements Initializable {
         // TODO
     }    
     
-    public void stop(){
-        
+    @FXML
+    private void onHelpBtn(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Help window");
+        alert.setHeaderText("Help window for logbook screen.");
+        alert.setContentText("Here is explanation for the logbook screen.");
+        alert.showAndWait();
     }
     
 }

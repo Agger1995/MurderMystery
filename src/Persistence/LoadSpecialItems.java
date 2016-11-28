@@ -7,7 +7,7 @@ package Persistence;
 
 import Business.LogBook;
 import Business.Person;
-import Business.PrintUtility;
+import Business.TextHandler;
 import Business.Room;
 import Business.SpecialItem;
 import Business.Time;
@@ -29,7 +29,7 @@ public class LoadSpecialItems extends ScenarioLoader {
     private final int LOAD_ATTRIBUTES = 0;
     private HashMap<String, SpecialItem> specialitems_list;
 
-    public LoadSpecialItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, PrintUtility printer, Time time) {
+    public LoadSpecialItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         specialitems_list = new HashMap();
         load();

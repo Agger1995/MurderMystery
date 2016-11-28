@@ -30,6 +30,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -110,6 +112,8 @@ public class GameController implements Initializable {
         LogbookController controller = (LogbookController) loader.getController();
         Scene scene = new Scene(root);
         logbookStage = new Stage();
+        logbookStage.getIcons().add(new Image("logbook.png"));
+        logbookStage.setResizable(false);
         logbookStage.setScene(scene);
         logbookStage.show();
         logbookStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -140,7 +144,7 @@ public class GameController implements Initializable {
             this.GameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter) + "\n");
             this.welcomeMsgCounter++;
         } else {
-            this.continueWelcomeMsgBtn.setDisable(true);
+            this.continueWelcomeMsgBtn.setOpacity(0);
         }
     }
     
@@ -159,5 +163,9 @@ public class GameController implements Initializable {
             this.actionListData.add(CW);
         }
         this.ActionListView.setItems(actionListData);
+    }
+
+    @FXML
+    private void onGoRoom(KeyEvent event) {
     }
 }

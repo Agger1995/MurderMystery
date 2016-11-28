@@ -19,9 +19,7 @@ public class CommandWords{
     public CommandWords(){
         this.validCommands = new HashMap<String, CommandWord>();
         for(CommandWord command : CommandWord.values()) {
-            if(command != CommandWord.UNKNOWN) {
-                this.validCommands.put(command.toString().toLowerCase(), command);
-            }
+            this.validCommands.put(command.toString().toLowerCase(), command);
         }
     }
     
@@ -33,11 +31,7 @@ public class CommandWords{
      */
     public CommandWord getCommandWord(String commandWord){
         CommandWord command = this.validCommands.get(commandWord);
-        if(command != null) {
-            return command;
-        } else {
-            return CommandWord.UNKNOWN;
-        }
+        return command;
     }
     
     /**
@@ -73,29 +67,8 @@ public class CommandWords{
                     toPrint += command + " <person>, ";
                     break;
                     
-                case "logbook":
-                    toPrint += command + ", ";
-                    toPrint += command + " <weapons>, ";
-                    break;
-                    
                 case "inspect":
                     toPrint += command + " <item>, ";
-                    break;
-                    
-                case "go":
-                    toPrint += command + " <exit>, ";
-                    break;
-                    
-                case "help":
-                    toPrint += command + ", ";
-                    break;
-                    
-                case "inventory":
-                    toPrint += command + ", ";
-                    break;
-                    
-                case "info":
-                    toPrint += command + ", ";
                     break;
                     
                 case "drink":

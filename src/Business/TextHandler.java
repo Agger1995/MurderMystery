@@ -13,13 +13,13 @@ import java.util.Scanner;
  *
  * @author chris
  */
-public class PrintUtility {
+public class TextHandler {
 
     private final Parser parser;
     private final Scanner input;
     private ArrayList<String> descriptions;
 
-    public PrintUtility() {
+    public TextHandler() {
         this.parser = new Parser();
         this.input = new Scanner(System.in);
     }
@@ -62,47 +62,35 @@ public class PrintUtility {
         return toReturn;
     }
 
-    public void printWinMessage() {
-        System.out.println("After that moment, it was like he snapped. From the mansion all the way \n"
-                + "to prison, he had the expression of “regret” plastered all over his face. \n");
-        System.out.println("Press ENTER to continue.");
-        input.nextLine();
-        System.out.println("The murder is now solved, very well done. We hoped you enjoyed our game, if \n"
-                + "not, then return == null. We had a lot of fun making this short game, thank you for playing!\n");
+    public String printWinMessage() {
+        return "After that moment, it was like he snapped. From the mansion all the way \n"
+                + "to prison, he had the expression of “regret” plastered all over his face. \n"
+                + "The murder is now solved, very well done. We hoped you enjoyed our game, if \n"
+                + "not, then return == null. We had a lot of fun making this short game, thank you for playing!\n";
     }
 
-    public void printLoseMessageAcussation() {
-        System.out.println("Well, that was a surprise, you acussed the wrong person. I wonder who did then?\n"
-                + "just as you realise who the correct murdere is, you feel a sharp sting in you bag.\n");
-        System.out.println("Blood arising down you right chest and your vision becomes blurry. "
-                + "The real murderer killed you, you damn fool. ");
+    public String printLoseMessageAcussation() {
+        return "Well, that was a surprise, you acussed the wrong person. I wonder who did then?\n"
+                + "just as you realise who the correct murdere is, you feel a sharp sting in you bag.\n"
+                + "Blood arising down you right chest and your vision becomes blurry. "
+                + "The real murderer killed you, you damn fool. ";
     }
 
-    public void printLoseTimeRanOutMessage() {
-        System.out.println("Fail message if time runs out:\n"
+    public String printLoseTimeRanOutMessage() {
+        return "Fail message if time runs out:\n"
                 + "Oh my, the time! Itâ€™s already kl.08.00, and the cops are arriving,"
                 + "with their usual â€œhardâ€� work and â€œtrusty understanding of Mr. Pheinâ€™s current lossâ€�"
                 + "and subsequently his financial situation I doubt this case will be solved, "
                 + "buried in money and secrets so that Mr. Pheins family name remains intact. "
-                + "It will forever remain a Mystery, a Mystery Mansion.");
+                + "It will forever remain a Mystery, a Mystery Mansion.";
     }
 
-    public void printHelp() {
-        System.out.println("You are the detective at a party.");
-        System.out.println("Your job is to figure out who comitted the murder");
-        System.out.println("Throughout the game you can interact with items and interrogate persons.");
-        System.out.println();
-        System.out.println("Your command words are:");
-        parser.showCommands();
-    }
-
-    void printAccuseErrorMsg() {
-        System.out.println("You haven't gathered enough evidence to point out a murderer yet!\n"
-                + "You ought to ask all the guests and find the murder weapon.\n");
+    public String printAccuseErrorMsg() {
+        return "You haven't gathered enough evidence to point out a murderer yet!\n"
+                + "You ought to ask all the guests and find the murder weapon.\n";
     }
 
     public void setIntroMessage(ArrayList<String> descriptions) {
         this.descriptions = descriptions;
     }
-
 }

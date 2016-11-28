@@ -29,10 +29,11 @@ public class Point {
      * Method which adds pointsToAdd to this.points
      * Also prints a message to the player how many points has been added to the player.
      * @param pointsToAdd int, of the points to add to this.points
+     * @return 
      */
-    public void addPoints(int pointsToAdd){
+    public String addPoints(int pointsToAdd){
         this.points += pointsToAdd;
-        System.out.println("You receive " + pointsToAdd + " points.\n");
+        return "You receive " + pointsToAdd + " points.\n";
     }
     
     /**

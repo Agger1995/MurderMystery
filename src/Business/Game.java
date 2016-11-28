@@ -14,9 +14,9 @@ import javafx.scene.control.TextArea;
  It uses class Item to create new instances of the type Item, the same goes for Person
  * @author chris
  */
-public class Game implements PlayAble{
+public class Game implements iPlay{
     private Parser parser;
-    private PrintUtility printer;
+    private TextHandler textHandler;
     private Room currentRoom; 
     private LogBook logbook;
     private Inventory inventory;
@@ -29,7 +29,7 @@ public class Game implements PlayAble{
     private boolean timeRanOut;
     private final ArrayList<Room> ROOMS = new ArrayList<>();
     private ArrayList<Person> PERSONS = new ArrayList<>();
-    TextArea gameText;
+    private TextArea gameText;
 
     /**
      * The Game class' constructor
@@ -39,9 +39,9 @@ public class Game implements PlayAble{
      */
     public Game(LogBook logToParse, String chosenScenarioPath){
         this.logbook = logToParse;
-        this.printer = new PrintUtility();
+        this.textHandler = new TextHandler();
         this.time = new Time(18*60, 14*60);
-        ScenarioLoader loader = new ScenarioLoader(chosenScenarioPath, logToParse, this.ROOMS, this.PERSONS, printer, time);
+        ScenarioLoader loader = new ScenarioLoader(chosenScenarioPath, logToParse, this.ROOMS, this.PERSONS, textHandler, time);
         loader.load();
         currentRoom = this.ROOMS.get(0);
         this.highScore = new Highscore(chosenScenarioPath);
@@ -71,10 +71,10 @@ public class Game implements PlayAble{
         while (!finished || timeRanOut) {
             System.out.println("kl: " + time.getTime() + "\n");
             Command command = this.parser.getCommand();
-            finished = this.processCommand(command);
-            this.whenTimeRunsOut();
+            //finished = this.processCommand(command);
             this.generateRandomPersonMovement();
         }
+        this.afterGameActions();
     }
     
     private void afterGameActions() throws FileNotFoundException{
@@ -82,20 +82,20 @@ public class Game implements PlayAble{
         System.out.println("Press ENTER to continue..");
         input.nextLine();
         if(isCorrectAccusation){
-            pointSystem.addPoints(100);
-            printer.printWinMessage();
-            pointSystem.addPoints(time.PointsIfWin());
+            this.gameText.appendText(pointSystem.addPoints(100) + "\n");
+            this.gameText.appendText(textHandler.printWinMessage() + "\n");
+            this.gameText.appendText(pointSystem.addPoints(time.PointsIfWin()) + "\n");
         } else if(deadByDrink){
-            pointSystem.addPoints(-100);
+            this.gameText.appendText(pointSystem.addPoints(-100) + "\n");
         } else if(timeRanOut){
-            printer.printLoseTimeRanOutMessage();//if lose you get a lose message
-            pointSystem.addPoints(-100);//if you lose you lose 100 points
+            this.gameText.appendText(textHandler.printLoseTimeRanOutMessage() + "\n");//if lose you get a lose message
+            this.gameText.appendText(pointSystem.addPoints(-100) + "\n");//if you lose you lose 100 points
         } else {
-            printer.printLoseMessageAcussation();
-            pointSystem.addPoints(-100);
+            this.gameText.appendText(textHandler.printLoseMessageAcussation() + "\n");
+            this.gameText.appendText(pointSystem.addPoints(-100) + "\n");
         }
         if(highScore.isFinalPointsHigher(pointSystem.getPoints())){
-            System.out.println("You have earned enough points to get on the highscore.");
+            this.gameText.appendText("You have earned enough points to get on the highscore.\n");
             System.out.println("Please enter your name for the highscore:");
             this.playerName = input.nextLine();
             //try{
@@ -105,7 +105,7 @@ public class Game implements PlayAble{
             //    System.out.println("Error in highscore System");
             //}
         }
-        System.out.println("GAME OVER!");
+        this.gameText.appendText("GAME OVER!");
         //try{
             highScore.readHighscoreTable();
         //} catch(FileNotFoundException fnferr){
@@ -119,7 +119,7 @@ public class Game implements PlayAble{
      * Command list and a description of the room the player is in at the beginning.
      */
     public ArrayList<String> printWelcome(){
-        return printer.printIntroMessage();// + "\n" + currentRoom.getLongDescription + "\nMaybe i should inspect the body for clues.";
+        return textHandler.printIntroMessage();// + "\n" + currentRoom.getLongDescription + "\nMaybe i should inspect the body for clues.";
 //        System.out.println(currentRoom.getLongDescription());
     }
 
@@ -129,21 +129,11 @@ public class Game implements PlayAble{
      * @param command The parameter it takes is a command of type Command. It is checked up against the enum class CommandWord
      * @return false if command is = UNKNOWN, returns false if any of the commands are recognized
      */
-    private boolean processCommand(Command command){
-        boolean wantToQuit = false;
-
+    @Override
+    public void processCommand(Command command){
         CommandWord commandWord = command.getCommandWord();
 
         if (commandWord != null) switch (commandWord) {
-            case HELP:
-                this.printHelp();
-                break;
-            case GO:
-                this.goRoom(command);
-                break;
-            case QUIT:
-                wantToQuit = this.quit(command);
-                break;
             case INSPECT:
                 this.inspect(command);
                 break;
@@ -151,10 +141,7 @@ public class Game implements PlayAble{
                 this.interrogate(command);
                 break;
             case ACCUSE:
-                wantToQuit = this.accuse(command);
-                break;
-            case LOGBOOK:
-                this.printLog(command);
+                this.accuse(command);
                 break;
             case TAKE:
                 this.takeItem(command);
@@ -162,23 +149,13 @@ public class Game implements PlayAble{
             case DROP:
                 this.dropItem(command);
                 break;
-            case INVENTORY:
-                this.inventory();
-                break;
-            case INFORMATION:
-                System.out.println(currentRoom.getLongDescription());
-                break;
             case DRINK:
-                wantToQuit = this.drink(command);
+                this.drink(command);
                 break;
                 
-            case UNKNOWN:
-                System.out.println("Unknown command!");
-                return false;
             default:
                 break;
         }
-        return wantToQuit;
     }
 
     /**
@@ -186,7 +163,7 @@ public class Game implements PlayAble{
      * Prints all the commands available to the player.
      */
     public void printHelp(){
-        this.gameText.appendText("asdf"/*printer.printHelp()*/);
+        this.gameText.appendText("asdf"/*textHandler.printHelp()*/);
     }
 
     /**
@@ -211,13 +188,13 @@ public class Game implements PlayAble{
         if(nextRoom.isLocked() && nextRoom.getlockedFrom().equals(currentRoom)){
             if(inventory.containsItem(nextRoom.getItemToUnlock()) && currentRoom.getShortDescription().equals(nextRoom.getlockedFrom().getShortDescription())){
                 nextRoom.setIsLocked(false);
-                System.out.println("You unlock " + nextRoom.getShortDescription() + " and enter.");
+                this.gameText.appendText("You unlock " + nextRoom.getShortDescription() + " and enter.\n");
                 currentRoom = nextRoom;
                 System.out.println(currentRoom.getLongDescription());
                 time.addMinute(currentRoom.getTimeToMove());
                 return;
             }
-            System.out.println("The door is locked! You need the keys for it.\n");
+            this.gameText.appendText("The door is locked! You need the keys for it.\n");
             return;
         }
         
@@ -232,32 +209,32 @@ public class Game implements PlayAble{
         time.addMinute(currentRoom.getTimeToMove());
     }
     
-    public void inventory(){
-        System.out.println("Your inventory contains: " + inventory.getInventory().size() + " items. Total weight is: " + inventory.getInventorySize() + "/" + inventory.getMaxInventorySize() + ".");
-        if(!inventory.getInventory().isEmpty()){
-            for(Item tempItemObject : inventory.getInventory()){
-                
-                System.out.print(tempItemObject.getName() + ": Weight: " + tempItemObject.getWeight() + ".\n");  // Print information about each item in inventory
-            }
-            System.out.println("\n");
-        }
-    }
+//    public void inventory(){
+//        System.out.println("Your inventory contains: " + inventory.getInventory().size() + " items. Total weight is: " + inventory.getInventorySize() + "/" + inventory.getMaxInventorySize() + ".");
+//        if(!inventory.getInventory().isEmpty()){
+//            for(Item tempItemObject : inventory.getInventory()){
+//                
+//                System.out.print(tempItemObject.getName() + ": Weight: " + tempItemObject.getWeight() + ".\n");  // Print information about each item in inventory
+//            }
+//            System.out.println("\n");
+//        }
+//    }
     
-    public void printLog(Command command){
-        if(command.hasSecondWord()){
-            if("weapons".equals(command.getSecondWord().toLowerCase())){
-                System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
-                if(!logbook.getMurderWeapons().isEmpty()){
-                    for(Item tempItemObject : logbook.getMurderWeapons()){
-                        System.out.print(tempItemObject.getName());
-                    }
-                }
-                System.out.println("\n");
-                return;
-            }
-        }
-        logbook.printAll();
-    }
+//    public void printLog(Command command){
+//        if(command.hasSecondWord()){
+//            if("weapons".equals(command.getSecondWord().toLowerCase())){
+//                System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
+//                if(!logbook.getMurderWeapons().isEmpty()){
+//                    for(Item tempItemObject : logbook.getMurderWeapons()){
+//                        System.out.print(tempItemObject.getName());
+//                    }
+//                }
+//                System.out.println("\n");
+//                return;
+//            }
+//        }
+//        logbook.printAll();
+//    }
 
     public void dropItem(Command command){
         if(command.hasSecondWord()){
@@ -265,7 +242,7 @@ public class Game implements PlayAble{
                 if(tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())){
                     inventory.removeItem(tempItemObject);
                     currentRoom.addItem(tempItemObject);
-                    System.out.println("You have dropped: " + tempItemObject.getName() + "\n");
+                    this.gameText.appendText("You have dropped: " + tempItemObject.getName() + "\n");
                     time.addMinute(tempItemObject.getTimeToTake());
                     return;
                 }
@@ -282,20 +259,20 @@ public class Game implements PlayAble{
         }
     }
     
-    private boolean quit(Command command){
-        if(command.hasSecondWord()) {
-            System.out.println("Quit what?\n");
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    private boolean quit(Command command){
+//        if(command.hasSecondWord()) {
+//            System.out.println("Quit what?\n");
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     private void inspect(Command command) {
         if(command.hasSecondWord()){
             for(Item tempItemObject : currentRoom.getItems()){
                 if(tempItemObject.getName().equals(command.getSecondWord())){
-                    System.out.println(tempItemObject.getMsgOnInspect());
+                    this.gameText.appendText(tempItemObject.getMsgOnInspect() + "\n");
                     if(!tempItemObject.isInspected()){
                         tempItemObject.setHasBeenInspected(true);
                         pointSystem.addPoints(1);
@@ -306,7 +283,7 @@ public class Game implements PlayAble{
             }
             for(SpecialItem tempSpecialItemObject : currentRoom.getSpecialItems()){
                 if(tempSpecialItemObject.getName().equals(command.getSecondWord())){
-                    System.out.println(tempSpecialItemObject.getMsgOnInspect());
+                    this.gameText.appendText(tempSpecialItemObject.getMsgOnInspect() + "\n");
                     if(!tempSpecialItemObject.isInspected()){
                         tempSpecialItemObject.setHasBeenInspected(true);
                         pointSystem.addPoints(1);
@@ -332,7 +309,7 @@ public class Game implements PlayAble{
                 if(tempItemObject.getName().equals(command.getSecondWord())){
                     if(tempItemObject.isActive()){
                         if(inventory.isInventoryFull(tempItemObject.getWeight())){
-                            System.out.println(tempItemObject.getMsgOnPickup() + ". It weights: " + tempItemObject.getWeight() + "\n");
+                            this.gameText.appendText(tempItemObject.getMsgOnPickup() + ". It weights: " + tempItemObject.getWeight() + "\n");
                             inventory.addInventory(tempItemObject);
                             if(tempItemObject.isMurderweapon()){
                                 logbook.addMurderWeapons(tempItemObject);
@@ -340,10 +317,10 @@ public class Game implements PlayAble{
                             itemToRemoveFromRoom = tempItemObject;
                             time.addMinute(tempItemObject.getTimeToTake());
                         } else {
-                            System.out.println("Inventory is full! You are carrying to much weight.\n");
+                            this.gameText.appendText("Inventory is full! You are carrying to much weight.\n");
                         }
                     } else {
-                        System.out.println("You could not pick up the " + tempItemObject.getName() + "\n");
+                        this.gameText.appendText("You could not pick up the " + tempItemObject.getName() + "\n");
                     }
                 }
             }
@@ -355,7 +332,7 @@ public class Game implements PlayAble{
                 if(tempSpecialItemObject.getName().equals(command.getSecondWord())){
                     if(tempSpecialItemObject.isActive()){
                         if(inventory.isInventoryFull(tempSpecialItemObject.getWeight())){
-                            System.out.println(tempSpecialItemObject.getMsgOnPickup() + ". It weights: " + tempSpecialItemObject.getWeight() + "\n");
+                            this.gameText.appendText(tempSpecialItemObject.getMsgOnPickup() + ". It weights: " + tempSpecialItemObject.getWeight() + "\n");
                             inventory.addInventory(tempSpecialItemObject);
                             if(tempSpecialItemObject.isMurderweapon()){
                                 logbook.addMurderWeapons(tempSpecialItemObject);
@@ -363,10 +340,10 @@ public class Game implements PlayAble{
                             itemToRemoveFromRoom = tempSpecialItemObject;
                             time.addMinute(tempSpecialItemObject.getTimeToTake());
                         } else {
-                            System.out.println("Inventory is full! You are carrying to much weight.\n");
+                            this.gameText.appendText("Inventory is full! You are carrying to much weight.\n");
                         }
                     } else {
-                        System.out.println("You could not pick up the " + tempSpecialItemObject.getName() + "\n");
+                        this.gameText.appendText("You could not pick up the " + tempSpecialItemObject.getName() + "\n");
                     }
                 }
             }
@@ -410,7 +387,7 @@ public class Game implements PlayAble{
             System.out.println("There is no person here named: " + command.getSecondWord() + "\n");
             return false;
         }
-        printer.printAccuseErrorMsg();
+        this.gameText.appendText(textHandler.printAccuseErrorMsg() + "\n");
         return false;
     }
 
@@ -461,16 +438,16 @@ public class Game implements PlayAble{
                     if(logbook.isDrinkMax()){//tjek if max drink is true
                         logbook.addDrink();//if max drik true, we add 1 to drinkCount
                     } else{
-                        System.out.println("*Drink* I feel kind of wierd maybe i shouldn't have been drinking so much tonight.");//if drink is > maxDrink den we die
+                        this.gameText.appendText("*Drink* I feel kind of wierd maybe i shouldn't have been drinking so much tonight.\n");//if drink is > maxDrink den we die
                        deadByDrink = true; //end game
                        time.addMinute(tempItemObject.getTimeToDrink());
                        return true;
                     }
-                    System.out.println("*Drink* mmmm... that was a good tasting " + command.getSecondWord() + ".\n");//if drink is < maxDrink den we drink
+                    this.gameText.appendText("*Drink* mmmm... that was a good tasting " + command.getSecondWord() + ".\n");//if drink is < maxDrink den we drink
                     time.addMinute(tempItemObject.getTimeToDrink());
                     return false; //continue game
                 } else {
-                   System.out.println("You can not drink the " + command.getSecondWord() + ".\n");//if the item is not drikabel we can't drink it
+                   this.gameText.appendText("You can not drink the " + command.getSecondWord() + ".\n");//if the item is not drikabel we can't drink it
                    return false; //continue game
                 }
             }
@@ -478,13 +455,16 @@ public class Game implements PlayAble{
        return false;//continue game
     }
     
-    private void whenTimeRunsOut(){
+    @Override
+    public boolean timeRunsOut(){
         if (time.getTimeElapsed() >= 14*60){//time runs out at kl: 08:00
-            timeRanOut = true; //end game
+            return true; //end game
         }
+        return false;
     }
     
-    private void generateRandomPersonMovement(){
+    @Override
+    public void generateRandomPersonMovement(){
         if((int) (Math.random() * 4) == 0){
             Set<String> nearbyRooms = currentRoom.getAllExits().keySet();
             ArrayList<Person> personsWhoCantMove = new ArrayList<>();

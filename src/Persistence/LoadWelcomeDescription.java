@@ -5,7 +5,7 @@
  */
 package Persistence;
 
-import Business.PrintUtility;
+import Business.TextHandler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,9 +22,9 @@ public class LoadWelcomeDescription {
 
     private ArrayList<String> descriptions;
     private String path;
-    private PrintUtility printer;
+    private TextHandler printer;
 
-    public LoadWelcomeDescription(String path, PrintUtility printer) {
+    public LoadWelcomeDescription(String path, TextHandler printer) {
         this.descriptions = new ArrayList();
         this.path = path;
         this.printer = printer;

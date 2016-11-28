@@ -7,7 +7,7 @@ package Persistence;
 
 import Business.LogBook;
 import Business.Person;
-import Business.PrintUtility;
+import Business.TextHandler;
 import Business.Room;
 import Business.Time;
 import java.io.File;
@@ -28,7 +28,7 @@ public final class LoadRooms extends ScenarioLoader {
     private final int LOAD_ATTRIBUTES = 0;
     private final int LOAD_CONNECTIONS = 1;
 
-    public LoadRooms(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, PrintUtility printer, Time time) {
+    public LoadRooms(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         load();
     }

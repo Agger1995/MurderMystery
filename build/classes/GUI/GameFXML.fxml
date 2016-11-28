@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="860.0" style="-fx-background-color: #889FCB;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GameController">
+<AnchorPane id="AnchorPane" onKeyPressed="#onGoRoom" prefHeight="640.0" prefWidth="860.0" style="-fx-background-color: #889FCB;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GameController">
    <children>
       <ListView fx:id="ActionListView" layoutX="685.0" layoutY="509.0" prefHeight="109.0" prefWidth="158.0" style="-fx-background-color: #DEE2D7; -fx-border-color: #000000;" />
       <TextField fx:id="TimeLeft" editable="false" layoutX="654.0" layoutY="11.0" prefHeight="39.0" prefWidth="189.0" style="-fx-background-color: #71869B; -fx-border-color: #000000;" />

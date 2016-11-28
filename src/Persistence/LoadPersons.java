@@ -7,7 +7,7 @@ package Persistence;
 
 import Business.LogBook;
 import Business.Person;
-import Business.PrintUtility;
+import Business.TextHandler;
 import Business.Room;
 import Business.Time;
 import java.io.File;
@@ -29,7 +29,7 @@ public final class LoadPersons extends ScenarioLoader {
     private final int LOAD_QUESTIONS = 1;
     private final int LOAD_ANSWERS = 2;
 
-    public LoadPersons(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, PrintUtility printer, Time time) {
+    public LoadPersons(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         load();
     }

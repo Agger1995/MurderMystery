@@ -8,7 +8,7 @@ package Persistence;
 import Business.Item;
 import Business.LogBook;
 import Business.Person;
-import Business.PrintUtility;
+import Business.TextHandler;
 import Business.Room;
 import Business.Time;
 import java.io.File;
@@ -30,7 +30,7 @@ public final class LoadItems extends ScenarioLoader {
     private final int LOAD_ATTRIBUTES = 0;
     private HashMap<String, Item> items_list;
 
-    public LoadItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, PrintUtility printer, Time time) {
+    public LoadItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         items_list = new HashMap();
         load();

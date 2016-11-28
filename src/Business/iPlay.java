@@ -9,6 +9,10 @@ package Business;
  *
  * @author chris
  */
-public interface PlayAble {
+public interface iPlay {
+    public void processCommand(Command cmd);
     
+    // Methods to run after every action
+    public boolean timeRunsOut();
+    public void generateRandomPersonMovement();
 }

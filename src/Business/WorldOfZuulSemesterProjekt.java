@@ -21,9 +21,10 @@ public class WorldOfZuulSemesterProjekt {
     /**
      * Main method, the game is initialized from here, nothing more.
      *
-     * @param args the command line arguments
+     * @throws java.io.FileNotFoundException
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    //public static void main(String[] args) throws FileNotFoundException {
+    public void oldStartGame() throws FileNotFoundException{
         Scanner userInput = new Scanner(System.in);
         boolean chosen = false;
 

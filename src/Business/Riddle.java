@@ -26,12 +26,6 @@ public class Riddle {
     private String correctAnswer; //one answer per riddle
     private String[] wrongAnswers = new String[2]; //2 wrong answers pr riddle.
 
-    /**
-     *
-     */
-    public Riddle() {
-    }
-
     private static void load() {
 
         File file = new File(path+"/riddles.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.

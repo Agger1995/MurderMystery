@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -26,6 +27,8 @@ public class GUIMain extends Application {
         controller.setCurrentStage(primaryStage);
         Scene scene = new Scene(root);
         
+        primaryStage.getIcons().add(new Image("Sherlock-Holmes.jpg"));
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
