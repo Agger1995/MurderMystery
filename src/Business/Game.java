@@ -49,6 +49,9 @@ public class Game{
         this.deadByDrink = false;
         this.inventory = new Inventory(10);
         this.parser = new Parser();
+        
+        //this.logbook.addItemDescription(currentRoom.getSpecialItems().get(0),currentRoom.getSpecialItems().get(0).getKeyWords());                           // logbook gui test
+        this.logbook.addPersonResponse(this.PERSONS.get(0));     // logbook gui test
     }
     
     /**
@@ -117,6 +120,7 @@ public class Game{
      * The game's welcome message. printWelcome() is called when game.play(); is called.
      * Displays the general information regarding the game.
      * Command list and a description of the room the player is in at the beginning.
+     * @return 
      */
     public ArrayList<String> printWelcome(){
         return printer.printIntroMessage();// + "\n" + currentRoom.getLongDescription + "\nMaybe i should inspect the body for clues.";
@@ -135,15 +139,6 @@ public class Game{
         CommandWord commandWord = command.getCommandWord();
 
         if (commandWord != null) switch (commandWord) {
-            case HELP:
-                this.printHelp();
-                break;
-            case GO:
-                this.goRoom(command);
-                break;
-            case QUIT:
-                wantToQuit = this.quit(command);
-                break;
             case INSPECT:
                 this.inspect(command);
                 break;
@@ -153,28 +148,15 @@ public class Game{
             case ACCUSE:
                 wantToQuit = this.accuse(command);
                 break;
-            case LOGBOOK:
-                this.printLog(command);
-                break;
             case TAKE:
                 this.takeItem(command);
                 break;
             case DROP:
                 this.dropItem(command);
                 break;
-            case INVENTORY:
-                this.inventory();
-                break;
-            case INFORMATION:
-                System.out.println(currentRoom.getLongDescription());
-                break;
             case DRINK:
                 wantToQuit = this.drink(command);
                 break;
-                
-            case UNKNOWN:
-                System.out.println("Unknown command!");
-                return false;
             default:
                 break;
         }
@@ -232,32 +214,32 @@ public class Game{
         time.addMinute(currentRoom.getTimeToMove());
     }
     
-    public void inventory(){
-        System.out.println("Your inventory contains: " + inventory.getInventory().size() + " items. Total weight is: " + inventory.getInventorySize() + "/" + inventory.getMaxInventorySize() + ".");
-        if(!inventory.getInventory().isEmpty()){
-            for(Item tempItemObject : inventory.getInventory()){
-                
-                System.out.print(tempItemObject.getName() + ": Weight: " + tempItemObject.getWeight() + ".\n");  // Print information about each item in inventory
-            }
-            System.out.println("\n");
-        }
-    }
+//    public void inventory(){
+//        System.out.println("Your inventory contains: " + inventory.getInventory().size() + " items. Total weight is: " + inventory.getInventorySize() + "/" + inventory.getMaxInventorySize() + ".");
+//        if(!inventory.getInventory().isEmpty()){
+//            for(Item tempItemObject : inventory.getInventory()){
+//                
+//                System.out.print(tempItemObject.getName() + ": Weight: " + tempItemObject.getWeight() + ".\n");  // Print information about each item in inventory
+//            }
+//            System.out.println("\n");
+//        }
+//    }
     
-    public void printLog(Command command){
-        if(command.hasSecondWord()){
-            if("weapons".equals(command.getSecondWord().toLowerCase())){
-                System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
-                if(!logbook.getMurderWeapons().isEmpty()){
-                    for(Item tempItemObject : logbook.getMurderWeapons()){
-                        System.out.print(tempItemObject.getName());
-                    }
-                }
-                System.out.println("\n");
-                return;
-            }
-        }
-        logbook.printAll();
-    }
+//    public void printLog(Command command){
+//        if(command.hasSecondWord()){
+//            if("weapons".equals(command.getSecondWord().toLowerCase())){
+//                System.out.println("You have found " + logbook.getMurderWeapons().size() + " potential murder weapons.");
+//                if(!logbook.getMurderWeapons().isEmpty()){
+//                    for(Item tempItemObject : logbook.getMurderWeapons()){
+//                        System.out.print(tempItemObject.getName());
+//                    }
+//                }
+//                System.out.println("\n");
+//                return;
+//            }
+//        }
+//        //logbook.printAll();
+//    }
 
     public void dropItem(Command command){
         if(command.hasSecondWord()){
@@ -282,14 +264,14 @@ public class Game{
         }
     }
     
-    private boolean quit(Command command){
-        if(command.hasSecondWord()) {
-            System.out.println("Quit what?\n");
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    private boolean quit(Command command){
+//        if(command.hasSecondWord()) {
+//            System.out.println("Quit what?\n");
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
     
     private void handleInspection(Item workItem){
         System.out.println(workItem.getMsgOnInspect());
@@ -440,7 +422,7 @@ public class Game{
                     logBookStringToAdd += tempPersonObject.getPersonKeywordsForQuestion(tempPersonObject.chosenAnswer);
                     if(tempPersonObject.chosenAnswer !=4){
                         time.addMinute(tempPersonObject.getTimeItTakes());//we add 5 minuts for each question we ask the suspect. (- farewell option)
-                        tempPersonObject.addToLogBook(logBookStringToAdd);
+                        tempPersonObject.addToLogBook();
                     }
                 }
                 System.out.println(currentRoom.getLongDescription());
@@ -526,8 +508,10 @@ public class Game{
     public ArrayList<Interactable> getObjectsInCurrentRoom() {
         ArrayList<Interactable> allObjects = new ArrayList();
         ArrayList<Interactable> items = (ArrayList<Interactable>)(ArrayList<?>)currentRoom.getItems();
+        ArrayList<Interactable> specialItems = (ArrayList<Interactable>) (ArrayList<?>) currentRoom.getSpecialItems();
         ArrayList<Interactable> persons = (ArrayList<Interactable>)(ArrayList<?>)currentRoom.getPersonsInRoom();
         allObjects.addAll(persons);
+        allObjects.addAll(specialItems);
         allObjects.addAll(items);
         return allObjects;
     }

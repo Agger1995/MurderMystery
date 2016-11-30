@@ -193,7 +193,7 @@ public class Item implements Interactable{
      * @return String of this items msgOnInspect
      */
     public String getMsgOnInspect(){
-        this.LogConnection.addItemDescription(this, this.getKeyWords());
+        this.LogConnection.addItemDescription(this);
         return this.msgOnInspect;
     }
     

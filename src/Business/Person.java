@@ -147,8 +147,8 @@ public class Person implements Interactable{
         this.keyWords.put(3,keyWords3);
     }
 
-    void addToLogBook(String logBookStringToAdd) {
-        this.LogConnection.addPersonResponse(this, logBookStringToAdd);
+    void addToLogBook() {
+        this.LogConnection.addPersonResponse(this);
     }
     @Override
     public String toString()

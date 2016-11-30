@@ -14,7 +14,7 @@ import javafx.util.Pair;
  * This class extends from Item, because we wish to treat these SpecialItems alike normal Items, only with a few more attributes connected.
  * @author Laura
  */
-public class SpecialItem extends Item {
+public class SpecialItem extends Item implements Interactable {
     /**
      * True if this Item is a secret entrace, meaning that upon inspection a secret entrance will appear in the Room where this SpecialItem is placed.
      */

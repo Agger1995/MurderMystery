@@ -11,14 +11,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #889FCB;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LogbookController">
    <children>
-      <Label fx:id="WeaponLabel" layoutX="53.0" layoutY="26.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" text="Weapons found:" />
-      <ListView layoutX="17.0" layoutY="53.0" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
-      <ListView layoutX="410.0" layoutY="53.0" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
-      <ListView layoutX="212.0" layoutY="53.0" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
-      <TextArea fx:id="LogbookTextArea" layoutX="14.0" layoutY="280.0" prefHeight="85.0" prefWidth="573.0" style="-fx-border-color: #000000; -fx-background-color: #71869B;" />
-      <Label layoutX="249.0" layoutY="26.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" text="People talked to:" />
-      <Label layoutX="446.0" layoutY="26.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" text="Items Inspected:" />
-      <Button fx:id="logbookHelpBtn" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#onHelpBtn" text="?">
+      <Label alignment="CENTER" layoutX="17.0" layoutY="26.0" prefHeight="19.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" text="Weapons found:" />
+      <ListView fx:id="weaponListView" layoutX="17.0" layoutY="53.0" onMouseClicked="#listViewListener" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
+      <ListView fx:id="itemListView" layoutX="410.0" layoutY="53.0" onMouseClicked="#listViewListener" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
+      <ListView fx:id="personListView" layoutX="212.0" layoutY="53.0" onMouseClicked="#listViewListener" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
+      <TextArea fx:id="logbookTextArea" editable="false" layoutX="16.0" layoutY="273.0" prefHeight="85.0" prefWidth="571.0" style="-fx-border-color: #000000; -fx-background-color: #71869B;" />
+      <Label alignment="CENTER" layoutX="212.0" layoutY="26.0" prefHeight="19.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" text="Persons talked to:" />
+      <Label alignment="CENTER" layoutX="410.0" layoutY="26.0" prefHeight="19.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" text="Items Inspected:" />
+      <Button fx:id="logbookHelpBtn" layoutX="14.0" layoutY="365.0" mnemonicParsing="false" onAction="#onHelpBtn" prefHeight="19.0" prefWidth="22.0" text="?">
          <font>
             <Font size="14.0" />
          </font>

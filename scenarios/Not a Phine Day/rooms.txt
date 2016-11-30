@@ -1,10 +1,10 @@
 [Room]:
-bathroom
+ballroom
 5
 false
 false
 [Room]:
-ballroom
+bathroom
 5
 false
 false

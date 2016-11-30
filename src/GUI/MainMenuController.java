@@ -12,13 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import Business.*;
 import Persistence.Highscore;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Optional;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,6 +35,7 @@ import javafx.stage.Stage;
  */
 public class MainMenuController implements Initializable {
     private Game game;
+    private LogBook logbook;
     private Highscore highscore;
     private Stage currentStage;
     @FXML
@@ -103,8 +102,8 @@ public class MainMenuController implements Initializable {
 
             Riddle.setPath(scenarioPath); //Sets the path for the riddles.
 
-            LogBook log = new LogBook();
-            game = new Game(log, scenarioPath);
+            this.logbook = new LogBook();
+            this.game = new Game(logbook, scenarioPath);
 
             this.highscore = game.getHighscoreRef();
             this.ChosenScenarioLabel.setText(chosen.get().getText());
@@ -131,10 +130,11 @@ public class MainMenuController implements Initializable {
     private void handlePlayButton() throws Exception {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResource("GameFXML.fxml").openStream());
-        GameController controller = (GameController) loader.getController();
-        controller.setGame(game);
+        GameController gameController = (GameController) loader.getController();
+        gameController.setRefs(this.game, this.logbook);
         Scene scene = new Scene(root);
-        currentStage.getIcons().add(new Image("Sherlock-Holmes.jpg"));
+        currentStage.getIcons().add(new Image("gameIcon.jpg"));
+        currentStage.setTitle("Murder Mystery");
         currentStage.setResizable(false);
         currentStage.setScene(scene);
         currentStage.show();

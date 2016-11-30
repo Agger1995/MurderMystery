@@ -7,11 +7,14 @@ package GUI;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -27,10 +30,18 @@ public class GUIMain extends Application {
         controller.setCurrentStage(primaryStage);
         Scene scene = new Scene(root);
         
-        primaryStage.getIcons().add(new Image("Sherlock-Holmes.jpg"));
+        primaryStage.getIcons().add(new Image("gameIcon.jpg"));
         primaryStage.setResizable(false);
+        primaryStage.setTitle("Main Menu");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+            }
+        });
+        
     }
 
     /**

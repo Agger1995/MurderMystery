@@ -14,8 +14,10 @@ import java.util.Set;
  * @author chris
  */
 public class LogBook {
-    private HashMap<Person, String> responses;
-    private HashMap<Item, String> itemsInspected;
+    //private HashMap<Person, String> responses;
+    //private HashMap<Item, String> itemsInspected;
+    private ArrayList<Person> responses;
+    private ArrayList<Item> itemsInspected;
     private ArrayList<Item> murderWeapons;
     private int currentDrink;
     private final int maxDrink;
@@ -23,9 +25,11 @@ public class LogBook {
     public LogBook(){
         this.maxDrink = 3;
         this.currentDrink = 0;
-        this.responses = new HashMap<>();
+        //this.responses = new HashMap<>();
         this.murderWeapons = new ArrayList<>();
-        this.itemsInspected = new HashMap<>();
+        //this.itemsInspected = new HashMap<>();
+        this.responses = new ArrayList<>();
+        this.itemsInspected = new ArrayList<>();
     }
     
     /**
@@ -36,8 +40,30 @@ public class LogBook {
         return this.murderWeapons;
     }
     
-    public void addPersonResponse(Person personToAdd, String keyWords){
+    /*public Set<Person> getPersons(){
+        return this.responses.keySet();
+    }
+    
+    public Set<Item> getItems(){
+        return this.itemsInspected.keySet();
+    }*/
+    
+    public ArrayList<Item> getItems(){
+        return this.itemsInspected;
+    }
+    
+    public ArrayList<Person> getPersons(){
+        return this.responses;
+    }
+    
+    /*public void addPersonResponse(Person personToAdd, String keyWords){
         this.responses.put(personToAdd, keyWords);
+    }*/
+    
+    public void addPersonResponse(Person personToAdd){
+        if(!this.responses.contains(personToAdd)){
+            this.responses.add(personToAdd);
+        }
     }
     
     public boolean askedAllPersons(){
@@ -48,16 +74,25 @@ public class LogBook {
         return this.murderWeapons.size() == 5;
     }
     
-    public void addItemDescription(Item itemToAdd, String keyWords){
+    /*public void addItemDescription(Item itemToAdd, String keyWords){
         if(!this.itemsInspected.containsKey(itemToAdd)){
             this.itemsInspected.put(itemToAdd,keyWords);
+        }
+    }*/
+    
+    public void addItemDescription(Item itemToAdd){
+        if(!this.itemsInspected.contains(itemToAdd)){
+            this.itemsInspected.add(itemToAdd);
         }
     }
     
     public void addMurderWeapons(Item itemToAdd){
-        this.murderWeapons.add(itemToAdd);
+        if(!this.murderWeapons.contains(itemToAdd)){
+            this.murderWeapons.add(itemToAdd);
+        }
     }
 
+    /*
     public void printAll() {
         if(this.responses.isEmpty() && this.itemsInspected.isEmpty()){
             System.out.println("You haven't inspected nor interrogated anything yet.");
@@ -91,6 +126,7 @@ public class LogBook {
         }
         System.out.println("\n");
     }
+*/
 
     public void addDrink() {
         this.currentDrink++;

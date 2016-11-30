@@ -7,7 +7,6 @@ package GUI;
 
 import Business.Command;
 import Business.Game;
-import Business.Item;
 import Business.LogBook;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,8 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import com.sun.javafx.property.adapter.PropertyDescriptor.Listener;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.Event;
@@ -37,6 +34,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import Business.Interactable;
 import Business.Inventory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.image.Image;
 
 /**
  * FXML Controller class
@@ -48,6 +48,7 @@ public class GameController implements Initializable {
     private Game game;
     private LogBook logbook;
     private Stage logbookStage;
+    private LogbookController logbookController;
     private ListView chosenList;
     ObservableList<CommandWord> actionListData = FXCollections.observableArrayList();
     ArrayList<String> welcomeMsg;
@@ -79,16 +80,55 @@ public class GameController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
     }
 
-    void setGame(Game game) {
+    void setRefs(Game game, LogBook logbook) {
         this.game = game;
+        this.logbook = logbook;
         this.game.setTextAreaRef(GameText);
         this.updateTime();
         this.addActions();
         this.getWelcomeText();
         this.updateObjects();
+        this.openLogbook();
+    }
+    
+    private void openLogbook(){
+        FXMLLoader loader = new FXMLLoader();
+        Parent root;
+        try {
+            root = loader.load(getClass().getResource("LogbookFXML.fxml").openStream());
+            LogbookController logController = (LogbookController) loader.getController();
+            logController.setRef(this.logbook);
+            this.logbookController = logController;
+            Scene scene = new Scene(root);
+            logbookStage = new Stage();
+            logbookStage.getIcons().add(new Image("logbook.png"));
+            logbookStage.setResizable(false);
+            logbookStage.setScene(scene);
+            logbookStage.setAlwaysOnTop(true);
+            logbookStage.setTitle("Logbook");
+            logbookStage.setX(30);
+            logbookStage.setY(200);
+            logbookStage.show();
+            logbookStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    event.consume();
+                    
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    alertStage.getIcons().add(new Image("logbook.png"));
+                    alert.setTitle("");
+                    alert.setHeaderText("");
+                    alert.setContentText("You cannot close the logbook window.\nYou need it throughout the game.");
+                    alert.show();
+                }
+            });
+        } catch (IOException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -111,27 +151,31 @@ public class GameController implements Initializable {
     private void onNorth(ActionEvent event) {
     }
 
-    @FXML
-    private void onLogbook(ActionEvent event) throws IOException {
-        if (logbookStage == null || logbookStage.getScene() == null) {
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.load(getClass().getResource("LogbookFXML.fxml").openStream());
-            LogbookController controller = (LogbookController) loader.getController();
-            Scene scene = new Scene(root);
-            logbookStage = new Stage();
-            logbookStage.setScene(scene);
-            logbookStage.show();
-            logbookStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent we) {
-                    logbookStage.setScene(null);
-                }
-            });
-        } else {
-            logbookStage.close();
-            logbookStage = null;
-        }
-    }
+//    @FXML
+//    private void onLogbook(ActionEvent event) throws IOException {
+//        if (logbookStage == null || logbookStage.getScene() == null) {
+//            FXMLLoader loader = new FXMLLoader();
+//            Parent root = loader.load(getClass().getResource("LogbookFXML.fxml").openStream());
+//            LogbookController logController = (LogbookController) loader.getController();
+//            logController.setRef(this.logbook);
+//            this.logbookController = logController;
+//            Scene scene = new Scene(root);
+//            logbookStage = new Stage();
+//            logbookStage.getIcons().add(new Image("logbook.png"));
+//            logbookStage.setResizable(false);
+//            logbookStage.setScene(scene);
+//            logbookStage.show();
+//            logbookStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//                @Override
+//                public void handle(WindowEvent we) {
+//                    logbookStage.setScene(null);
+//                }
+//            });
+//        } else {
+//            logbookStage.close();
+//            logbookStage = null;
+//        }
+//    }
 
     @FXML
     private void OnHelp(ActionEvent event) {
@@ -149,7 +193,8 @@ public class GameController implements Initializable {
             this.GameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter) + "\n");
             this.welcomeMsgCounter++;
         } else {
-            this.continueWelcomeMsgBtn.setDisable(true);
+            this.continueWelcomeMsgBtn.setOpacity(0);
+            this.GameText.setPrefHeight(320);
         }
     }
 
@@ -172,6 +217,7 @@ public class GameController implements Initializable {
     
     private void handleEndCycleUpdates(){
         this.updateTime();
+        this.logbookController.updateListViews();
     }
 
     //method that add all objects in the current room @Laura
@@ -200,7 +246,8 @@ public class GameController implements Initializable {
         Object item1 = this.chosenList.getSelectionModel().getSelectedItem();
         String item_type = item1.getClass().getName().split("Business.")[1]; //Gets the class name and later uses it
         this.actionListView.getItems().clear();
-        if (item_type.compareTo("Item") == 0) {
+        
+        if (item_type.compareTo("Item") == 0 || item_type.compareTo("SpecialItem") == 0) {
             if (e.getSource().equals(objectsInRoomList)) {
                 this.actionListData.add(CommandWord.INSPECT);
                 this.actionListData.add(CommandWord.TAKE);

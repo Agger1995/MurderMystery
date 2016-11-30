@@ -12,8 +12,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import Business.Item;
+import Business.Person;
+import Business.LogBook;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
 
 /**
  * FXML Controller class
@@ -21,29 +27,91 @@ import javafx.scene.control.TextArea;
  * @author amaliehoff
  */
 public class LogbookController implements Initializable {
-
-    @FXML
-    private Label WeaponLabel;
-    @FXML
-    private TextArea LogbookTextArea;
+    private LogBook logbook;
+    ObservableList<Item> weaponListViewData = FXCollections.observableArrayList();
+    ObservableList<Item> itemListViewData = FXCollections.observableArrayList();
+    ObservableList<Person> personListViewData = FXCollections.observableArrayList();
     @FXML
     private Button logbookHelpBtn;
+    @FXML
+    private ListView<Item> weaponListView;
+    @FXML
+    private ListView<Item> itemListView;
+    @FXML
+    private ListView<Person> personListView;
+    @FXML
+    private TextArea logbookTextArea;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        
+    }
+    
+    public void setRef(LogBook logbook){
+        this.logbook = logbook;
+        this.initialViewOfLists();
+    }
+    
+    private void initialViewOfLists(){
+        this.itemListView.getItems().clear();
+        this.personListView.getItems().clear();
+        this.weaponListView.getItems().clear();
+        this.itemListViewData.clear();
+        this.personListViewData.clear();
+        this.weaponListViewData.clear();
+        for(Item tempItem : this.logbook.getMurderWeapons()){
+            if(tempItem != null){
+                this.weaponListViewData.add(tempItem);
+            }
+        }
+        for(Person tempPerson : this.logbook.getPersons()){
+            if(tempPerson != null){
+                this.personListViewData.add(tempPerson);
+            }
+        }
+        
+        for(Item tempItem : this.logbook.getItems()){
+            if(tempItem != null){
+                this.itemListViewData.add(tempItem);
+            }
+        }
+        this.itemListView.getItems().addAll(itemListViewData);
+        this.personListView.getItems().addAll(personListViewData);
+        this.weaponListView.getItems().addAll(weaponListViewData);
+    }
+    
+    public void updateListViews(){
+        this.initialViewOfLists();
+    }
+    
+    @FXML
+    private void listViewListener(Event e){
+        this.logbookTextArea.clear();
+        ListView<?> source = (ListView)e.getSource();
+        if(source.getSelectionModel().getSelectedItem() == null){
+            return;
+        }
+        if(e.getSource() == itemListView){
+            this.logbookTextArea.appendText(this.itemListView.getSelectionModel().getSelectedItem().getMsgOnInspect());
+        } else if(e.getSource() == personListView){
+            this.logbookTextArea.appendText(this.personListView.getSelectionModel().getSelectedItem().getName() + " : " + this.personListView.getSelectionModel().getSelectedItem().getKeyWords(0));
+        } else if(e.getSource() == weaponListView){
+            this.logbookTextArea.appendText(this.weaponListView.getSelectionModel().getSelectedItem().getMsgOnInspect() + "\n" + this.weaponListView.getSelectionModel().getSelectedItem().getKeyWords());
+        }
+    }
     
     @FXML
     private void onHelpBtn(){
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Help window");
-        alert.setHeaderText("Help window for logbook screen.");
+        alert.setTitle("Logbook Help Screen");
+        alert.setHeaderText("Here you can read about the logbook screen \nand how you can benefit from it.");
         alert.setContentText("Here is explanation for the logbook screen.");
         alert.showAndWait();
     }
+    
+    
     
 }
