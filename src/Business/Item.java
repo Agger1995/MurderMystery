@@ -12,7 +12,7 @@ package Business;
  * Item objects are containing information which will be added to the LogBook once inspected.
  * @author chris
  */
-public class Item implements ObjectsInRoom{
+public class Item implements Interactable{
     /**
      * True if an item should be active, meaning it can be picked up. False otherwise.
      */
@@ -181,6 +181,8 @@ public class Item implements ObjectsInRoom{
      * Method which gets this Items name attribute
      * @return String of this items name
      */
+    
+    @Override
     public String getName(){
         return this.name;
     }
@@ -217,5 +219,16 @@ public class Item implements ObjectsInRoom{
      */
     public boolean isDrinkable(){
         return this.isDrinkable;
+    }
+    @Override
+    public String toString()
+    {
+        return this.name;
+    }
+   
+    @Override
+    public String getType()
+    {
+        return this.getClass().getSimpleName();
     }
 }

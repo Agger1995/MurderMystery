@@ -7,7 +7,7 @@ package GUI;
  * @author FrameWork
  */
 public enum CommandWord{
-    ASK("Ask"), INSPECT("Inspect"), ACCUSE("Accuse"), TAKE("Take"), DRINK("drink"), DROP("Drop");
+    GO("Go"), QUIT("Quit"), HELP("Help"), ASK("Ask"), INSPECT("Inspect"), ACCUSE("Accuse"), LOGBOOK("Logbook"), TAKE("Take"), DRINK("drink"), DROP("Drop"), INFORMATION("Info"),INVENTORY("Inventory"), UNKNOWN("?");
     
     private String commandString;
     
@@ -22,5 +22,14 @@ public enum CommandWord{
     @Override
     public String toString(){
         return this.commandString;
+    }
+    
+    public static CommandWord get(String string) {
+        for(CommandWord cmds : CommandWord.values()) {
+            if (cmds.toString().equals(string)) {
+                return cmds;
+            }
+        }
+        return null;
     }
 }

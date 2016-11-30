@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Person implements ObjectsInRoom{
+public class Person implements Interactable{
     private final int ID;
     private final String name; //Name of the person
     private final boolean isMurder; //Is the person the murderer?
@@ -40,6 +40,7 @@ public class Person implements ObjectsInRoom{
     /*
     Getter methods for the attributes!   
      */
+    @Override
     public String getName() {
         return this.name;
     }
@@ -148,5 +149,15 @@ public class Person implements ObjectsInRoom{
 
     void addToLogBook(String logBookStringToAdd) {
         this.LogConnection.addPersonResponse(this, logBookStringToAdd);
+    }
+    @Override
+    public String toString()
+    {
+        return this.name;
+    }
+    @Override
+    public String getType()
+    {
+        return this.getClass().getSimpleName();
     }
 }
