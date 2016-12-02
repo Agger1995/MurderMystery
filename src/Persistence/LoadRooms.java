@@ -77,7 +77,9 @@ public final class LoadRooms extends ScenarioLoader {
                 case LOAD_CONNECTIONS:
                     while (scanner.hasNextLine()) {
                         String[] string = scanner.nextLine().split(",");
-                        this.getRoomByName(string[0]).setExit(string[1], this.getRoomByName(string[1]));
+                        Room room = this.getRoomByName(string[0]);
+                        room.setExit(string[1], this.getRoomByName(string[1]));
+                        room.setExitDir(string[2], getRoomByName(string[1]));
                     }
                     break;
                 default:

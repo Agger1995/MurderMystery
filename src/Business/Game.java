@@ -49,9 +49,6 @@ public class Game{
         this.deadByDrink = false;
         this.inventory = new Inventory(10);
         this.parser = new Parser();
-        
-        //this.logbook.addItemDescription(currentRoom.getSpecialItems().get(0),currentRoom.getSpecialItems().get(0).getKeyWords());                           // logbook gui test
-        this.logbook.addPersonResponse(this.PERSONS.get(0));     // logbook gui test
     }
     
     /**
@@ -141,6 +138,9 @@ public class Game{
         if (commandWord != null) switch (commandWord) {
             case INSPECT:
                 this.inspect(command);
+                break;
+            case GO:
+                this.goRoom(command);
                 break;
             case ASK:
                 this.interrogate(command);
@@ -402,43 +402,53 @@ public class Game{
     }
 
     private void interrogate(Command command) {
-        if(!command.hasSecondWord()){
-            System.out.println("Ask who?\n");
-            return;
-        }
+//        if(!command.hasSecondWord()){
+//            System.out.println("Ask who?\n");
+//            return;
+//        }
+//        
+//        if(currentRoom.getPersonsInRoom().isEmpty() && currentRoom.getRiddlersInRoom().isEmpty()) {
+//            System.out.println("There are no persons here!\n");
+//            return;
+//        }
+//        for(Person tempPersonObject : currentRoom.getPersonsInRoom()){
+//            String whoToAsk = command.getSecondWord().toLowerCase();
+//            if(tempPersonObject.getAskName().toLowerCase().equals(whoToAsk) || tempPersonObject.getName().toLowerCase().equals(whoToAsk)){
+//                System.out.println(tempPersonObject.getWelcome());
+//                tempPersonObject.returnQuestions();
+//                String logBookStringToAdd = "";
+//                while(tempPersonObject.chosenAnswer != 4) {
+//                    System.out.println(tempPersonObject.conversation());
+//                    logBookStringToAdd += tempPersonObject.getPersonKeywordsForQuestion(tempPersonObject.chosenAnswer);
+//                    if(tempPersonObject.chosenAnswer !=4){
+//                        time.addMinute(tempPersonObject.getTimeItTakes());//we add 5 minuts for each question we ask the suspect. (- farewell option)
+//                        tempPersonObject.addToLogBook();
+//                    }
+//                }
+//                System.out.println(currentRoom.getLongDescription());
+//                if(!tempPersonObject.isAsked()){
+//                    pointSystem.addPoints(5);
+//                    tempPersonObject.setHasBeenAsked(true);
+//                }
+//            }
+//        }
+//        for(PersonWithRiddle tempPersonWithRiddleObject : currentRoom.getRiddlersInRoom()){
+//            String whoToAsk = command.getSecondWord().toLowerCase();
+//            if(tempPersonWithRiddleObject.getName().toLowerCase().equals(whoToAsk)){
+//                tempPersonWithRiddleObject.runRiddle();
+//            }
+//        }
+//        System.out.println(currentRoom.getLongDescription());
+    }
+    
+    public String handleInterrogation(Person personToInterrogate, int chosenQuestion){
+        time.addMinute(personToInterrogate.getTimeItTakes());
         
-        if(currentRoom.getPersonsInRoom().isEmpty() && currentRoom.getRiddlersInRoom().isEmpty()) {
-            System.out.println("There are no persons here!\n");
-            return;
+        if(!personToInterrogate.isAsked()){
+            pointSystem.addPoints(5);
+            personToInterrogate.setHasBeenAsked(true);
         }
-        for(Person tempPersonObject : currentRoom.getPersonsInRoom()){
-            String whoToAsk = command.getSecondWord().toLowerCase();
-            if(tempPersonObject.getAskName().toLowerCase().equals(whoToAsk) || tempPersonObject.getName().toLowerCase().equals(whoToAsk)){
-                System.out.println(tempPersonObject.getWelcome());
-                tempPersonObject.returnQuestions();
-                String logBookStringToAdd = "";
-                while(tempPersonObject.chosenAnswer != 4) {
-                    System.out.println(tempPersonObject.conversation());
-                    logBookStringToAdd += tempPersonObject.getPersonKeywordsForQuestion(tempPersonObject.chosenAnswer);
-                    if(tempPersonObject.chosenAnswer !=4){
-                        time.addMinute(tempPersonObject.getTimeItTakes());//we add 5 minuts for each question we ask the suspect. (- farewell option)
-                        tempPersonObject.addToLogBook();
-                    }
-                }
-                System.out.println(currentRoom.getLongDescription());
-                if(!tempPersonObject.isAsked()){
-                    pointSystem.addPoints(5);
-                    tempPersonObject.setHasBeenAsked(true);
-                }
-            }
-        }
-        for(PersonWithRiddle tempPersonWithRiddleObject : currentRoom.getRiddlersInRoom()){
-            String whoToAsk = command.getSecondWord().toLowerCase();
-            if(tempPersonWithRiddleObject.getName().toLowerCase().equals(whoToAsk)){
-                tempPersonWithRiddleObject.runRiddle();
-            }
-        }
-        System.out.println(currentRoom.getLongDescription());
+        return personToInterrogate.getAnswer(chosenQuestion);
     }
 
     private boolean drink(Command command) {
@@ -518,5 +528,9 @@ public class Game{
     
     public Inventory getInventory() {
         return inventory;
+    }
+    
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 }

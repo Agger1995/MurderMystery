@@ -78,7 +78,6 @@ public class Person implements Interactable{
         this.questions.put(2, q2);
         this.questions.put(3, q3);
         this.questions.put(4, "Goodbye. \n");
-        
     }
     
     public void setAnswers(String a1, String a2, String a3) {
@@ -89,13 +88,14 @@ public class Person implements Interactable{
         this.anwsers.put(4, "Farewell! \n");
     }
     
-    public void returnQuestions() {
+    public String returnQuestions() {
         this.chosenAnswer = -1;
-        System.out.println("Please choose one of the following questions:");
-        System.out.println("1: " + this.questions.get(1));
-        System.out.println("2: " + this.questions.get(2));
-        System.out.println("3: " + this.questions.get(3));
-        System.out.println("4: " + this.questions.get(4));
+        String toReturn = "";
+        //System.out.println("Please choose one of the following questions:");
+        toReturn += "1: " + this.questions.get(1) + "\n";
+        toReturn += "2: " + this.questions.get(2) + "\n";
+        toReturn += "3: " + this.questions.get(3) + "\n";
+        return toReturn;
     }
     
     public int chosenAnswers() {
@@ -125,6 +125,10 @@ public class Person implements Interactable{
         return value;
     }
     
+    public String getAnswer(int i){
+        return this.anwsers.get(i);
+    }
+    
     public String getPersonKeywordsForQuestion(int responseToWhichQuestion){
         return this.keyWords.get(responseToWhichQuestion);
     }
@@ -147,9 +151,10 @@ public class Person implements Interactable{
         this.keyWords.put(3,keyWords3);
     }
 
-    void addToLogBook() {
-        this.LogConnection.addPersonResponse(this);
+    public void addToLogBook(String toAdd) {
+        this.LogConnection.addPersonResponse(this, toAdd);
     }
+    
     @Override
     public String toString()
     {

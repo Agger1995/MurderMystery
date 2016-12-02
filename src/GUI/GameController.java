@@ -34,9 +34,11 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import Business.Interactable;
 import Business.Inventory;
+import Business.Person;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -48,6 +50,7 @@ public class GameController implements Initializable {
     private Game game;
     private LogBook logbook;
     private Stage logbookStage;
+    private Stage askDialogStage;
     private LogbookController logbookController;
     private ListView chosenList;
     ObservableList<CommandWord> actionListData = FXCollections.observableArrayList();
@@ -137,18 +140,33 @@ public class GameController implements Initializable {
 
     @FXML
     private void onWest(ActionEvent event) {
+        this.goDirection("west");
     }
 
     @FXML
     private void onEast(ActionEvent event) {
+        this.goDirection("east");
     }
 
     @FXML
     private void onSouth(ActionEvent event) {
+        this.goDirection("south");
     }
 
     @FXML
     private void onNorth(ActionEvent event) {
+        this.goDirection("north");
+    }
+    
+    private void goDirection(String dir) {
+        if(this.game.getCurrentRoom().getExitDir(dir) == null) {
+            return;
+        }
+        String roomName = this.game.getCurrentRoom().getExitDir(dir).getShortDescription();
+        CommandWord cmdWord = CommandWord.get("Go");
+        Command cmd = new Command(cmdWord, roomName);
+        game.processCommand(cmd);
+        this.handleEndCycleUpdates();
     }
 
 //    @FXML
@@ -218,6 +236,8 @@ public class GameController implements Initializable {
     private void handleEndCycleUpdates(){
         this.updateTime();
         this.logbookController.updateListViews();
+        this.objectsInRoomList.getItems().clear();
+        this.updateObjects();
     }
 
     //method that add all objects in the current room @Laura
@@ -247,19 +267,23 @@ public class GameController implements Initializable {
         String item_type = item1.getClass().getName().split("Business.")[1]; //Gets the class name and later uses it
         this.actionListView.getItems().clear();
         
-        if (item_type.compareTo("Item") == 0 || item_type.compareTo("SpecialItem") == 0) {
+        if (item_type.compareTo("SpecialItem") == 0) {
             if (e.getSource().equals(objectsInRoomList)) {
                 this.actionListData.add(CommandWord.INSPECT);
-                this.actionListData.add(CommandWord.TAKE);
             } else {
                 this.actionListData.add(CommandWord.INSPECT);
                 this.actionListData.add(CommandWord.DROP);
             }
             this.actionListView.setItems(actionListData);
-        } else if (item_type.compareTo("Person") == 0) {
+        } else if (item_type.compareTo("PersonWithRiddle") == 0) {
+            this.actionListData.add(CommandWord.ASK);
+            this.actionListView.setItems(actionListData);
+        } else if(item_type.compareTo("Item") == 0){
+            this.actionListData.add(CommandWord.TAKE);
+            this.actionListData.add(CommandWord.INSPECT);
+        } else if(item_type.compareTo("Person") == 0){
             this.actionListData.add(CommandWord.ASK);
             this.actionListData.add(CommandWord.ACCUSE);
-            this.actionListView.setItems(actionListData);
         } else {
             this.actionListView.getItems().clear();
         }
@@ -267,6 +291,9 @@ public class GameController implements Initializable {
 
     @FXML
     private void onActionClicked() {
+        if(this.objectsInRoomList.getSelectionModel().getSelectedItem() == null){
+            return;
+        }
         if (this.actionListView.getSelectionModel().isEmpty() || this.chosenList.getItems().isEmpty()) {
             return;
         }
@@ -274,6 +301,9 @@ public class GameController implements Initializable {
         String cmdString = actionListView.getSelectionModel().getSelectedItem().toString();
         CommandWord cmdWord = CommandWord.get(cmdString);
         String secondWord = this.chosenList.getSelectionModel().getSelectedItem().toString();
+        if(cmdWord == CommandWord.ASK){
+            this.handleAskCmd();
+        }
         Command cmd = new Command(cmdWord, secondWord);
         game.processCommand(cmd);
         this.objectsInRoomList.getItems().clear();
@@ -281,5 +311,25 @@ public class GameController implements Initializable {
         updateObjects();
         this.chosenList.getSelectionModel().select(index);
         this.handleEndCycleUpdates();
+    }
+
+    private void handleAskCmd() {
+        FXMLLoader loader = new FXMLLoader();
+        Parent root;
+        try {
+            root = loader.load(getClass().getResource("AskDialogFXML.fxml").openStream());
+            AskDialogController askDialogController = (AskDialogController) loader.getController();
+            askDialogController.setGameRef(this.game, this.logbookController);
+            askDialogController.setPersonInDialog((Person) this.chosenList.getSelectionModel().getSelectedItem());
+            Scene scene = new Scene(root);
+            askDialogStage = new Stage();
+            askDialogStage.setResizable(false);
+            askDialogStage.setScene(scene);
+            askDialogStage.setAlwaysOnTop(true);
+            askDialogStage.initStyle(StageStyle.UNDECORATED);
+            askDialogStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

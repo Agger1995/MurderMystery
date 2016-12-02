@@ -14,9 +14,8 @@ import java.util.Set;
  * @author chris
  */
 public class LogBook {
-    //private HashMap<Person, String> responses;
+    private HashMap<Person, String> responses;
     //private HashMap<Item, String> itemsInspected;
-    private ArrayList<Person> responses;
     private ArrayList<Item> itemsInspected;
     private ArrayList<Item> murderWeapons;
     private int currentDrink;
@@ -25,11 +24,14 @@ public class LogBook {
     public LogBook(){
         this.maxDrink = 3;
         this.currentDrink = 0;
-        //this.responses = new HashMap<>();
+        this.responses = new HashMap<>();
         this.murderWeapons = new ArrayList<>();
         //this.itemsInspected = new HashMap<>();
-        this.responses = new ArrayList<>();
         this.itemsInspected = new ArrayList<>();
+    }
+    
+    public String getResponse(Person person){
+        return this.responses.get(person);
     }
     
     /**
@@ -40,11 +42,11 @@ public class LogBook {
         return this.murderWeapons;
     }
     
-    /*public Set<Person> getPersons(){
+    public Set<Person> getPersons(){
         return this.responses.keySet();
     }
     
-    public Set<Item> getItems(){
+    /*public Set<Item> getItems(){
         return this.itemsInspected.keySet();
     }*/
     
@@ -52,17 +54,13 @@ public class LogBook {
         return this.itemsInspected;
     }
     
-    public ArrayList<Person> getPersons(){
-        return this.responses;
-    }
-    
     /*public void addPersonResponse(Person personToAdd, String keyWords){
         this.responses.put(personToAdd, keyWords);
     }*/
     
-    public void addPersonResponse(Person personToAdd){
-        if(!this.responses.contains(personToAdd)){
-            this.responses.add(personToAdd);
+    public void addPersonResponse(Person personToAdd, String toAdd){
+        if(!this.responses.containsKey(personToAdd)){
+            this.responses.put(personToAdd, toAdd);
         }
     }
     

@@ -7,7 +7,7 @@ package GUI;
  * @author FrameWork
  */
 public enum CommandWord{
-    ASK("Ask"), INSPECT("Inspect"), ACCUSE("Accuse"), TAKE("Take"), DRINK("drink"), DROP("Drop");
+    GO("Go"), ASK("Ask"), INSPECT("Inspect"), ACCUSE("Accuse"), TAKE("Take"), DRINK("drink"), DROP("Drop");
     
     private String commandString;
     

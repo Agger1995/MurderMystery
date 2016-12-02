@@ -56,6 +56,8 @@ public class Room {
      * true if this is a transport room, false otherwise
      */
     private boolean isTransportRoom;
+    
+    private HashMap<String, Room> exitDir;
 
     /**
      * Constructor for Room class.
@@ -77,6 +79,7 @@ public class Room {
         this.personRiddleInRoom = new ArrayList<>();
         this.isLocked = isLocked;
         this.isTransportRoom = isTransportRoom;
+        this.exitDir = new HashMap();
     }
     
     /**
@@ -341,6 +344,14 @@ public class Room {
      */
     public void addPerson(Person toAdd){
         this.personsInRoom.add(toAdd);
+    }
+    
+    public void setExitDir(String dir, Room room) {
+        this.exitDir.put(dir, room);
+    }
+ 
+    public Room getExitDir(String dir) {
+        return this.exitDir.get(dir);
     }
     
     /**
