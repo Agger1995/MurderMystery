@@ -25,19 +25,14 @@ import java.util.logging.Logger;
  * @author kristian
  */
 public final class LoadItems extends ScenarioLoader {
-
-    private int state;
-    private final int LOAD_ATTRIBUTES = 0;
     private HashMap<String, Item> items_list;
 
     public LoadItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         items_list = new HashMap();
-        load();
+        this.load();
     }
-
-
-
+    
     @Override
     public void load() {
         File file = new File(path + "/" + "items.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
@@ -67,14 +62,13 @@ public final class LoadItems extends ScenarioLoader {
                     String messageOnPickup = scanner.nextLine();
                     String messageOnInspect = Util.stringConvertSmaller(scanner.nextLine());
                     boolean isMurderWeapon = Boolean.parseBoolean(scanner.nextLine());
-                    String keyWords = scanner.nextLine();
                     int weight = Integer.parseInt(scanner.nextLine());
                     boolean isDrinkable = Boolean.parseBoolean(scanner.nextLine());
                     int timeToTake = Integer.parseInt(scanner.nextLine());
                     int timeToInspect = Integer.parseInt(scanner.nextLine());
                     int timeToDrink = Integer.parseInt(scanner.nextLine());
 
-                    Item item = new Item(id, name, isActive, messageOnPickup, messageOnInspect, isMurderWeapon, keyWords, weight, isDrinkable, timeToTake, timeToInspect, timeToDrink, log);
+                    Item item = new Item(id, name, isActive, messageOnPickup, messageOnInspect, isMurderWeapon, weight, isDrinkable, timeToTake, timeToInspect, timeToDrink, log);
 
                     room.addItem(item);
                     items_list.put(name, item);

@@ -28,8 +28,8 @@ public class LoadWelcomeDescription {
         this.descriptions = new ArrayList();
         this.path = path;
         this.printer = printer;
-        load();
-        set();
+        this.load();
+        this.set();
     }
     
     private void load() {

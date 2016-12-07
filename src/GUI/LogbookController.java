@@ -99,7 +99,7 @@ public class LogbookController implements Initializable {
         } else if(e.getSource() == personListView){
             this.logbookTextArea.appendText(logbook.getResponse(this.personListView.getSelectionModel().getSelectedItem()));
         } else if(e.getSource() == weaponListView){
-            this.logbookTextArea.appendText(this.weaponListView.getSelectionModel().getSelectedItem().getMsgOnInspect() + "\n" + this.weaponListView.getSelectionModel().getSelectedItem().getKeyWords());
+            this.logbookTextArea.appendText(this.weaponListView.getSelectionModel().getSelectedItem().getMsgOnInspect());
         }
     }
     

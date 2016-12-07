@@ -15,6 +15,7 @@ import Persistence.Highscore;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.fxml.FXMLLoader;
@@ -39,15 +40,11 @@ public class MainMenuController implements Initializable {
     private Highscore highscore;
     private Stage currentStage;
     @FXML
-    private Button ButtonChoseScenario;
+    private Button ButtonChoseScenario, ButtonPlay;
     @FXML
-    private Label ChosenScenarioLabel;
-    @FXML
-    private Label HighscoreLabel;
+    private Label ChosenScenarioLabel, HighscoreLabel;
     @FXML
     private TextArea HighscoreView;
-    @FXML
-    private Button ButtonPlay;
     
 
     public void setCurrentStage(Stage stage){
@@ -79,8 +76,7 @@ public class MainMenuController implements Initializable {
             }
         });
         int i = 0;
-        System.out.println("Please choose one of the following scenarios to play.");
-        System.out.println("You choose by typing the ID of the scenario you wish to play.");
+        
         String appendTo = "";
         ArrayList<ButtonType> buttons = new ArrayList<>();
         for (String workingString : directories) {
@@ -116,27 +112,24 @@ public class MainMenuController implements Initializable {
     }
     
     private void handleHighscoreView() throws FileNotFoundException{
-        this.highscore.readHighscoreTable();
-        int i = 0;
-        for(String workString : this.highscore.getStringArray()){
-            if(workString != null){
-                this.HighscoreView.appendText("" + workString + " : " + this.highscore.getIntArray()[i] + "\n");
-                i++;
-            }
-        }
+        this.HighscoreView.appendText(this.game.getHighscoreData());
     }
 
     @FXML
-    private void handlePlayButton() throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResource("GameFXML.fxml").openStream());
-        GameController gameController = (GameController) loader.getController();
-        gameController.setRefs(this.game, this.logbook);
-        Scene scene = new Scene(root);
-        currentStage.getIcons().add(new Image("gameIcon.jpg"));
-        currentStage.setTitle("Murder Mystery");
-        currentStage.setResizable(false);
-        currentStage.setScene(scene);
-        currentStage.show();
+    private void handlePlayButton() {
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResource("GameFXML.fxml").openStream());
+            GameController gameController = (GameController) loader.getController();
+            gameController.setRefs(this.game, this.logbook);
+            Scene scene = new Scene(root);
+            currentStage.getIcons().add(new Image("gameIcon.jpg"));
+            currentStage.setTitle("Murder Mystery");
+            currentStage.setResizable(false);
+            currentStage.setScene(scene);
+            currentStage.show();
+        } catch(IOException IOErr){
+            System.out.println("Fatal error loading game window!");
+        }
     }
 }

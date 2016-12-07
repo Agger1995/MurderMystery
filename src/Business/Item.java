@@ -16,43 +16,39 @@ public class Item implements Interactable{
     /**
      * True if an item should be active, meaning it can be picked up. False otherwise.
      */
-    private final boolean isActive;
+    private boolean isActive;
     /**
      * The ID for an item. This should be unique for an Item object.
      */
-    private final int ID;
+    private int ID;
     /**
      * True if this Item is a murder weapon, meaning it will be treated differently when inspected. False otherwise.
      */
-    private final boolean isMurderweapon;
+    private boolean isMurderweapon;
     /**
      * The message to be displayed to the player when Inspecting an Item in game.
      */
-    private final String msgOnInspect;
+    private String msgOnInspect;
     /**
      * The Item objects name. Is used to refer to this Item in game.
      */
-    private final String name;
+    private String name;
     /**
      * The message to be displayed to the player when picking up the item in game.
      */
-    private final String msgOnPickup;
+    private String msgOnPickup;
     /**
      * True if this Item has been inspected before. False otherwise
      */
     private boolean hasBeenInspected;
     /**
-     * String of keywords describing the Item. This will be added to the LogBook upon inspecting the Item.
-     */
-    private final String keyWords;
-    /**
      * An Items weight. This defines how much this Item weighs and how much space it takes in the Inventory.
      */
-    private final int weight;
+    private int weight;
     /**
      * True if this Item can be drunk from. False otherwise.
      */
-    private final boolean isDrinkable;
+    private boolean isDrinkable;
     /**
      * The Item object's own reference to the LogBook. This is here so that every Item object themselves will add their own descriptions to the LogBook upon inspectiong etc.
      */
@@ -60,15 +56,15 @@ public class Item implements Interactable{
     /**
      * An Items time parameter it takes to pick up the item.
      */
-    private final int timeToTake;
+    private int timeToTake;
     /**
      * An Items time parameter it takes to inspect the Item.
      */
-    private final int timeToInspect;
+    private int timeToInspect;
     /**
      * An items time parameter it takes to Drink the Item.
      */
-    private final int timeToDrink;
+    private int timeToDrink;
     
     /**
      * The Item class' constructor.
@@ -80,7 +76,6 @@ public class Item implements Interactable{
      * @param msgOnPickup String, the message to be displayed on pickup
      * @param msgOnInspect String, the message to be displayed on inspect
      * @param isMurderWeapon boolean, if this Item is a murder weapon
-     * @param keyWords String, the keywords describing this Item to be added to LogBook
      * @param weight int, is this Item's weight. How much space it takes in Inventory
      * @param isDrinkable boolean, if this Item is drinkable
      * @param timeToTake int, time it takes to pickup this Item
@@ -88,15 +83,14 @@ public class Item implements Interactable{
      * @param timeToDrink int, time it takes to drink this Item
      * @param Log LogBook, reference to the LogBook object created in Game class.
      */
-    public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String keyWords, int weight, boolean isDrinkable, int timeToTake, int timeToInspect, int timeToDrink, LogBook Log){
+    public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, int weight, boolean isDrinkable, int timeToTake, int timeToInspect, int timeToDrink, LogBook Log){
         this.ID = ID;
         this.isActive = isActive;
         this.name = name;
         this.msgOnPickup = msgOnPickup;
         this.hasBeenInspected = false;
         this.msgOnInspect = msgOnInspect;
-        this.isMurderweapon = isMurderWeapon; 
-        this.keyWords = keyWords;
+        this.isMurderweapon = isMurderWeapon;
         this.weight = weight;
         this.isDrinkable = isDrinkable;
         this.timeToTake = timeToTake;
@@ -203,14 +197,6 @@ public class Item implements Interactable{
      */
     public String getMsgOnPickup(){
         return this.msgOnPickup;
-    }
-    
-    /**
-     * Method which gets this Items keyWords
-     * @return String of this Items keyWords
-     */
-    public String getKeyWords(){
-        return this.keyWords;
     }
     
     /**

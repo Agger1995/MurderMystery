@@ -15,7 +15,7 @@
       <ListView fx:id="weaponListView" layoutX="17.0" layoutY="53.0" onMouseClicked="#listViewListener" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
       <ListView fx:id="itemListView" layoutX="410.0" layoutY="53.0" onMouseClicked="#listViewListener" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
       <ListView fx:id="personListView" layoutX="212.0" layoutY="53.0" onMouseClicked="#listViewListener" prefHeight="200.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" />
-      <TextArea fx:id="logbookTextArea" editable="false" layoutX="16.0" layoutY="273.0" prefHeight="85.0" prefWidth="571.0" style="-fx-border-color: #000000; -fx-background-color: #71869B;" />
+      <TextArea fx:id="logbookTextArea" editable="false" layoutX="16.0" layoutY="263.0" prefHeight="95.0" prefWidth="571.0" style="-fx-border-color: #000000; -fx-background-color: #71869B;" wrapText="true" />
       <Label alignment="CENTER" layoutX="212.0" layoutY="26.0" prefHeight="19.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" text="Persons talked to:" />
       <Label alignment="CENTER" layoutX="410.0" layoutY="26.0" prefHeight="19.0" prefWidth="176.0" style="-fx-background-color: DEE2D7; -fx-border-color: #000000;" text="Items Inspected:" />
       <Button fx:id="logbookHelpBtn" layoutX="14.0" layoutY="365.0" mnemonicParsing="false" onAction="#onHelpBtn" prefHeight="19.0" prefWidth="22.0" text="?">

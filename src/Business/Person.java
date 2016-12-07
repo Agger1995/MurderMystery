@@ -1,7 +1,6 @@
 package Business;
 
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Person implements Interactable{
@@ -13,19 +12,16 @@ public class Person implements Interactable{
     private final String askName;
     private HashMap<Integer, String> questions;
     private HashMap<Integer, String> anwsers;
-    private HashMap<Integer, String> keyWords;
     public int chosenAnswer;
     private String welcome;
     private Scanner input = new Scanner(System.in);
     private LogBook LogConnection;
     private int timeToAsk;
 
-    public Person(int ID, String name, boolean isMurder, String keyWords1, String keyWords2, String keyWords3, String accusationResponse, String askName, int time, LogBook Log) {
+    public Person(int ID, String name, boolean isMurder, String accusationResponse, String askName, int time, LogBook Log) {
         this.ID = ID;
         this.name = name;
         this.isMurder = isMurder;
-        this.keyWords = new HashMap<>();
-        this.addKeyWordsToMap(keyWords1,keyWords2,keyWords3);
         this.accusationResponse = accusationResponse;
         this.askName = askName;
         this.hasBeenAsked = false;
@@ -65,10 +61,6 @@ public class Person implements Interactable{
         return this.isMurder;
     }
     
-    public String getKeyWords(Integer toGet){
-        return this.keyWords.get(toGet);
-    }
-    
     public String getAccusationResponse(){
         return this.accusationResponse;
     }
@@ -91,7 +83,6 @@ public class Person implements Interactable{
     public String returnQuestions() {
         this.chosenAnswer = -1;
         String toReturn = "";
-        //System.out.println("Please choose one of the following questions:");
         toReturn += "1: " + this.questions.get(1) + "\n";
         toReturn += "2: " + this.questions.get(2) + "\n";
         toReturn += "3: " + this.questions.get(3) + "\n";
@@ -102,35 +93,8 @@ public class Person implements Interactable{
         return this.chosenAnswer;
     }
     
-    public String conversation() {
-        int key;
-        String value;
-        System.out.print(">");
-        
-        try {
-            key = this.input.nextInt();
-            if(key >= 5 || key <= 0){
-                throw new IllegalArgumentException();
-            }
-        } catch(InputMismatchException exception) {
-            //Print "sets key to -1"
-            //when user put other than integer in the input
-            key = -1;
-            this.input.nextLine();
-        } catch (IllegalArgumentException err){
-            key = -1;
-        }
-        value = this.anwsers.get(key);
-        this.chosenAnswer = key;
-        return value;
-    }
-    
     public String getAnswer(int i){
         return this.anwsers.get(i);
-    }
-    
-    public String getPersonKeywordsForQuestion(int responseToWhichQuestion){
-        return this.keyWords.get(responseToWhichQuestion);
     }
     
     public void setWelcome(String welcome) {
@@ -145,12 +109,6 @@ public class Person implements Interactable{
         return this.timeToAsk;
     }
 
-    private void addKeyWordsToMap(String keyWords1, String keyWords2, String keyWords3) {
-        this.keyWords.put(1,keyWords1);
-        this.keyWords.put(2,keyWords2);
-        this.keyWords.put(3,keyWords3);
-    }
-
     public void addToLogBook(String toAdd) {
         this.LogConnection.addPersonResponse(this, toAdd);
     }
@@ -160,6 +118,7 @@ public class Person implements Interactable{
     {
         return this.name;
     }
+    
     @Override
     public String getType()
     {

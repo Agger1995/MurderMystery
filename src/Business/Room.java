@@ -218,14 +218,6 @@ public class Room {
     public int getTimeToMove(){
         return this.timeToMove;
     }
-
-    /**
-     * getLongDescription returns a customized message including the description of the room
-     * @return a String of a customized description message, and the current rooms exits
-     */
-    public String getLongDescription(){
-        return "You are in " + this.description + ".\n" + this.getReturnString();
-    }
     
     /**
      * gets a complete return string for this

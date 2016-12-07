@@ -27,28 +27,32 @@ public class Highscore {
         this.path = path;
     }
     
-    public void createHighscoreFile() throws FileNotFoundException{
-        File highscoreFile = new File(this.path + "/highscore.txt");
+    public String getHighscoreData(){
+        String returnString = "";
+        for(int i = 0; i < this.actualSavedArrayLength; i++){
+            returnString += (i + 1) + " : " + this.savedName[i] + " : " + this.savedPoints[i] + "\n";
+        }
+        return returnString;
     }
     
-    public void readHighscoreTable() throws FileNotFoundException{
-        Scanner fileReader = new Scanner(new File(this.path + "/highscore.txt"));
-        int internalCounter = 0;
-        
-        System.out.println("Highscore table:");
-        
-        while(fileReader.hasNextLine()){
-            int points = Integer.parseInt(fileReader.nextLine());
-            String name = fileReader.nextLine();
-            
-            savedName[internalCounter] = name;
-            savedPoints[internalCounter] = points;
+    public void readHighscoreTable() {
+        try{
+            Scanner fileReader = new Scanner(new File(this.path + "/highscore.txt"));
+            int internalCounter = 0;
 
-            System.out.println((internalCounter + 1) + ": " + savedName[internalCounter] + ": " + savedPoints[internalCounter]);
-            
-            internalCounter++;
-            
-            this.actualSavedArrayLength++;
+            while(fileReader.hasNextLine()){
+                int points = Integer.parseInt(fileReader.nextLine());
+                String name = fileReader.nextLine();
+
+                savedName[internalCounter] = name;
+                savedPoints[internalCounter] = points;
+
+                internalCounter++;
+
+                this.actualSavedArrayLength++;
+            }
+        } catch(FileNotFoundException FNFErr){
+            System.out.println("Error loading highscore data");
         }
     }
     

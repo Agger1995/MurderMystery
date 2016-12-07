@@ -34,9 +34,11 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import Business.Interactable;
 import Business.Inventory;
-import Business.Person;
+import Business.Item;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
 
@@ -68,8 +70,6 @@ public class GameController implements Initializable {
     @FXML
     private Pane MiniMap;
     @FXML
-    //Muligvis tilføj dette som et interface der implementeres af både Item og Person. På denne måde kan et listview indeholde begge datatyper.
-    //Definer derefter listview til at indeholde det pågældende interface som datatype.
     private ListView<Interactable> objectsInRoomList;
     @FXML
     private Button PreformActionButtom, GoWest, GoEast, GoSouth, GoNorth, LogBookButton, HelpButton;
@@ -158,6 +158,25 @@ public class GameController implements Initializable {
         this.goDirection("north");
     }
     
+    private void refreshDirectionalButtons() {
+        GoWest.setDisable(true);
+        GoEast.setDisable(true);
+        GoNorth.setDisable(true);
+        GoSouth.setDisable(true);
+        if(this.game.getCurrentRoom().getExitDir("east") != null) {
+            GoEast.setDisable(false);
+        }
+        if(this.game.getCurrentRoom().getExitDir("west") != null) {
+            GoWest.setDisable(false);
+        }
+        if(this.game.getCurrentRoom().getExitDir("south") != null) {
+            GoSouth.setDisable(false);
+        }
+        if(this.game.getCurrentRoom().getExitDir("north") != null) {
+            GoNorth.setDisable(false);
+        }
+    }
+    
     private void goDirection(String dir) {
         if(this.game.getCurrentRoom().getExitDir(dir) == null) {
             return;
@@ -165,44 +184,29 @@ public class GameController implements Initializable {
         String roomName = this.game.getCurrentRoom().getExitDir(dir).getShortDescription();
         CommandWord cmdWord = CommandWord.get("Go");
         Command cmd = new Command(cmdWord, roomName);
-        game.processCommand(cmd);
+        this.sendCommand(cmd);
         this.handleEndCycleUpdates();
     }
-
-//    @FXML
-//    private void onLogbook(ActionEvent event) throws IOException {
-//        if (logbookStage == null || logbookStage.getScene() == null) {
-//            FXMLLoader loader = new FXMLLoader();
-//            Parent root = loader.load(getClass().getResource("LogbookFXML.fxml").openStream());
-//            LogbookController logController = (LogbookController) loader.getController();
-//            logController.setRef(this.logbook);
-//            this.logbookController = logController;
-//            Scene scene = new Scene(root);
-//            logbookStage = new Stage();
-//            logbookStage.getIcons().add(new Image("logbook.png"));
-//            logbookStage.setResizable(false);
-//            logbookStage.setScene(scene);
-//            logbookStage.show();
-//            logbookStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//                @Override
-//                public void handle(WindowEvent we) {
-//                    logbookStage.setScene(null);
-//                }
-//            });
-//        } else {
-//            logbookStage.close();
-//            logbookStage = null;
-//        }
-//    }
 
     @FXML
     private void OnHelp(ActionEvent event) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Help screen");
-        alert.setContentText("There is no info available atm");
-        alert.setHeaderText("");
+        alert.setHeaderText("Here you can read about the game window components");
+        alert.setContentText("This is the main game window\n"
+                + "You can move around the different rooms using the buttons in the middle of the screen\n"
+                + "To the right you can see 3 lists:\n"
+                + " - Inventory: Shows the items you have on you\n"
+                + " - In room: Shows the items and persons in the room you are in\n"
+                + " - Actions: Shows the commands you can perform depending on what you selected in Inventory/In room list\n"
+                + "\n"
+                + "To the left you see a minimap showing your location (Red dot)\n"
+                + "and other persons location (Blue dots)\n"
+                + "The text area will show you relevant information throughout the game\n"
+                + "There is a time parameter in the top right corner of the screen\n"
+                + "Remember to keep an eye on this as you will have limited time to solve the murder\n"
+                + "At 8:00 AM the police will arrive and you if you haven't solved the murder by then you will lose.");
         alert.showAndWait();
-        this.game.printHelp();
     }
 
     @FXML
@@ -238,6 +242,7 @@ public class GameController implements Initializable {
         this.logbookController.updateListViews();
         this.objectsInRoomList.getItems().clear();
         this.updateObjects();
+        this.refreshDirectionalButtons();
     }
 
     //method that add all objects in the current room @Laura
@@ -279,8 +284,19 @@ public class GameController implements Initializable {
             this.actionListData.add(CommandWord.ASK);
             this.actionListView.setItems(actionListData);
         } else if(item_type.compareTo("Item") == 0){
-            this.actionListData.add(CommandWord.TAKE);
-            this.actionListData.add(CommandWord.INSPECT);
+            if (e.getSource().equals(objectsInRoomList)) {
+                this.actionListData.add(CommandWord.INSPECT);
+            } else {
+                this.actionListData.add(CommandWord.INSPECT);
+                this.actionListData.add(CommandWord.DROP);
+            }
+            Item temp = (Item)this.chosenList.getSelectionModel().getSelectedItem();
+            if(temp.isDrinkable()){
+                this.actionListData.add(CommandWord.DRINK);
+            }
+            if(temp.isActive()){
+                this.actionListData.add(CommandWord.TAKE);
+            }
         } else if(item_type.compareTo("Person") == 0){
             this.actionListData.add(CommandWord.ASK);
             this.actionListData.add(CommandWord.ACCUSE);
@@ -291,7 +307,7 @@ public class GameController implements Initializable {
 
     @FXML
     private void onActionClicked() {
-        if(this.objectsInRoomList.getSelectionModel().getSelectedItem() == null){
+        if(this.chosenList == null || this.chosenList.getSelectionModel().getSelectedItem() == null){
             return;
         }
         if (this.actionListView.getSelectionModel().isEmpty() || this.chosenList.getItems().isEmpty()) {
@@ -305,7 +321,7 @@ public class GameController implements Initializable {
             this.handleAskCmd();
         }
         Command cmd = new Command(cmdWord, secondWord);
-        game.processCommand(cmd);
+        this.sendCommand(cmd);
         this.objectsInRoomList.getItems().clear();
         this.chosenList.getItems().clear();
         updateObjects();
@@ -317,10 +333,10 @@ public class GameController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         Parent root;
         try {
-            root = loader.load(getClass().getResource("AskDialogFXML.fxml").openStream());
+            root = loader.load(getClass().getResource("AskDialogFXML.fxml").openStream()); // Throws I/O Exception
             AskDialogController askDialogController = (AskDialogController) loader.getController();
             askDialogController.setGameRef(this.game, this.logbookController);
-            askDialogController.setPersonInDialog((Person) this.chosenList.getSelectionModel().getSelectedItem());
+            askDialogController.setPersonInDialog(this.chosenList.getSelectionModel().getSelectedItem());
             Scene scene = new Scene(root);
             askDialogStage = new Stage();
             askDialogStage.setResizable(false);
@@ -330,6 +346,86 @@ public class GameController implements Initializable {
             askDialogStage.show();
         } catch (IOException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void sendCommand(Command cmd) {
+        if(this.game.processCommand(cmd)){
+            this.handleGameOver();
+        }
+    }
+
+    private void handleGameOver() {
+        try{
+            this.game.addPoints();
+            Alert preAlert = new Alert(AlertType.INFORMATION);
+            preAlert.setTitle("Game Over");
+            switch(this.game.getGameOverCause()){
+                case "drink":
+                    preAlert.setHeaderText("You died because you drank too much!");
+                    preAlert.setContentText("As a detective you cannot drink too much!\nYou need to stay focused and sober if you\nare to solve the murder!");
+                    break;
+                case "time":
+                    preAlert.setHeaderText("You ran out of time! The police has arrived!");
+                    preAlert.setContentText(this.game.getEndGameMsg("time"));
+                    break;
+                case "correctAccuse":
+                    preAlert.setHeaderText("You solved the case! Well done!");
+                    preAlert.setContentText(this.game.getEndGameMsg("correctAccuse"));
+                    break;
+                case "wrongAccuse":
+                    preAlert.setHeaderText("You accused the wrong person!");
+                    preAlert.setContentText(this.game.getEndGameMsg("wrongAccuse"));
+                    break;
+                    
+                default:
+                    break;
+            }
+            preAlert.showAndWait();
+            if(this.game.canGetOnHighscore()){
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Game Over");
+                dialog.setHeaderText("You have earned enough points to get on the highscore!\nYou earned: " + this.game.getFinalPoints() + " points!");
+                dialog.setContentText("Please enter your name: ");
+                dialog.showAndWait();
+                String playerName;
+                if(dialog.getResult() == null){
+                    playerName = "Player";
+                } else {
+                    playerName = dialog.getResult();
+                }
+                
+                if(!this.game.addToHighscore(playerName)){
+                    Alert error = new Alert(AlertType.ERROR);
+                    error.setTitle("Highscore error!");
+                    error.setHeaderText("An error occured when trying to write to the highscore file!");
+                    error.setContentText("");
+                    error.showAndWait();
+                }
+            }
+            
+            FXMLLoader loader = new FXMLLoader();
+            Parent root;
+            root = loader.load(getClass().getResource("EndHighscoreViewFXML.fxml").openStream()); // Throws I/O Exception
+            EndHighscoreViewController controller = (EndHighscoreViewController) loader.getController();
+            controller.setHighscoreData(this.game.getHighscoreData(), this.game.getScenarioName());
+            Scene scene = new Scene(root);
+            Stage highscoreView;
+            highscoreView = new Stage();
+            highscoreView.setTitle("Highscore view");
+            highscoreView.setResizable(false);
+            highscoreView.getIcons().add(new Image("logbook.png"));
+            highscoreView.setScene(scene);
+            highscoreView.show();
+            
+            Stage gameStage = (Stage)this.GameText.getScene().getWindow();
+            gameStage.close();
+            this.logbookStage.close();
+            
+        } catch (FileNotFoundException err){
+            System.out.println("Error in highscore");
+        } catch (IOException e){
+            System.out.println("Error opening highscore view!");
         }
     }
 }

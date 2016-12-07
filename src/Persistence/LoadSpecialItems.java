@@ -25,16 +25,15 @@ import java.util.logging.Logger;
  * @author Laura
  */
 public class LoadSpecialItems extends ScenarioLoader {
-    private int state;
-    private final int LOAD_ATTRIBUTES = 0;
     private HashMap<String, SpecialItem> specialitems_list;
 
     public LoadSpecialItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         specialitems_list = new HashMap();
-        load();
+        this.load();
     }
-      @Override
+    
+    @Override
     public void load() {
         File file = new File(path + "/" + "specialItems.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
         Scanner scanner = null; //if the scanner can't load the file.
@@ -63,42 +62,28 @@ public class LoadSpecialItems extends ScenarioLoader {
                     String messageOnPickup = scanner.nextLine();
                     String messageOnInspect = Util.stringConvertSmaller(scanner.nextLine());
                     boolean isMurderWeapon = Boolean.parseBoolean(scanner.nextLine());
-                    String keyWords = scanner.nextLine();
                     int weight = Integer.parseInt(scanner.nextLine());
                     boolean isDrinkable = Boolean.parseBoolean(scanner.nextLine());
                     int timeToTake = Integer.parseInt(scanner.nextLine());
                     int timeToInspect = Integer.parseInt(scanner.nextLine());
                     int timeToDrink = Integer.parseInt(scanner.nextLine());
                     boolean isSecretEntrance = Boolean.parseBoolean(scanner.nextLine());
-                    String secretExitName = scanner.nextLine();
+                    String[] exits = scanner.nextLine().split(",");
+                    String secretExitName = exits[0];
+                    String secretExitDir = exits[1];
                     String secretExitsRoomsName = scanner.nextLine();
                     
-                    SpecialItem sitem = new SpecialItem(id, name, isActive, messageOnPickup, messageOnInspect, isMurderWeapon, keyWords, weight, isDrinkable, timeToTake, timeToInspect, timeToDrink, log, isSecretEntrance);
+                    SpecialItem sitem = new SpecialItem(id, name, isActive, messageOnPickup, messageOnInspect, isMurderWeapon, weight, isDrinkable, timeToTake, timeToInspect, timeToDrink, log, isSecretEntrance);
                     sitem.setSecretExit(secretExitName, getRoomByName(secretExitsRoomsName));
+                    sitem.setDirectionalExit(secretExitDir, getRoomByName(secretExitsRoomsName));
                     room.addSpecialItem(sitem);
                     specialitems_list.put(name, sitem);
-                    break;
-
-                case "[Secret Room]:":
-                    String[] word = scanner.nextLine().split(",");
-                    SpecialItem temp_specialitem = specialitems_list.get(word[0]);
-                    temp_specialitem.setIsSecretEntrance(true);
-                    temp_specialitem.setSecretExit(word[1], getRoomByName(word[2]));
                     break;
             
                 default:
                     break;
             }
         }
-    }
-
-    public Room getRoomByName(String name) {
-        for (Room room : rooms_list) {
-            if (room.getShortDescription().equals(name)) {
-                return room;
-            }
-        }
-        return null;
     }
 }
 

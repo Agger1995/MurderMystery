@@ -20,8 +20,8 @@ import java.util.logging.Logger;
  */
 public class Riddle {
 
-    private static final ArrayList<Riddle> RIDDLES = new ArrayList(); // A database filled with all of the riddles.
-    private static String path;
+    private static final ArrayList<Riddle> RIDDLES = new ArrayList(); // A database filled with all of the riddles. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private static String path;                                         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private String question; //one question per riddle
     private String correctAnswer; //one answer per riddle
     private String[] wrongAnswers = new String[2]; //2 wrong answers pr riddle.

@@ -78,3 +78,5 @@ bedroom,upstairs hall,west
 bedroom,library,north
 library,upstairs hall,south
 library,bedroom,east
+library,secret room,west
+secret room,secret room,west

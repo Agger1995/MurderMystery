@@ -6,7 +6,6 @@ true
 You pick up a rusty key.
 These are some old rusty looking keys.
 false
-Rusty key, open kitchen doors, Garden.
 2
 false
 5
@@ -20,7 +19,6 @@ true
 You pick up a beautiful bouquet of flowers.
 Those are some great looking flowers, i could bring back a bouquet to my darling wife, once i solve this mystery..
 false
-Beautiful flowers, Garden.
 4
 false
 5
@@ -34,7 +32,6 @@ false
 UNUSED
 Such a shame, Agnes known for her beauty resembling from her mother, now had a face with multiple cuts. A bit of dust is around her face, could be anything from flour to baby powder *sniff* hmm some sort of poison, fits the case, it has a very distinctive smell.
 false
-Poisoned knife caused it, Bathroom.
 0
 false
 5
@@ -48,7 +45,6 @@ true
 You pick up some toilet paper.
 Hmm, appropriately placed toilet paper. It would be a shame, if someone, stole it.   
 false
-Once a tree, what a cruel destiny, Bathroom.
 1
 false
 5
@@ -62,7 +58,6 @@ true
 You pick up the whiskey.
 A bottle of whiskey on the floor in hallway on the 1st floor, who could be leaving such a beauty there? *drink* ahh… that’s the stuff. Oh, better get back to work, otherwise I’ll be spending all my time here. I’ll take it with me for later.
 false
-Very strong taste, but good.
 3
 true
 5
@@ -76,7 +71,6 @@ true
 You pick up the bloody knife.
 A knife wrapped in a handkerchief soaked in blood... in Mr. Phein’s room... the knife seems to also have some powder on it. It looks like the same powder as the one on the body. *sniff*, yeah this is ratpoison. Odd to find something like that in his room, I wonder who dropped this here. Better bring it with me.
 true
-Bloody and powdered, suspicious, Bedroom.
 0
 false
 5
@@ -90,7 +84,6 @@ true
 You pick up a Plasma TV.
 Hmm, very fine and expensive looking plasma TV. Might be worth something.
 false
-New expensive tv, Bedroom.
 7
 false
 5
@@ -104,7 +97,6 @@ false
 UNUSED
 Hmm, an empty knifeholder in the kitchen. Wonder where the knife is?
 false
-Knife-holder with missing knife, Kitchen.
 0
 false
 5
@@ -118,7 +110,6 @@ true
 You pick up the rat poison.
 Odd to find an empty bottle of rat poison in the kitchen, the powdery substance matches the one found by the body. The amount is rather small to cause the murder. *Sniff* ratpoison, I can always tell, ratpoison has a very distinct smell. I definitely should bring this with me.  
 true
-Powder, resemble powder on knife, Kitchen.
 0
 false
 5
@@ -132,7 +123,6 @@ true
 You pick up an apple.
 Hmm, a delicious red apple. Wonder if it has anything to do with the murder?
 false
-red apple, kitchen
 1
 false
 5
@@ -146,7 +136,6 @@ true
 You pick up a golf club.
 A golf club in the garden, doesn’t seems suspicious so far. There is no blood on it, and it seems to be clean and shiny, yet it has been left alone in the garden. I do like golf, maybe I should “confiscate the evidence” and inconspicuously bring this back home.
 true
-Dirty with grass, no blood, Garden.
 0
 false
 5
@@ -160,7 +149,6 @@ true
 You pick up a rope.
 A rope with a tied knot, not usually something you’d find in a hallway on the 2nd hall. Perhaps someone were trying to off themselves out of guilt. Only Agnes and Mr. Phein lives here. Interesting case, we better include this one.  
 true
-Unused with a knot, 2nd floor Hall.
 0
 false
 5
@@ -174,7 +162,6 @@ true
 You pick up a pistol.
 Finding a pistol in the library, odd place to find a pistol. All bullets are still in the case, but no bullets or gunpowder were found by the scene. It didn’t seem to have caused the murder, yet I’m gonna have to add this one, I can’t have the murderer using this on me.
 true
-All bullets intact, Library.
 0
 false
 5
@@ -188,7 +175,6 @@ true
 You pick up a book.
 Hmm, that's curious. A crime book about a murder happening in a mansion at a dinner party, just like this! That's a bit odd.
 false
-Book regarding murder, Library.
 2
 false
 5
@@ -202,7 +188,6 @@ true
 You pick up a rat corpse.
 Ew, a disgusting rat corpse.. Looks like it has been lying here for quite some time now.
 false
-Rotten rat corpse, Dungeon.
 3
 false
 5
@@ -216,7 +201,6 @@ true
 You pick up a human skull.
 Hmm, a human skull. I wonder what sick history this mansion has, surely this can only mean that another murder has happened here in the past.
 false
-Human skull, Dungeon.
 5
 false
 5

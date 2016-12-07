@@ -6,7 +6,6 @@
 package Business;
 
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import static java.lang.Math.random;
 
@@ -14,7 +13,7 @@ import static java.lang.Math.random;
  *
  * @author kristian
  */
-public class PersonWithRiddle {
+public class PersonWithRiddle implements Interactable{
 
     private HashMap<Integer, String> answers; //answers for the riddle: both wrong and right
     private boolean hasRiddle; //one riddle per person
@@ -58,6 +57,10 @@ public class PersonWithRiddle {
     public String getName() {
         return this.name;
     }
+    
+    public String getRiddle(){
+        return this.riddle.getQuestion();
+    }
 
     /*
     call runRiddle(), when the player asks PersonWithRiddle.
@@ -65,31 +68,12 @@ public class PersonWithRiddle {
     /**
      *
      */
-    public void runRiddle() {
-        if (hasRiddle) { //checks if a the riddle has already been solved
-            System.out.println(name + ": " + riddle.getQuestion()); //prints the question
-            answers = getAnswers(); //get hashmap with all of the answers
-            printAnswers(); //prints all the answers
-            System.out.print("> ");
-
-            int key = -1;
-            try {
-                key = this.input.nextInt(); //user input
-                if (key >= 5 || key <= 0) {
-                    throw new IllegalArgumentException();
-                }
-            } catch (InputMismatchException exception) {
-                //Print "sets key to -1"
-                //when user put other than integer in the input
-                key = -1;
-                this.input.next();
-            } catch (IllegalArgumentException err) {
-                key = -1;
-            }
-            processAnswer(key); //processes the answer and rewards if correct.
-        } else {
-            System.out.println(name + ": I have already given you a riddle earlier...\n");
-        }
+    public void createRiddle() {
+        answers = getAnswers(); //get hashmap with all of the answer
+    }
+    
+    public boolean hasRiddle(){
+        return this.hasRiddle;
     }
 
     /**
@@ -119,30 +103,34 @@ public class PersonWithRiddle {
 
     /**
      *
+     * @return 
      */
-    public void printAnswers() {
+    public String printAnswers() {
+        String toReturn = "";
         for (int i = 1; i < 4; i++) {
-            System.out.println(i + ": " + answers.get(i)); //prints all the answers.
+            toReturn += i + ": " + answers.get(i) + "\n"; //prints all the answers.
         }
+        return toReturn;
     }
 
     /**
      *
      * @param key
+     * @return 
      */
-    public void processAnswer(int key) {
-        if (answers.get(key) == riddle.getCorrectAnswer()) { //prints reward message
-            System.out.println(name + ": " + rightAnswerMessage);
-            time.addMinute(-timeWin);
+    public String processAnswer(int key) {
+        this.hasRiddle = false; //makes it so the person won't tell another riddle until next playthrough.
+        if (this.answers.get(key).equals(this.riddle.getCorrectAnswer())) { //prints reward message
+            this.time.addMinute(-this.timeWin);
+            return this.name + ": " + this.rightAnswerMessage;
         } else {                                             //prints penalty message
-            System.out.println(name + ": " + wrongAnswerMessage);
-            time.addMinute(timeLost);
+            this.time.addMinute(this.timeLost);
+            return this.name + ": " + this.wrongAnswerMessage;
         }
-        hasRiddle = false; //makes it so the person won't tell another riddle until next playthrough.
     }
 
     public void setIntroMessage(String str) {
-        introMessage = str; //Set's intro message.
+        this.introMessage = str; //Set's intro message.
     }
 
     public String tellIntroMessage() {
@@ -151,5 +139,15 @@ public class PersonWithRiddle {
             return introMessage;
         }
         return "";
+    }
+    
+    @Override
+    public String toString(){
+        return this.name;
+    }
+
+    @Override
+    public String getType() {
+        return this.getClass().getSimpleName();
     }
 }

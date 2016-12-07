@@ -20,11 +20,11 @@
          </font>
       </Label>
       <Button fx:id="closeBtn" layoutX="392.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" text="Close" />
-      <TextArea fx:id="conversationArea" editable="false" layoutX="14.0" layoutY="51.0" prefHeight="200.0" prefWidth="285.0" />
+      <TextArea fx:id="conversationArea" editable="false" layoutX="14.0" layoutY="51.0" prefHeight="200.0" prefWidth="285.0" wrapText="true" />
       <Button fx:id="questionOne" layoutX="336.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleQuestionAction" text="Question 1" />
       <Button fx:id="questionTwo" layoutX="336.0" layoutY="139.0" mnemonicParsing="false" onAction="#handleQuestionAction" text="Quesiton 2" />
       <Button fx:id="questionThree" layoutX="336.0" layoutY="173.0" mnemonicParsing="false" onAction="#handleQuestionAction" text="Question 3" />
-      <Label layoutX="324.0" layoutY="51.0" text="Choose a question" />
-      <Label layoutX="328.0" layoutY="68.0" text="to ask the person" />
+      <Label layoutX="326.0" layoutY="51.0" text="Choose an option" />
+      <Label layoutX="343.0" layoutY="68.0" text="from below" />
    </children>
 </AnchorPane>

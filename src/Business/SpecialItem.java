@@ -23,6 +23,7 @@ public class SpecialItem extends Item implements Interactable {
      * Is used to hold the exit key value pair which this SpecialItem adds to the Room where this SpecialItem is placed. The key value pair is added to the Room's available exits upon inspection.
      */
     private Pair<String, Room> secretExit;
+    private Pair<String, Room> directionalExit;
     
     /**
      * SpecialItem's constructor.
@@ -44,8 +45,8 @@ public class SpecialItem extends Item implements Interactable {
      * @param Log LogBook, reference to the LogBook object created in Game class.
      * @param isSecretEntrance boolean, true if this SpecialItem is a secret entrance
      */
-    public SpecialItem(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, String keyWords, int weight, boolean isDrinkable, int timeToTake, int timeToInspect, int timeToDrink, LogBook Log, boolean isSecretEntrance) {
-        super(ID, name, isActive, msgOnPickup, msgOnInspect, isMurderWeapon, keyWords, weight, isDrinkable, timeToTake, timeToInspect, timeToDrink, Log);
+    public SpecialItem(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, int weight, boolean isDrinkable, int timeToTake, int timeToInspect, int timeToDrink, LogBook Log, boolean isSecretEntrance) {
+        super(ID, name, isActive, msgOnPickup, msgOnInspect, isMurderWeapon, weight, isDrinkable, timeToTake, timeToInspect, timeToDrink, Log);
         this.isSecretEntrance = isSecretEntrance;
     }
     
@@ -66,12 +67,25 @@ public class SpecialItem extends Item implements Interactable {
         return this.secretExit.getKey();
     }
     
+    public void setDirectionalExit(String direction, Room room) {
+        this.directionalExit = new Pair<>(direction, room);
+    }
+    
+    
     /**
      * Method which gets the value for the pair
      * @return Room, value of this.secretExit pair
      */
     public Room getSecretExitSecond(){
         return this.secretExit.getValue();
+    }
+    
+    public Room getDirectionalExit() {
+        return this.directionalExit.getValue();
+    }
+    
+    public String getDirectionalKey() {
+        return this.directionalExit.getKey();
     }
     
     /**

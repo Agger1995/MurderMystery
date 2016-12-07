@@ -71,6 +71,7 @@ public final class LoadRooms extends ScenarioLoader {
                     Room newRoom = new Room(name, timeToTravel, isLocked, isTransportRoom);
                     if (newRoom.isTransportRoom()) {
                         newRoom.setExit("exit", newRoom);
+                        newRoom.setExitDir("west", newRoom);
                     }
                     rooms_list.add(newRoom);
                     break;
@@ -79,7 +80,9 @@ public final class LoadRooms extends ScenarioLoader {
                         String[] string = scanner.nextLine().split(",");
                         Room room = this.getRoomByName(string[0]);
                         room.setExit(string[1], this.getRoomByName(string[1]));
-                        room.setExitDir(string[2], getRoomByName(string[1]));
+                        if(!this.getRoomByName(string[1]).isTransportRoom() && !room.isTransportRoom()) {
+                            room.setExitDir(string[2], getRoomByName(string[1]));
+                        }
                     }
                     break;
                 default:

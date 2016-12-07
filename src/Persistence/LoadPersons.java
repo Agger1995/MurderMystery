@@ -23,7 +23,6 @@ import java.util.logging.Logger;
  * @author kristian
  */
 public final class LoadPersons extends ScenarioLoader {
-
     private int state;
     private final int LOAD_ATTRIBUTES = 0;
     private final int LOAD_QUESTIONS = 1;
@@ -31,7 +30,7 @@ public final class LoadPersons extends ScenarioLoader {
 
     public LoadPersons(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
-        load();
+        this.load();
     }
 
 
@@ -39,9 +38,9 @@ public final class LoadPersons extends ScenarioLoader {
     public void load() {
         File file = new File(path + "/" + "persons.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
         Scanner scanner = null; //if the scanner can't load the file.
-        if (!CheckFile.rightFormat(file, 20)) {
-            throw new IllegalArgumentException("File is probably corrupt, check if the lines count is correct.");
-        }
+        //if (!CheckFile.rightFormat(file, 20)) {
+        //    throw new IllegalArgumentException("File is probably corrupt, check if the lines count is correct.");
+        //}
         
         try {
             scanner = new Scanner(file); // scanner for the file
@@ -75,14 +74,11 @@ public final class LoadPersons extends ScenarioLoader {
                     int id = Integer.parseInt(scanner.nextLine());
                     String name = scanner.nextLine();
                     boolean isMurder = Boolean.parseBoolean(scanner.nextLine());
-                    String keyWords1 = scanner.nextLine();
-                    String keyWords2 = scanner.nextLine();
-                    String keyWords3 = scanner.nextLine();
                     String accusationResponse = Util.stringConvertSmaller(scanner.nextLine());
                     String askName = scanner.nextLine();
                     int time = Integer.parseInt(scanner.nextLine());
                     Room room = getRoomByName(scanner.nextLine());
-                    temp_person = new Person(id, name, isMurder, keyWords1, keyWords2, keyWords3, accusationResponse, askName, time, log);
+                    temp_person = new Person(id, name, isMurder, accusationResponse, askName, time, log);
                     persons_list.add(temp_person);
                     room.addPerson(temp_person);
                     temp_person.setWelcome(scanner.nextLine());
