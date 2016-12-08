@@ -22,7 +22,7 @@ false
 What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
 dora
 5
-middle of the room
+top middle of the room
 hello
 [Questions]:
 who are you?
@@ -36,7 +36,7 @@ Absolutely no idea, but there was so many people, especially one guy who bumped 
 2
 Stanley
 false
-What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
+Huh?! Are you serious right now? Why would I kill a customer, it's bad for business.
 stanley
 5
 top right corner
@@ -53,7 +53,7 @@ I do have an idea as to who, I guy wearing a very special coat with a certain co
 3
 Herman
 false
-What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
+Nope, didn't do it. You do this detection work for a living, right? 
 herman
 5
 bottom left corner
@@ -70,7 +70,7 @@ The guy with the funny coat did it.
 4
 Andrew
 false
-What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
+Well, I didn't do it, nigga.
 andrew
 5
 top left corner

@@ -19,6 +19,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -36,6 +38,7 @@ import javafx.stage.Stage;
  * @author chris
  */
 public class MainMenuController implements Initializable {
+
     private Game game;
     private Riddle riddle = new Riddle();
     private LogBook logbook;
@@ -48,13 +51,13 @@ public class MainMenuController implements Initializable {
     @FXML
     private TextArea highscoreView;
     
-
-    public void setCurrentStage(Stage stage){
+    public void setCurrentStage(Stage stage) {
         this.currentStage = stage;
     }
-    
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -63,11 +66,11 @@ public class MainMenuController implements Initializable {
     }
     
     @FXML
-    private void handleScenarioPicker(){
+    private void handleScenarioPicker() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Scenario Picker");
         alert.setHeaderText("You have following scenarios available to play.");
-
+        
         File file = new File("scenarios/");
         String[] directories = file.list(new FilenameFilter() {
             @Override
@@ -81,26 +84,26 @@ public class MainMenuController implements Initializable {
         ArrayList<ButtonType> buttons = new ArrayList<>();
         for (String workingString : directories) {
             appendTo += (i + 1) + " : " + workingString + "\n";
-
+            
             buttons.add(new ButtonType(workingString));
-
+            
             i++;
         }
         buttons.add(new ButtonType("Cancel"));
-
+        
         alert.getButtonTypes().setAll(buttons);
         alert.setContentText(appendTo);
-
+        
         Optional<ButtonType> chosen = alert.showAndWait();
-
-        if(!chosen.get().getText().equals("Cancel")){
+        
+        if (!chosen.get().getText().equals("Cancel")) {
             String scenarioPath = "scenarios/" + chosen.get().getText();
-
+            
             this.riddle.setPath(scenarioPath); //Sets the path for the riddles.
 
             this.logbook = new LogBook();
             this.game = new Game(this.logbook, scenarioPath, this.riddle);
-
+            
             this.highscore = game.getHighscoreRef();
             this.chosenScenarioLabel.setText(chosen.get().getText());
             this.highscoreLabel.setOpacity(1);
@@ -114,22 +117,24 @@ public class MainMenuController implements Initializable {
     private void handleHighscoreView() {
         this.highscoreView.appendText(this.game.getHighscoreData());
     }
-
+    
     @FXML
     private void handlePlayButton() {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("GameFXML.fxml").openStream());
             GameController gameController = (GameController) loader.getController();
             gameController.setRefAndInitialData(this.game, this.logbook);
             Scene scene = new Scene(root);
+            scene.setOnKeyReleased(new ShortcutEventHandler(gameController));
             currentStage.getIcons().add(new Image("gameIcon.jpg"));
             currentStage.setTitle("Murder Mystery");
             currentStage.setResizable(false);
             currentStage.setScene(scene);
             currentStage.show();
-        } catch(IOException IOErr){
-            System.out.println("Fatal error loading game window!");
+            
+        } catch (IOException IOErr) {
+            System.out.println(IOErr + "Fatal error loading game window!");
         }
     }
 }

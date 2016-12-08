@@ -14,7 +14,12 @@ bottom left corner
 false
 false
 [Room]:
-middle of the room
+top middle of the room
+5
+false
+false
+[Room]:
+bottom middle of the room
 5
 false
 false
@@ -41,14 +46,17 @@ true
 [Connections]:
 bathroom,top left corner,east
 top left corner,bathroom,west
-top left corner,middle of the room,east
-middle of the room,top left corner,north
+top left corner,top middle of the room,east
+top middle of the room,top left corner,west
 top left corner,bottom left corner,south
 bottom left corner,top left corner,north
-middle of the room,top right corner,east
-top right corner,middle of the room,west
-middle of the room,bottom right corner,south
-bottom right corner,middle of the room,north
-bottom right corner,top right corner,east
-top right corner,bottom right corner,west
-toilet,bathroom,north
+top middle of the room,top right corner,east
+top right corner,top middle of the room,west
+top middle of the room,bottom middle of the room,south
+bottom middle of the room,top middle of the room,north
+bottom middle of the room,bottom right corner,east
+bottom middle of the room,bottom left corner,west
+bottom right corner,bottom middle of the room,west
+bottom right corner,top right corner,north
+top right corner,bottom right corner,south
+toilet,bathroom,east

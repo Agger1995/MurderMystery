@@ -18,20 +18,20 @@ drink
 true
 You pick up the drink.
 The drink is lovely at a time like this, happy for once that the murder happened at a bar. All of the sudden, I landed in the bathroom. The power of the drink, I suppose, better get back to the case. 
-true
+false
 3
 true
 5
 10
 30
 [Item]:
-middle of the room
+top middle of the room
 2
 Diskoball
 true
 You pick up the diskoball.
 Who the hell has a diskoball in 2016? Well, it’s crashed on the floor, I don’t think it has any relevance. I’m drunk though, so it could be fun to carry around, suit yourself.
-true
+false
 5
 false
 5
@@ -57,20 +57,20 @@ bottom right corner
 true
 You pick up a poster.
 Oh, a “Trump 2016” poster. bottom right corner by the pool table.
-true
+false
 0
 false
 5
 10
 0
 [Item]:
-top right corner
+bottom middle of the room
 5
 key
 true
 You pick up a key.
 Given to you by the Bartender, if you inspect the toilet, you will be obligated to find a key to unlock the toilet.  
-true
+false
 1
 false
 5

@@ -56,12 +56,20 @@ public class Game {
         this.state = GameState.PLAYING;
         this.highScore.readHighscoreTable();
     }
+    
+    public int getInventorySize(){
+        return this.inventory.getInventorySize();
+    }
+    
+    public int getInventoryMaxSize(){
+        return this.inventory.getMaxInventorySize();
+    }
 
     public String getScenarioName() {
         return this.scenarioName;
     }
 
-    public int getFinalPoints() {
+    public int getPoints() {
         return this.pointSystem.getPoints();
     }
 
@@ -321,7 +329,11 @@ public class Game {
 
     private boolean drink(Command command) {
         for (Item tempItemObject : inventory.getInventory()) {//tjekker items som er i current room, men manger at den ogsÃ¥ tjeker inventory
-            if (tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase()) && tempItemObject.isDrinkable()) {//tjek if there is an item with the same name as the input and if it is drinkabel
+            if (tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())) {//tjek if there is an item with the same name as the input and if it is drinkabel
+                if(!tempItemObject.isDrinkable()){
+                    this.gameText.appendText("\nYou can not drink the " + command.getSecondWord() + ".\n");//if the item is not drikabel we can't drink it
+                    return false; //continue game
+                }
                 if (logbook.isDrinkMax()) {//tjek if max drink is true
                     logbook.addDrink();//if max drik true, we add 1 to drinkCount
                 } else {
@@ -333,9 +345,6 @@ public class Game {
                 }
                 this.gameText.appendText("\n*Drink* mmmm... that was a good tasting " + command.getSecondWord() + ".\n");//if drink is < maxDrink den we drink
                 time.addMinute(tempItemObject.getTimeToDrink());
-                return false; //continue game
-            } else {
-                this.gameText.appendText("\nYou can not drink the " + command.getSecondWord() + ".\n");//if the item is not drikabel we can't drink it
                 return false; //continue game
             }
         }

@@ -36,6 +36,7 @@ import Business.Item;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
@@ -64,13 +65,15 @@ public class GameController implements Initializable {
     @FXML
     private ListView<Interactable> inventoryListView;
     @FXML
-    private TextField timeLeft;
-    @FXML
     private Pane miniMap;
     @FXML
     private Button goWest, goEast, goSouth, goNorth, helpButton, continueWelcomeMsgBtn;
     @FXML
     private TextArea gameText;
+    @FXML
+    private Label inventoryCurrent;
+    @FXML
+    private TextField points, currentRoom, timeLeft;
 
     /**
      * Initializes the controller class.
@@ -88,6 +91,7 @@ public class GameController implements Initializable {
         this.getWelcomeText();
         this.updateObjects();
         this.openLogbook();
+        this.handleEndCycleUpdates();
     }
     
     private void openLogbook(){
@@ -167,7 +171,7 @@ public class GameController implements Initializable {
         }
     }
     
-    private void goDirection(String dir) {
+    void goDirection(String dir) {
         if(this.game.getCurrentRoom().getExitDir(dir) == null) {
             return;
         }
@@ -233,6 +237,9 @@ public class GameController implements Initializable {
         this.objectsInRoomList.getItems().clear();
         this.updateObjects();
         this.refreshDirectionalButtons();
+        this.updatePoints();
+        this.updateInventorySize();
+        this.currentRoom.setText(this.game.getCurrentRoom().getShortDescription());
     }
 
     //method that add all objects in the current room @Laura
@@ -281,10 +288,14 @@ public class GameController implements Initializable {
             }
             Item temp = (Item)this.chosenList.getSelectionModel().getSelectedItem();
             if(temp.isDrinkable()){
-                this.actionListData.add(CommandWord.DRINK);
+                if(this.objectsInRoomList.getSelectionModel().getSelectedItem() == null){
+                    this.actionListData.add(CommandWord.DRINK);
+                }
             }
             if(temp.isActive()){
-                this.actionListData.add(CommandWord.TAKE);
+                if(this.objectsInRoomList.getSelectionModel().getSelectedItem() != null){
+                    this.actionListData.add(CommandWord.TAKE);
+                }
             }
         } else if(item_type.compareTo("Person") == 0){
             this.actionListData.add(CommandWord.ASK);
@@ -374,7 +385,7 @@ public class GameController implements Initializable {
             if(this.game.canGetOnHighscore()){
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle("Game Over");
-                dialog.setHeaderText("You have earned enough points to get on the highscore!\nYou earned: " + this.game.getFinalPoints() + " points!");
+                dialog.setHeaderText("You have earned enough points to get on the highscore!\nYou earned: " + this.game.getPoints() + " points!");
                 dialog.setContentText("Please enter your name: ");
                 dialog.showAndWait();
                 String playerName;
@@ -416,5 +427,13 @@ public class GameController implements Initializable {
         } catch (IOException e){
             System.out.println("Error opening highscore view!");
         }
+    }
+
+    private void updatePoints() {
+        this.points.setText("" + this.game.getPoints());
+    }
+
+    private void updateInventorySize() {
+        this.inventoryCurrent.setText("" + this.game.getInventorySize() + "/" + this.game.getInventoryMaxSize());
     }
 }

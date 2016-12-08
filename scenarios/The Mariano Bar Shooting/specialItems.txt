@@ -12,10 +12,10 @@ false
 10
 0
 true
-door,north
+door,west
 toilet
 [SpecialItem]:
-middle of the room
+bottom middle of the room
 1
 telephone box
 false
@@ -28,5 +28,5 @@ false
 10
 0
 true
-light,north
+telephone box,south
 telephone box

@@ -158,7 +158,7 @@ false
 library
 14
 pistol
-true 
+true
 You pick up a pistol.
 Finding a pistol in the library, odd place to find a pistol. All bullets are still in the case, but no bullets or gunpowder were found by the scene. It didn’t seem to have caused the murder, yet I’m gonna have to add this one, I can’t have the murderer using this on me.
 true
@@ -171,7 +171,7 @@ false
 library
 15
 odd book
-true 
+true
 You pick up a book.
 Hmm, that's curious. A crime book about a murder happening in a mansion at a dinner party, just like this! That's a bit odd.
 false
