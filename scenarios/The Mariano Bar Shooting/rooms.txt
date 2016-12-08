@@ -39,16 +39,16 @@ telephone box
 false
 true
 [Connections]:
-bathroom,top left corner
-top left corner,bathroom
-top left corner,middle of the room
-middle of the room,top left corner
-top left corner,bottom left corner
-bottom left corner,top left corner
-middle of the room,top right corner
-top right corner,middle of the room
-middle of the room,bottom right corner
-bottom right corner,middle of the room
-bottom right corner,top right corner
-top right corner,bottom right corner
-toilet,bathroom
+bathroom,top left corner,east
+top left corner,bathroom,west
+top left corner,middle of the room,east
+middle of the room,top left corner,north
+top left corner,bottom left corner,south
+bottom left corner,top left corner,north
+middle of the room,top right corner,east
+top right corner,middle of the room,west
+middle of the room,bottom right corner,south
+bottom right corner,middle of the room,north
+bottom right corner,top right corner,east
+top right corner,bottom right corner,west
+toilet,bathroom,north

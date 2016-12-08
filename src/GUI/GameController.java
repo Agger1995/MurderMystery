@@ -18,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -33,7 +32,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import Business.Interactable;
-import Business.Inventory;
 import Business.Item;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -62,34 +60,29 @@ public class GameController implements Initializable {
     @FXML
     private ListView<CommandWord> actionListView;
     @FXML
-    private TextField TimeLeft;
-    @FXML
-    private Label TimeLabel, ActionLabel, InRoomLabel, InRoomLabel1;
-    @FXML
-    private TextArea GameText;
-    @FXML
-    private Pane MiniMap;
-    @FXML
     private ListView<Interactable> objectsInRoomList;
-    @FXML
-    private Button PreformActionButtom, GoWest, GoEast, GoSouth, GoNorth, LogBookButton, HelpButton;
     @FXML
     private ListView<Interactable> inventoryListView;
     @FXML
-    private Button continueWelcomeMsgBtn;
+    private TextField timeLeft;
+    @FXML
+    private Pane miniMap;
+    @FXML
+    private Button goWest, goEast, goSouth, goNorth, helpButton, continueWelcomeMsgBtn;
+    @FXML
+    private TextArea gameText;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
     }
 
-    void setRefs(Game game, LogBook logbook) {
+    void setRefAndInitialData(Game game, LogBook logbook) {
         this.game = game;
         this.logbook = logbook;
-        this.game.setTextAreaRef(GameText);
+        this.game.setTextAreaRef(gameText);
         this.updateTime();
         this.addActions();
         this.getWelcomeText();
@@ -103,7 +96,7 @@ public class GameController implements Initializable {
         try {
             root = loader.load(getClass().getResource("LogbookFXML.fxml").openStream());
             LogbookController logController = (LogbookController) loader.getController();
-            logController.setRef(this.logbook);
+            logController.setRefAndInitialData(this.logbook);
             this.logbookController = logController;
             Scene scene = new Scene(root);
             logbookStage = new Stage();
@@ -134,9 +127,6 @@ public class GameController implements Initializable {
         }
     }
 
-    @FXML
-    private void OnPreformAction(ActionEvent event) {
-    }
 
     @FXML
     private void onWest(ActionEvent event) {
@@ -159,21 +149,21 @@ public class GameController implements Initializable {
     }
     
     private void refreshDirectionalButtons() {
-        GoWest.setDisable(true);
-        GoEast.setDisable(true);
-        GoNorth.setDisable(true);
-        GoSouth.setDisable(true);
+        goWest.setDisable(true);
+        goEast.setDisable(true);
+        goNorth.setDisable(true);
+        goSouth.setDisable(true);
         if(this.game.getCurrentRoom().getExitDir("east") != null) {
-            GoEast.setDisable(false);
+            goEast.setDisable(false);
         }
         if(this.game.getCurrentRoom().getExitDir("west") != null) {
-            GoWest.setDisable(false);
+            goWest.setDisable(false);
         }
         if(this.game.getCurrentRoom().getExitDir("south") != null) {
-            GoSouth.setDisable(false);
+            goSouth.setDisable(false);
         }
         if(this.game.getCurrentRoom().getExitDir("north") != null) {
-            GoNorth.setDisable(false);
+            goNorth.setDisable(false);
         }
     }
     
@@ -189,7 +179,7 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    private void OnHelp(ActionEvent event) {
+    private void onHelp(ActionEvent event) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Help screen");
         alert.setHeaderText("Here you can read about the game window components");
@@ -212,22 +202,22 @@ public class GameController implements Initializable {
     @FXML
     private void continueWelcomeMsg() {
         if (this.welcomeMsgCounter < this.welcomeMsg.size()) {
-            this.GameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter) + "\n");
+            this.gameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter) + "\n");
             this.welcomeMsgCounter++;
         } else {
             this.continueWelcomeMsgBtn.setOpacity(0);
-            this.GameText.setPrefHeight(320);
+            this.gameText.setPrefHeight(320);
         }
     }
 
     private void getWelcomeText() {
         this.welcomeMsg = this.game.printWelcome();
-        this.GameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter));
+        this.gameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter));
         this.welcomeMsgCounter++;
     }
 
     private void updateTime() {
-        this.TimeLeft.setText(game.getTime());
+        this.timeLeft.setText(game.getTime());
     }
 
     private void addActions() {
@@ -254,9 +244,8 @@ public class GameController implements Initializable {
             this.InRoomListView.getItems().add(tmp.getName());
         }*/
         this.objectsInRoomList.getItems().addAll(objects);
-        Inventory inventory = game.getInventory();
         inventoryListView.getItems().clear();
-        inventoryListView.getItems().addAll(inventory.getInventory());
+        inventoryListView.getItems().addAll(this.game.getInventory());
     }
 
     @FXML
@@ -418,7 +407,7 @@ public class GameController implements Initializable {
             highscoreView.setScene(scene);
             highscoreView.show();
             
-            Stage gameStage = (Stage)this.GameText.getScene().getWindow();
+            Stage gameStage = (Stage)this.gameText.getScene().getWindow();
             gameStage.close();
             this.logbookStage.close();
             

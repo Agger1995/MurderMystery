@@ -6,7 +6,6 @@
 package Business;
 
 import java.util.HashMap;
-import java.util.Scanner;
 import static java.lang.Math.random;
 
 /**
@@ -17,16 +16,16 @@ public class PersonWithRiddle implements Interactable{
 
     private HashMap<Integer, String> answers; //answers for the riddle: both wrong and right
     private boolean hasRiddle; //one riddle per person
-    private final String name; //name of the riddle person. ie. Ghost
-    private final Riddle riddle; //the riddle object reference
-    private final Scanner input = new Scanner(System.in); //input
-    private final int timeWin; //time restored when correct answer
-    private final int timeLost; // time lost...
-    private final Time time; //refence to the time object used
-    private final String rightAnswerMessage; // message when answered correctly
-    private final String wrongAnswerMessage; // ^ when answered poorly
+    private String name; //name of the riddle person. ie. Ghost
+    private Riddle riddle; //the riddle object reference
+    private int timeWin; //time restored when correct answer
+    private int timeLost; // time lost...
+    private Time time; //refence to the time object used
+    private String rightAnswerMessage; // message when answered correctly
+    private String wrongAnswerMessage; // ^ when answered poorly
     private String introMessage; //This is the message received, when the person is first seen
     private boolean hasToldIntroMessage;
+    private Riddle riddleRef;
 
     /**
      *
@@ -36,24 +35,27 @@ public class PersonWithRiddle implements Interactable{
      * @param timeWin
      * @param timeLost
      * @param time
+     * @param riddleRef
      */
-    public PersonWithRiddle(String name, String rightAnswerMessage, String wrongAnswerMessage, int timeWin, int timeLost, Time time) {
+    public PersonWithRiddle(String name, String rightAnswerMessage, String wrongAnswerMessage, int timeWin, int timeLost, Time time, Riddle riddleRef) {
         this.rightAnswerMessage = rightAnswerMessage;
         this.wrongAnswerMessage = wrongAnswerMessage;
         this.timeWin = timeWin;
         this.timeLost = timeLost;
         this.name = name;
         this.time = time;
-        hasRiddle = true;
-        riddle = Riddle.getRandomRiddle();
-        answers = new HashMap();
-        hasToldIntroMessage = false;
+        this.hasRiddle = true;
+        this.riddleRef = riddleRef;
+        this.riddle = this.riddleRef.getRandomRiddle();
+        this.answers = new HashMap();
+        this.hasToldIntroMessage = false;
     }
 
     /**
      *
      * @return
      */
+    @Override
     public String getName() {
         return this.name;
     }
@@ -61,14 +63,10 @@ public class PersonWithRiddle implements Interactable{
     public String getRiddle(){
         return this.riddle.getQuestion();
     }
-
-    /*
-    call runRiddle(), when the player asks PersonWithRiddle.
-     */
     /**
      *
      */
-    public void createRiddle() {
+    void createRiddle() {
         answers = getAnswers(); //get hashmap with all of the answer
     }
     
@@ -118,7 +116,7 @@ public class PersonWithRiddle implements Interactable{
      * @param key
      * @return 
      */
-    public String processAnswer(int key) {
+    String processAnswer(int key) {
         this.hasRiddle = false; //makes it so the person won't tell another riddle until next playthrough.
         if (this.answers.get(key).equals(this.riddle.getCorrectAnswer())) { //prints reward message
             this.time.addMinute(-this.timeWin);

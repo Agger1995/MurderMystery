@@ -12,7 +12,9 @@ Who are you?
 Do you know anything pertaining to the case?
 Do you have any idea as to who committed the murder?
 [Answers]:
-I’m the Mr. Phein, part of the beauty of me is that I’m very rich. I had the perfect family, up until my wife died, and now, now they are both gone. No, I didn’t do it, that’s what I know. None of the allegations are true. We have a tremendous problem, listen we have a problem and we need someone to solve it. We need someone to solve this problem, and he has to be tough. We need someone tough and tremendous to solve this.
+I’m the Mr. Phein, part of the beauty of me is that I’m very rich. I had the perfect family, up until my wife died, and now, now they are both gone.
+No, I didn’t do it, that’s what I know. None of the allegations are true. We have a tremendous problem, listen we have a problem and we need someone to solve it.
+We need someone to solve this problem, and he has to be tough. We need someone tough and tremendous to solve this.
 [Person]:
 1
 Tyrion Lannister

@@ -2,9 +2,6 @@
 0
 Stacy
 true
-Stacy
-heard gunshot
-hides murder
 How dare you… my Robert is all that matters, whatever he does it’s always the right thing to do. I don’t care if you accuse me, I would help him kill any day. Gary was a terrible person, did you hear how many he fired? He fired 50 people, 50 fucking people, so he could afford a new boat. 50 lives ruined for a goddamn boat, are you kidding me? Of course I’d seduce Gary and make him come over to this old school bar, with no security and no cameras it would an easy job. I didn’t murder him, Robert did, you have nothing on me. I can’t go to jail. 
 stacy
 5
@@ -22,9 +19,6 @@ Might have, might not, you know the smoke machines and the loud music at this pl
 1
 Dora
 false
-Dora
-dial phone, other detective arrived
-no idea
 What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
 dora
 5
@@ -42,9 +36,6 @@ Absolutely no idea, but there was so many people, especially one guy who bumped 
 2
 Stanley
 false
-Stanley - owns bar
-one man walking away
-special coat
 What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
 stanley
 5
@@ -62,9 +53,6 @@ I do have an idea as to who, I guy wearing a very special coat with a certain co
 3
 Herman
 false
-Herman
-Gary of Trump company
-funny coat did it
 What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
 herman
 5
@@ -82,9 +70,6 @@ The guy with the funny coat did it.
 4
 Andrew
 false
-Andrew
-good friend of Stacy
-Gary is murdered and motive
 What? are you drunk. I Dindu nuffin. You are the worst detective ever. Now, if you would excuse me, I have to drink, you know not doin nuffin.
 andrew
 5

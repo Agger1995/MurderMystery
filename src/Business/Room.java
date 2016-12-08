@@ -86,7 +86,7 @@ public class Room {
      * method which gets all exits for an object of type room
      * @return HashMap<String, Room> of all exits for this.
      */
-    public HashMap<String, Room> getAllExits(){
+    HashMap<String, Room> getAllExits(){
         return this.exits;
     }
     
@@ -95,7 +95,7 @@ public class Room {
      * called from game class when a Person movement is needed
      * @param toMove Person object to move from this to another Room
      */
-    public void movePerson(Person toMove){
+    void movePerson(Person toMove){
         int randomRoomChoose = (int) (Math.random() * this.exits.size());
         Set<String> nearbyExits = this.exits.keySet();
         String chosenRoomExit = "";
@@ -117,7 +117,7 @@ public class Room {
      * gets the isLocked state of this
      * @return true if the room is locked. false otherwise
      */
-    public boolean isLocked(){
+    boolean isLocked(){
         return this.isLocked;
     }
     
@@ -125,7 +125,7 @@ public class Room {
      * gets the room from which this is locked from
      * @return Room object from which this is locked
      */
-    public Room getlockedFrom(){
+    Room getlockedFrom(){
         return this.lockedFrom;
     }
     
@@ -133,7 +133,7 @@ public class Room {
      * gets the item which is required to unlock this from lockedFrom
      * @return Item object required to unlock this
      */
-    public Item getItemToUnlock(){
+    Item getItemToUnlock(){
         return this.itemRequiredToUnlock;
     }
     
@@ -189,7 +189,7 @@ public class Room {
      * get the list of PersonWithRiddle for this.personRiddleInRoom
      * @return ArrayList<PersonWithRiddle> list of PersonWithRiddle in this
      */
-    public ArrayList<PersonWithRiddle> getRiddlersInRoom(){
+    ArrayList<PersonWithRiddle> getRiddlersInRoom(){
         return this.personRiddleInRoom;
     }
 
@@ -215,78 +215,8 @@ public class Room {
      * gets the timeToMove it costs to move from any Room to this
      * @return int time it takes
      */
-    public int getTimeToMove(){
+    int getTimeToMove(){
         return this.timeToMove;
-    }
-    
-    /**
-     * gets a complete return string for this
-     * @return a complete String representation of the contents of this
-     */
-    private String getReturnString(){
-        String toReturn = "";
-        toReturn += this.getExitString() + ".\n";
-        
-        if(!this.itemsInRoom.isEmpty()|| !this.specialItemsInRoom.isEmpty()){
-            toReturn += this.getItemsString() + ".\n";
-        }
-        if(!this.personsInRoom.isEmpty() || !this.personRiddleInRoom.isEmpty()){
-            toReturn += this.getPersonsString() + ".\n";
-        }
-        if(!this.personRiddleInRoom.isEmpty()) {
-            toReturn += this.getRiddlersInRoom().get(0).tellIntroMessage() + "\n";
-        }
-        
-        return toReturn;
-    }
-    
-    /**
-     * getExitString returns a String version of all the exits to the current room
-     * @return String object for this.exits
-     */
-    private String getExitString(){
-        String returnString = "Exits: ";
-        Set<String> keys = this.exits.keySet();
-        for(String exit : keys) {
-            returnString += exit + ", ";
-        }
-        returnString = returnString.substring(0, returnString.length() - 2);
-        
-        return returnString;
-    }
-    
-    /**
-     * gets a string representation of Item in this
-     * @return String object for this.itemsInRoom
-     */
-    private String getItemsString(){
-        String toReturn = "Items: ";
-        for(Item item : this.itemsInRoom){
-            toReturn += item.getName() + ", ";
-        }
-        for(SpecialItem sitem : this.specialItemsInRoom){
-            toReturn += sitem.getName() + ", ";
-        }
-        toReturn = toReturn.substring(0, toReturn.length() - 2);
-        
-        return toReturn;
-    }
-    
-    /**
-     * gets a string representation of Person in this
-     * @return String object for this.personInRoom
-     */
-    private String getPersonsString(){
-        String toReturn = "Persons: ";
-        for(Person person : this.personsInRoom){
-            toReturn += person.getName() + ", ";
-        }
-        for(PersonWithRiddle specialPerson : this.personRiddleInRoom){
-            toReturn += specialPerson.getName() + ", ";
-        }
-        toReturn = toReturn.substring(0, toReturn.length() - 2);
-        
-        return toReturn;
     }
 
     /**
@@ -294,7 +224,7 @@ public class Room {
      * @param direction Is a room name
      * @return An object in the exits hashmap that is reffered to by the direction
      */
-    public Room getExit(String direction){
+    Room getExit(String direction){
         return this.exits.get(direction);
     }
     
@@ -318,7 +248,7 @@ public class Room {
      * gets a list for this.itemsInRoom
      * @return ArrayList<Item> for this
      */
-    public ArrayList<Item> getItems(){
+    ArrayList<Item> getItems(){
         return this.itemsInRoom;
     }
     
@@ -326,7 +256,7 @@ public class Room {
      * gets a list for this.specialItemsInRoom
      * @return ArrayList<SpecialItem> for this
      */
-    public ArrayList<SpecialItem> getSpecialItems(){
+    ArrayList<SpecialItem> getSpecialItems(){
         return this.specialItemsInRoom;
     }
     
@@ -350,7 +280,7 @@ public class Room {
      * gets a list for this.personsInRoom
      * @return ArrayList<Person> for this.personsInRoom
      */
-    public ArrayList<Person> getPersonsInRoom(){
+    ArrayList<Person> getPersonsInRoom(){
         return this.personsInRoom;
     }
 }

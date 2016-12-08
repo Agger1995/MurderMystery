@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author kristian
  */
-public final class LoadRooms extends ScenarioLoader {
+final class LoadRooms extends ScenarioLoader {
 
     private int state;
     private final int LOAD_ATTRIBUTES = 0;

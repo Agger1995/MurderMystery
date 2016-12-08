@@ -36,7 +36,6 @@ public class SpecialItem extends Item implements Interactable {
      * @param msgOnPickup String, the message to be displayed on pickup
      * @param msgOnInspect String, the message to be displayed on inspect
      * @param isMurderWeapon boolean, if this Item is a murder weapon
-     * @param keyWords String, the keywords describing this Item to be added to LogBook
      * @param weight int, is this Item's weight. How much space it takes in Inventory
      * @param isDrinkable boolean, if this Item is drinkable
      * @param timeToTake int, time it takes to pickup this Item
@@ -63,7 +62,7 @@ public class SpecialItem extends Item implements Interactable {
      * Method which gets the key for the pair
      * @return String, key of this.secretExit pair
      */
-    public String getSecretExitFirst(){
+    String getSecretExitFirst(){
         return this.secretExit.getKey();
     }
     
@@ -76,15 +75,15 @@ public class SpecialItem extends Item implements Interactable {
      * Method which gets the value for the pair
      * @return Room, value of this.secretExit pair
      */
-    public Room getSecretExitSecond(){
+    Room getSecretExitSecond(){
         return this.secretExit.getValue();
     }
     
-    public Room getDirectionalExit() {
+    Room getDirectionalExit() {
         return this.directionalExit.getValue();
     }
     
-    public String getDirectionalKey() {
+    String getDirectionalKey() {
         return this.directionalExit.getKey();
     }
     
@@ -92,7 +91,7 @@ public class SpecialItem extends Item implements Interactable {
      * Method which sets if this SpecialItem is a secret entrance
      * @param state True if this SpecialItem is a secret entrance, false otherwise
      */
-    public void setIsSecretEntrance(boolean state){
+    void setIsSecretEntrance(boolean state){
         this.isSecretEntrance = state;
     }
     
@@ -100,7 +99,7 @@ public class SpecialItem extends Item implements Interactable {
      * Method which gets this.isSecretEntrance state
      * @return true if this SpecialItem is a secret entrance, false otherwise.
      */
-    public boolean isSecretEntrance(){
+    boolean isSecretEntrance(){
         return this.isSecretEntrance;
     }
 }

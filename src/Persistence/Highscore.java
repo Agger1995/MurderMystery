@@ -21,8 +21,8 @@ public class Highscore {
     private String path;
     
     public Highscore(String path){
-        this.savedName = new String[11];
-        this.savedPoints = new int[11];
+        this.savedName = new String[10];
+        this.savedPoints = new int[10];
         this.actualSavedArrayLength = 0;
         this.path = path;
     }
@@ -95,7 +95,7 @@ public class Highscore {
     }
     
     public boolean isFinalPointsHigher(int finalPoints){
-        return finalPoints > this.savedPoints[this.actualSavedArrayLength];
+        return finalPoints > this.savedPoints[this.actualSavedArrayLength-1];
     }
     
     public String[] getStringArray(){

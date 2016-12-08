@@ -8,6 +8,7 @@ package Persistence;
 import Business.LogBook;
 import Business.Person;
 import Business.PersonWithRiddle;
+import Business.Riddle;
 import Business.TextHandler;
 import Business.Room;
 import Business.Time;
@@ -23,8 +24,9 @@ import java.util.logging.Logger;
  *
  * @author kristian
  */
-public class LoadPersonsWithRiddle extends ScenarioLoader {
-
+final class LoadPersonsWithRiddle extends ScenarioLoader {
+    private Riddle riddleRef;
+    
     /**
      *
      * @param path
@@ -34,8 +36,9 @@ public class LoadPersonsWithRiddle extends ScenarioLoader {
      * @param printer
      * @param time
      */
-    public LoadPersonsWithRiddle(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
+    public LoadPersonsWithRiddle(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time, Riddle riddleRef) {
         super(path, log, rooms_list, persons_list, printer, time);
+        this.riddleRef = riddleRef;
         this.load();
     }
 
@@ -63,12 +66,12 @@ public class LoadPersonsWithRiddle extends ScenarioLoader {
                 case "[Person]:":
                     Room room = this.getRoomByName(scanner.nextLine());
                     String name = scanner.nextLine();
-                    String introMessage = Util.stringConvertSmaller(scanner.nextLine());
+                    String introMessage = scanner.nextLine();
                     String correctAnswer = scanner.nextLine();
                     String wrongAnswer = scanner.nextLine();
                     int timeWin = Integer.parseInt(scanner.nextLine());
                     int timeLoss = Integer.parseInt(scanner.nextLine());
-                    PersonWithRiddle riddlePerson = new PersonWithRiddle(name, correctAnswer, wrongAnswer, timeWin, timeLoss, time);
+                    PersonWithRiddle riddlePerson = new PersonWithRiddle(name, correctAnswer, wrongAnswer, timeWin, timeLoss, this.time, this.riddleRef);
                     riddlePerson.setIntroMessage(introMessage);
                     room.addPersonWithRiddle(riddlePerson);
                     break;

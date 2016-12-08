@@ -17,11 +17,11 @@ public class Inventory {
     /**
      * ArrayList containing Item objects. These Item objects are the ones the player has picked up throughout the game.
      */
-    private final ArrayList<Item> inventoryItems;
+    private ArrayList<Item> inventoryItems;
     /**
      * Sets the max amount of Item objects the inventoryItems ArrayList can hold.
      */
-    private final int invMaxItems;
+    private int invMaxItems;
     /**
      * Holds an int refering to how much Item weight a player is carrying in combined Item objects.
      */
@@ -44,7 +44,7 @@ public class Inventory {
      * @param itemToCheck Item object to check if is in this.inventoryItems
      * @return true if itemToCheck is in this.inventoryItems, false otherwise
      */
-    public boolean containsItem(Item itemToCheck){
+    boolean containsItem(Item itemToCheck){
         return this.inventoryItems.contains(itemToCheck);
     }
     
@@ -53,7 +53,7 @@ public class Inventory {
      * Removes itemToDrop from this.inventoryItems and removes the itemToDrop.getWeight() from this.currentInv.
      * @param itemToDrop Item object to remove from this.inventoryItems.
      */
-    public void removeItem(Item itemToDrop){
+    void removeItem(Item itemToDrop){
         this.inventoryItems.remove(itemToDrop);
         this.currentInv -= itemToDrop.getWeight();
     }
@@ -62,7 +62,7 @@ public class Inventory {
      * Method which gets the entire Inventory for a player.
      * @return this.inventoryItems as ArrayList
      */
-    public ArrayList<Item> getInventory(){
+    ArrayList<Item> getInventory(){
         return this.inventoryItems;
     }
     
@@ -75,7 +75,7 @@ public class Inventory {
      * this.currentInv.
      * @param itemToAdd Item object to add to inventory.
      */
-    public void addInventory(Item itemToAdd){
+    void addInventory(Item itemToAdd){
         if(this.isInventoryFull(itemToAdd.getWeight())){
             this.currentInv += itemToAdd.getWeight();
             this.inventoryItems.add(itemToAdd);
@@ -86,7 +86,7 @@ public class Inventory {
      * Method which gets this.currentInv
      * @return int refering to the combined weight of the players inventory
      */
-    public int getInventorySize(){
+    int getInventorySize(){
         return this.currentInv;
     }
     
@@ -95,7 +95,7 @@ public class Inventory {
      * @param weightTocheck int refering to an Item objects weight 
      * @return true if the weightToCheck added to the currentInv weight doesn't exceed the maximum allowed weight.
      */
-    public boolean isInventoryFull(int weightTocheck){
+    boolean isInventoryFull(int weightTocheck){
         return (this.currentInv + weightTocheck) <= this.invMaxItems;
     }
     
@@ -103,7 +103,7 @@ public class Inventory {
      * Method that gets the maximum allowed weight for the Inventory
      * @return int refering to the maximum allowed weight for the inventory
      */
-    public int getMaxInventorySize(){
+    int getMaxInventorySize(){
         return this.invMaxItems;
     }
 }

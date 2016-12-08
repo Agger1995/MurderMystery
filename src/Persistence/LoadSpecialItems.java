@@ -24,15 +24,16 @@ import java.util.logging.Logger;
  *
  * @author Laura
  */
-public class LoadSpecialItems extends ScenarioLoader {
-    private HashMap<String, SpecialItem> specialitems_list;
+final class LoadSpecialItems extends ScenarioLoader {
+
+    private HashMap<String, SpecialItem> special_items_list;
 
     public LoadSpecialItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
-        specialitems_list = new HashMap();
+        special_items_list = new HashMap();
         this.load();
     }
-    
+
     @Override
     public void load() {
         File file = new File(path + "/" + "specialItems.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
@@ -60,7 +61,7 @@ public class LoadSpecialItems extends ScenarioLoader {
                     String name = scanner.nextLine();
                     boolean isActive = Boolean.parseBoolean(scanner.nextLine());
                     String messageOnPickup = scanner.nextLine();
-                    String messageOnInspect = Util.stringConvertSmaller(scanner.nextLine());
+                    String messageOnInspect = scanner.nextLine();
                     boolean isMurderWeapon = Boolean.parseBoolean(scanner.nextLine());
                     int weight = Integer.parseInt(scanner.nextLine());
                     boolean isDrinkable = Boolean.parseBoolean(scanner.nextLine());
@@ -72,21 +73,17 @@ public class LoadSpecialItems extends ScenarioLoader {
                     String secretExitName = exits[0];
                     String secretExitDir = exits[1];
                     String secretExitsRoomsName = scanner.nextLine();
-                    
-                    SpecialItem sitem = new SpecialItem(id, name, isActive, messageOnPickup, messageOnInspect, isMurderWeapon, weight, isDrinkable, timeToTake, timeToInspect, timeToDrink, log, isSecretEntrance);
-                    sitem.setSecretExit(secretExitName, getRoomByName(secretExitsRoomsName));
-                    sitem.setDirectionalExit(secretExitDir, getRoomByName(secretExitsRoomsName));
-                    room.addSpecialItem(sitem);
-                    specialitems_list.put(name, sitem);
+
+                    SpecialItem sItem = new SpecialItem(id, name, isActive, messageOnPickup, messageOnInspect, isMurderWeapon, weight, isDrinkable, timeToTake, timeToInspect, timeToDrink, log, isSecretEntrance);
+                    sItem.setSecretExit(secretExitName, getRoomByName(secretExitsRoomsName));
+                    sItem.setDirectionalExit(secretExitDir, getRoomByName(secretExitsRoomsName));
+                    room.addSpecialItem(sItem);
+                    special_items_list.put(name, sItem);
                     break;
-            
+
                 default:
                     break;
             }
         }
     }
 }
-
-    
-
-

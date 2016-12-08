@@ -31,7 +31,7 @@ public class Point {
      * @param pointsToAdd int, of the points to add to this.points
      * @return 
      */
-    public String addPoints(int pointsToAdd){
+    String addPoints(int pointsToAdd){
         this.points += pointsToAdd;
         return "You receive " + pointsToAdd + " points.\n";
     }
@@ -40,7 +40,7 @@ public class Point {
      * Method which gets this.points
      * @return int, of the points the player has acquired throughout the game
      */
-    public int getPoints(){
+    int getPoints(){
         return this.points;
     }
 }

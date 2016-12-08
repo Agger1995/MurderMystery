@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Person implements Interactable{
-    private final int ID;
-    private final String name; //Name of the person
-    private final boolean isMurder; //Is the person the murderer?
+    private int ID;
+    private String name; //Name of the person
+    private boolean isMurder; //Is the person the murderer?
     private boolean hasBeenAsked;
-    private final String accusationResponse;
-    private final String askName;
+    private String accusationResponse;
+    private String askName;
     private HashMap<Integer, String> questions;
-    private HashMap<Integer, String> anwsers;
+    private HashMap<Integer, String> answers;
     public int chosenAnswer;
     private String welcome;
     private Scanner input = new Scanner(System.in);
@@ -26,7 +26,7 @@ public class Person implements Interactable{
         this.askName = askName;
         this.hasBeenAsked = false;
         this.questions = new HashMap<>();
-        this.anwsers = new HashMap<>();
+        this.answers = new HashMap<>();
         this.chosenAnswer = 0;
         this.welcome = "";
         this.timeToAsk = time;
@@ -41,27 +41,27 @@ public class Person implements Interactable{
         return this.name;
     }
     
-    public boolean isAsked(){
+    boolean isAsked(){
         return this.hasBeenAsked;
     }
     
-    public void setHasBeenAsked(boolean condition){
+    void setHasBeenAsked(boolean condition){
         this.hasBeenAsked = condition;
     }
     
-    public int getID(){
+    int getID(){
         return this.ID;
     }
     
-    public String getAskName(){
+    String getAskName(){
         return this.askName;
     }
 
-    public boolean isMurder() {
+    boolean isMurder() {
         return this.isMurder;
     }
     
-    public String getAccusationResponse(){
+    String getAccusationResponse(){
         return this.accusationResponse;
     }
     
@@ -73,11 +73,9 @@ public class Person implements Interactable{
     }
     
     public void setAnswers(String a1, String a2, String a3) {
-        this.anwsers.put(-1, "This is not a valid command, please type a number\n");
-        this.anwsers.put(1, a1);
-        this.anwsers.put(2, a2);
-        this.anwsers.put(3, a3);
-        this.anwsers.put(4, "Farewell! \n");
+        this.answers.put(1, a1);
+        this.answers.put(2, a2);
+        this.answers.put(3, a3);
     }
     
     public String returnQuestions() {
@@ -89,23 +87,23 @@ public class Person implements Interactable{
         return toReturn;
     }
     
-    public int chosenAnswers() {
+    int chosenAnswers() {
         return this.chosenAnswer;
     }
     
-    public String getAnswer(int i){
-        return this.anwsers.get(i);
+    String getAnswer(int i){
+        return this.answers.get(i);
     }
     
     public void setWelcome(String welcome) {
         this.welcome = welcome;
     }
     
-    public String getWelcome() {
+    String getWelcome() {
         return this.welcome;
     }
     
-    public int getTimeItTakes(){
+    int getTimeItTakes(){
         return this.timeToAsk;
     }
 
@@ -114,14 +112,12 @@ public class Person implements Interactable{
     }
     
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.name;
     }
     
     @Override
-    public String getType()
-    {
+    public String getType() {
         return this.getClass().getSimpleName();
     }
 }

@@ -44,35 +44,35 @@ public class LogBook {
         return this.itemsInspected;
     }
     
-    public void addPersonResponse(Person personToAdd, String toAdd){
+    void addPersonResponse(Person personToAdd, String toAdd){
         this.responses.put(personToAdd, toAdd);
     }
     
-    public boolean askedAllPersons(){
+    boolean askedAllPersons(){
         return this.responses.size() == 5;
     }
     
-    public boolean gatheredAllWeapons(){
+    boolean gatheredAllWeapons(){
         return this.murderWeapons.size() == 5;
     }
     
-    public void addItemDescription(Item itemToAdd){
+    void addItemDescription(Item itemToAdd){
         if(!this.itemsInspected.contains(itemToAdd)){
             this.itemsInspected.add(itemToAdd);
         }
     }
     
-    public void addMurderWeapons(Item itemToAdd){
+    void addMurderWeapons(Item itemToAdd){
         if(!this.murderWeapons.contains(itemToAdd)){
             this.murderWeapons.add(itemToAdd);
         }
     }
 
-    public void addDrink() {
+    void addDrink() {
         this.currentDrink++;
     }
 
-    public boolean isDrinkMax() {
+    boolean isDrinkMax() {
         return this.currentDrink < this.maxDrink;
     }
 }

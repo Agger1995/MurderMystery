@@ -16,7 +16,6 @@ import javafx.scene.control.TextArea;
  * @author chris
  */
 public class Game {
-
     private TextHandler printer;
     private Room currentRoom;
     private LogBook logbook;
@@ -28,14 +27,11 @@ public class Game {
     private Time time;
     private boolean timeRanOut;
     private final ArrayList<Room> ROOMS = new ArrayList<>();
-    private ArrayList<Person> PERSONS = new ArrayList<>();
+    private final ArrayList<Person> PERSONS = new ArrayList<>();
     private String scenarioName;
-    TextArea gameText;
-
-    private enum GameState {
-        GAMEOVER, PLAYING;
-    }
+    private TextArea gameText;
     private GameState state;
+    private enum GameState { GAMEOVER, PLAYING; }
 
     /**
      * The Game class' constructor Calls the method createRooms(), and initiates
@@ -43,15 +39,16 @@ public class Game {
      *
      * @param logToParse
      * @param chosenScenarioPath
+     * @param riddleRef
      */
-    public Game(LogBook logToParse, String chosenScenarioPath) {
+    public Game(LogBook logToParse, String chosenScenarioPath, Riddle riddleRef) {
         this.scenarioName = chosenScenarioPath.split("/")[1];
         this.logbook = logToParse;
         this.printer = new TextHandler();
         this.time = new Time(18 * 60, 14 * 60);
-        ScenarioLoader loader = new ScenarioLoader(chosenScenarioPath, logToParse, this.ROOMS, this.PERSONS, printer, time);
+        ScenarioLoader loader = new ScenarioLoader(chosenScenarioPath, logToParse, this.ROOMS, this.PERSONS, printer, time, riddleRef);
         loader.load();
-        currentRoom = this.ROOMS.get(0);
+        this.currentRoom = this.ROOMS.get(0);
         this.highScore = new Highscore(chosenScenarioPath);
         this.pointSystem = new Point();
         this.deadByDrink = false;
@@ -150,6 +147,7 @@ public class Game {
                 case DRINK:
                     wantToQuit = this.drink(command);
                     break;
+                    
                 default:
                     break;
             }
@@ -196,7 +194,7 @@ public class Game {
         time.addMinute(currentRoom.getTimeToMove());
     }
 
-    public void dropItem(Command command) {
+    private void dropItem(Command command) {
         for (Item tempItemObject : inventory.getInventory()) {;
             if (tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())) {
                 inventory.removeItem(tempItemObject);
@@ -397,8 +395,8 @@ public class Game {
         return allObjects;
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public ArrayList<Item> getInventory() {
+        return this.inventory.getInventory();
     }
 
     public Room getCurrentRoom() {

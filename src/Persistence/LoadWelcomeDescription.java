@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author kristian
  */
-public class LoadWelcomeDescription {
+final class LoadWelcomeDescription {
 
     private ArrayList<String> descriptions;
     private String path;
@@ -29,7 +29,6 @@ public class LoadWelcomeDescription {
         this.path = path;
         this.printer = printer;
         this.load();
-        this.set();
     }
     
     private void load() {
@@ -48,11 +47,8 @@ public class LoadWelcomeDescription {
             }
         }
         while (scanner.hasNextLine()) {
-            descriptions.add(Util.stringConvertSmaller(scanner.nextLine()));
+            descriptions.add(scanner.nextLine());
         }
-    }
-    
-    private void set() {
         printer.setIntroMessage(descriptions);
     }
 }

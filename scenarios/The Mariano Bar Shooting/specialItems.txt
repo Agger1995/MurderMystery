@@ -6,14 +6,13 @@ false
 UNUSED
 That’s an awfully bright toilet, maybe I should enter it. Hmm.. it seems to be locked, I need a key.
 false
-Dusty, revealed a toilet.
 0
 false
 5
 10
 0
 true
-door
+door,north
 toilet
 [SpecialItem]:
 middle of the room
@@ -23,12 +22,11 @@ false
 UNUSED
 OMG!
 false
-Transport room in this box.
 0
 false
 5
 10
 0
 true
-light
+light,north
 telephone box

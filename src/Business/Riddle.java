@@ -8,7 +8,6 @@ package Business;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import static java.lang.Math.random;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -20,13 +19,13 @@ import java.util.logging.Logger;
  */
 public class Riddle {
 
-    private static final ArrayList<Riddle> RIDDLES = new ArrayList(); // A database filled with all of the riddles. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    private static String path;                                         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private ArrayList<Riddle> RIDDLES = new ArrayList(); // A database filled with all of the riddles. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private String path;                                         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private String question; //one question per riddle
     private String correctAnswer; //one answer per riddle
     private String[] wrongAnswers = new String[2]; //2 wrong answers pr riddle.
 
-    private static void load() {
+    private void load() {
 
         File file = new File(path+"/riddles.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
         Scanner scanner = null; //if the scanner can't load the file.
@@ -57,7 +56,7 @@ public class Riddle {
      *
      * @return
      */
-    public static Riddle getRandomRiddle() {
+    Riddle getRandomRiddle() {
         if (RIDDLES.isEmpty()) { //loads all the riddles, if not used before.
             load();
         }
@@ -65,35 +64,35 @@ public class Riddle {
             throw new NullPointerException("No riddles are placed in the riddles.txt file...");
         }
         
-        int random_index = (int) (random() * RIDDLES.size()); //get random index
+        int random_index = (int) (Math.random() * RIDDLES.size()); //get random index
         Riddle temp = RIDDLES.get(random_index); //get riddle from index.
         RIDDLES.remove(random_index); //removes the riddle from the list, so it won't be drawn twice on the same playthrough.
         
         return temp;  //returns a random riddle object
     }
     
-    public static void setPath(String path) {
-        Riddle.path = path;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     /**
      * @return the question
      */
-    public String getQuestion() {
+    String getQuestion() {
         return question;
     }
 
     /**
      * @return the correctAnswer
      */
-    public String getCorrectAnswer() {
+    String getCorrectAnswer() {
         return correctAnswer;
     }
 
     /**
      * @return the wrongAnswers
      */
-    public String[] getWrongAnswers() {
+    String[] getWrongAnswers() {
         return wrongAnswers;
     }
 }

@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author kristian
  */
-public final class LoadPersons extends ScenarioLoader {
+final class LoadPersons extends ScenarioLoader {
     private int state;
     private final int LOAD_ATTRIBUTES = 0;
     private final int LOAD_QUESTIONS = 1;
@@ -74,7 +74,7 @@ public final class LoadPersons extends ScenarioLoader {
                     int id = Integer.parseInt(scanner.nextLine());
                     String name = scanner.nextLine();
                     boolean isMurder = Boolean.parseBoolean(scanner.nextLine());
-                    String accusationResponse = Util.stringConvertSmaller(scanner.nextLine());
+                    String accusationResponse = scanner.nextLine();
                     String askName = scanner.nextLine();
                     int time = Integer.parseInt(scanner.nextLine());
                     Room room = getRoomByName(scanner.nextLine());
@@ -88,7 +88,7 @@ public final class LoadPersons extends ScenarioLoader {
                     break;
 
                 case LOAD_ANSWERS:
-                    temp_person.setAnswers(Util.stringConvertSmaller(scanner.nextLine()), Util.stringConvertSmaller(scanner.nextLine()), Util.stringConvertSmaller(scanner.nextLine()));
+                    temp_person.setAnswers(scanner.nextLine(), scanner.nextLine(), scanner.nextLine());
                     break;
                 default:
                     break;

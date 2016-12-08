@@ -24,7 +24,8 @@ import java.util.logging.Logger;
  *
  * @author kristian
  */
-public final class LoadItems extends ScenarioLoader {
+final class LoadItems extends ScenarioLoader {
+
     private HashMap<String, Item> items_list;
 
     public LoadItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
@@ -32,7 +33,7 @@ public final class LoadItems extends ScenarioLoader {
         items_list = new HashMap();
         this.load();
     }
-    
+
     @Override
     public void load() {
         File file = new File(path + "/" + "items.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
@@ -60,7 +61,7 @@ public final class LoadItems extends ScenarioLoader {
                     String name = scanner.nextLine();
                     boolean isActive = Boolean.parseBoolean(scanner.nextLine());
                     String messageOnPickup = scanner.nextLine();
-                    String messageOnInspect = Util.stringConvertSmaller(scanner.nextLine());
+                    String messageOnInspect = scanner.nextLine();
                     boolean isMurderWeapon = Boolean.parseBoolean(scanner.nextLine());
                     int weight = Integer.parseInt(scanner.nextLine());
                     boolean isDrinkable = Boolean.parseBoolean(scanner.nextLine());
@@ -73,7 +74,7 @@ public final class LoadItems extends ScenarioLoader {
                     room.addItem(item);
                     items_list.put(name, item);
                     break;
-                    
+
                 case "[Locked Door]:":
                     String[] key = scanner.nextLine().split(",");
                     Item itemToUnlock = items_list.get(key[0]);
@@ -83,7 +84,7 @@ public final class LoadItems extends ScenarioLoader {
                     LockedRoom.setItemRequiredToUnlock(itemToUnlock);
                     LockedRoom.setLockedFrom(LockedFrom);
                     break;
-                    
+
                 default:
                     break;
             }

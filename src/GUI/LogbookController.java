@@ -50,7 +50,7 @@ public class LogbookController implements Initializable {
         
     }
     
-    public void setRef(LogBook logbook){
+    public void setRefAndInitialData(LogBook logbook){
         this.logbook = logbook;
         this.initialViewOfLists();
     }
@@ -90,7 +90,7 @@ public class LogbookController implements Initializable {
     @FXML
     private void listViewListener(Event e){
         this.logbookTextArea.clear();
-        ListView<?> source = (ListView)e.getSource();
+        ListView source = (ListView)e.getSource();
         if(source.getSelectionModel().getSelectedItem() == null){
             return;
         }
@@ -111,7 +111,4 @@ public class LogbookController implements Initializable {
         alert.setContentText("Here is explanation for the logbook screen.");
         alert.showAndWait();
     }
-    
-    
-    
 }
