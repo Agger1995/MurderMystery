@@ -13,7 +13,6 @@ import javafx.scene.input.KeyEvent;
  * @author kristian
  */
 public class ShortcutEventHandler implements EventHandler<KeyEvent> {
-
     private GameController controller;
 
     public ShortcutEventHandler(GameController controller) {
@@ -43,5 +42,4 @@ public class ShortcutEventHandler implements EventHandler<KeyEvent> {
                 break;
         }
     }
-
 }

@@ -66,9 +66,9 @@ bathroom,ballroom,west
 kitchen,ballroom,east
 kitchen,garden,west
 garden,kitchen,east
-dungeon,western dungeon hall,west
-western dungeon hall,eastern dungeon hall,west
-eastern dungeon hall,garden,north
+dungeon,eastern dungeon hall,west
+eastern dungeon hall,western dungeon hall,west
+western dungeon hall,garden,north
 ground floor hall,ballroom,south
 ground floor hall,upstairs hall,north
 upstairs hall,ground floor hall,south

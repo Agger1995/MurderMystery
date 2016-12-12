@@ -5,7 +5,6 @@ import Persistence.ScenarioLoader;
 import Persistence.Highscore;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Set;
 import javafx.scene.control.TextArea;
 
 /**
@@ -55,6 +54,10 @@ public class Game {
         this.inventory = new Inventory(10);
         this.state = GameState.PLAYING;
         this.highScore.readHighscoreTable();
+    }
+    
+    public ArrayList<Room> getRooms(){
+        return this.ROOMS;
     }
     
     public int getInventorySize(){
@@ -177,29 +180,32 @@ public class Game {
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!\n");
+            this.gameText.appendText("There is no door!\n");
             return;
         }
 
         if (nextRoom.isLocked() && nextRoom.getlockedFrom().equals(currentRoom)) {
             if (inventory.containsItem(nextRoom.getItemToUnlock()) && currentRoom.getShortDescription().equals(nextRoom.getlockedFrom().getShortDescription())) {
                 nextRoom.setIsLocked(false);
-                System.out.println("You unlock " + nextRoom.getShortDescription() + " and enter.");
+                this.gameText.appendText("You unlock the " + nextRoom.getShortDescription() + " and enter.\n");
                 currentRoom = nextRoom;
                 time.addMinute(currentRoom.getTimeToMove());
                 return;
             }
-            System.out.println("The door is locked! You need the keys for it.\n");
+            this.gameText.appendText("The door is locked! You need the keys for it.\n");
             return;
         }
 
         if (currentRoom.isTransportRoom()) {
-            currentRoom = this.ROOMS.get((int) ((Math.random() * this.ROOMS.size())));
+            Room chosenRoom = this.ROOMS.get((int) ((Math.random() * this.ROOMS.size())));;
+            currentRoom = chosenRoom;
+            this.gameText.appendText("You enter the " + currentRoom.getShortDescription() + ".\n");
             time.addMinute(currentRoom.getTimeToMove());
             return;
         }
         currentRoom = nextRoom;
         time.addMinute(currentRoom.getTimeToMove());
+        this.gameText.appendText("You enter the " + currentRoom.getShortDescription() + ".\n");
     }
 
     private void dropItem(Command command) {
@@ -273,7 +279,7 @@ public class Game {
         for (Item tempSpecialItemObject : currentRoom.getSpecialItems()) {
             if (tempSpecialItemObject.getName().equals(command.getSecondWord())) {
                 if (inventory.isInventoryFull(tempSpecialItemObject.getWeight())) {
-                    System.out.println(tempSpecialItemObject.getMsgOnPickup() + ". It weights: " + tempSpecialItemObject.getWeight() + "\n");
+                    this.gameText.appendText(tempSpecialItemObject.getMsgOnPickup() + ". It weights: " + tempSpecialItemObject.getWeight() + "\n");
                     inventory.addInventory(tempSpecialItemObject);
                     if (tempSpecialItemObject.isMurderweapon()) {
                         logbook.addMurderWeapons(tempSpecialItemObject);
@@ -291,21 +297,19 @@ public class Game {
     }
 
     private boolean accuse(Command command) {
-        if (true/*logbook.askedAllPersons() && logbook.gatheredAllWeapons()*/) {
-            String whoToAccuse = command.getSecondWord().toLowerCase();
-            isCorrectAccusation = false;
+        String whoToAccuse = command.getSecondWord().toLowerCase();
+        isCorrectAccusation = false;
 
-            if (!currentRoom.getPersonsInRoom().isEmpty()) {
-                for (Person tempPersonObject : currentRoom.getPersonsInRoom()) {
+        if (!currentRoom.getPersonsInRoom().isEmpty()) {
+            for (Person tempPersonObject : currentRoom.getPersonsInRoom()) {
 
-                    if (tempPersonObject.getAskName().toLowerCase().equals(whoToAccuse) || tempPersonObject.getName().toLowerCase().equals(whoToAccuse)) {
-                        if (tempPersonObject.isMurder()) {
-                            isCorrectAccusation = true;
-                        }
-                        System.out.println(tempPersonObject.getAccusationResponse());
-                        this.state = GameState.GAMEOVER;
-                        return true;
+                if (tempPersonObject.getAskName().toLowerCase().equals(whoToAccuse) || tempPersonObject.getName().toLowerCase().equals(whoToAccuse)) {
+                    if (tempPersonObject.isMurder()) {
+                        isCorrectAccusation = true;
                     }
+                    this.gameText.appendText(tempPersonObject.getAccusationResponse());
+                    this.state = GameState.GAMEOVER;
+                    return true;
                 }
             }
         }
@@ -359,17 +363,7 @@ public class Game {
 
     private void generateRandomPersonMovement() {
         if ((int) (Math.random() * 4) == 0) {
-            Set<String> nearbyRooms = currentRoom.getAllExits().keySet();
-            ArrayList<Person> personsWhoCantMove = new ArrayList<>();
-            int randomGeneratedPerson;
-            Person foundPerson;
-            for (String roomString : nearbyRooms) {
-                personsWhoCantMove.addAll(currentRoom.getExit(roomString).getPersonsInRoom());
-            }
-            do {
-                randomGeneratedPerson = (int) (Math.random() * this.PERSONS.size());
-                foundPerson = this.PERSONS.get(randomGeneratedPerson);
-            } while (personsWhoCantMove.contains(foundPerson));
+            Person foundPerson = this.PERSONS.get((int) (Math.random() * this.PERSONS.size()));
             for (Room tempRoom : this.ROOMS) {
                 if (tempRoom.getPersonsInRoom().contains(foundPerson)) {
                     tempRoom.movePerson(foundPerson);
@@ -390,7 +384,6 @@ public class Game {
         this.gameText = ref;
     }
 
-    //Method that create new ArrayList with Interactable type, that get all items and persons in the current room
     public ArrayList<Interactable> getObjectsInCurrentRoom() {
         ArrayList<Interactable> allObjects = new ArrayList();
         ArrayList<Interactable> items = (ArrayList<Interactable>) (ArrayList<?>) currentRoom.getItems();

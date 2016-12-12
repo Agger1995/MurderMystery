@@ -59,9 +59,9 @@ public class Highscore {
     public void writeToHighscore(String playerName, int finalPoints){
         int finalGamePoints = finalPoints;
         
-        if(finalGamePoints > this.savedPoints[this.actualSavedArrayLength] && this.actualSavedArrayLength == 10){
-            this.savedPoints[this.actualSavedArrayLength] = finalGamePoints;
-            this.savedName[this.actualSavedArrayLength] = playerName;
+        if(finalGamePoints > this.savedPoints[this.actualSavedArrayLength - 1] && this.actualSavedArrayLength == 10){
+            this.savedPoints[this.actualSavedArrayLength - 1] = finalGamePoints;
+            this.savedName[this.actualSavedArrayLength - 1] = playerName;
         } else {
             this.savedPoints[this.actualSavedArrayLength + 1] = finalGamePoints;
             this.savedName[this.actualSavedArrayLength + 1] = playerName;
@@ -95,7 +95,11 @@ public class Highscore {
     }
     
     public boolean isFinalPointsHigher(int finalPoints){
-        return finalPoints > this.savedPoints[this.actualSavedArrayLength-1];
+        if(this.actualSavedArrayLength < 10){
+            return true;
+        } else {
+            return finalPoints > this.savedPoints[this.actualSavedArrayLength - 1];
+        }
     }
     
     public String[] getStringArray(){

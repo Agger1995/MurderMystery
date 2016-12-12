@@ -41,7 +41,6 @@ public class GUIMain extends Application {
                 Platform.exit();
             }
         });
-        
     }
 
     /**

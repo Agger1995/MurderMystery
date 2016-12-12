@@ -1,0 +1,16 @@
+#paneminimap1{
+    -fx-background-image: url("kort_AVBX_2.jpg"); 
+    -fx-background-size: cover;
+}
+#paneminimap2{
+    -fx-background-image: url("NAPD_kort.png"); 
+    -fx-background-size: 310,304;
+    -fx-background-repeat: no-repeat;
+}
+#paneminimap3{
+    -fx-background-image: url("mariano_kort.png"); 
+    -fx-background-size: 385,287; 
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: #ffffff;
+        
+}

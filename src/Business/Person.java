@@ -49,7 +49,7 @@ public class Person implements Interactable{
         this.hasBeenAsked = condition;
     }
     
-    int getID(){
+    public int getID(){
         return this.ID;
     }
     

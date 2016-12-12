@@ -36,11 +36,8 @@ final class LoadPersons extends ScenarioLoader {
 
 
     public void load() {
-        File file = new File(path + "/" + "persons.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
-        Scanner scanner = null; //if the scanner can't load the file.
-        //if (!CheckFile.rightFormat(file, 20)) {
-        //    throw new IllegalArgumentException("File is probably corrupt, check if the lines count is correct.");
-        //}
+        File file = new File(path + "/" + "persons.txt");
+        Scanner scanner = null;
         
         try {
             scanner = new Scanner(file); // scanner for the file

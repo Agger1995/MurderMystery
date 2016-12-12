@@ -56,6 +56,7 @@ public class Room {
      * true if this is a transport room, false otherwise
      */
     private boolean isTransportRoom;
+    private Coordinates coordinatesInRoom;
     
     private HashMap<String, Room> exitDir;
 
@@ -280,7 +281,15 @@ public class Room {
      * gets a list for this.personsInRoom
      * @return ArrayList<Person> for this.personsInRoom
      */
-    ArrayList<Person> getPersonsInRoom(){
+    public ArrayList<Person> getPersonsInRoom(){
         return this.personsInRoom;
+    }
+    
+    public void setCoordinates(Coordinates personsMiniMap){
+        this.coordinatesInRoom = personsMiniMap;
+    }
+    
+    public Coordinates getCoordinates(){
+        return this.coordinatesInRoom;
     }
 }

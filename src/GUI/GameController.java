@@ -33,6 +33,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import Business.Interactable;
 import Business.Item;
+import Business.Person;
+import Business.Room;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +67,23 @@ public class GameController implements Initializable {
     @FXML
     private ListView<Interactable> inventoryListView;
     @FXML
-    private Pane miniMap;
+    private Label minimapplayer;
+    @FXML
+    private Label person0label;
+    @FXML
+    private Label person1label;
+    @FXML
+    private Label person2label;
+    @FXML
+    private Label person3label;
+    @FXML
+    private Label person4label;
+    @FXML
+    private Pane MiniMap1;
+    @FXML
+    private Pane MiniMap2;
+    @FXML
+    private Pane MiniMap3;
     @FXML
     private Button goWest, goEast, goSouth, goNorth, helpButton, continueWelcomeMsgBtn;
     @FXML
@@ -92,9 +110,83 @@ public class GameController implements Initializable {
         this.updateObjects();
         this.openLogbook();
         this.handleEndCycleUpdates();
+        this.placePlayerAndPersonsOnMap();
+        this.placePersonsOnMiniMap();
     }
-    
-    private void openLogbook(){
+
+    private void placePlayerAndPersonsOnMap() {
+        if (game.getScenarioName().toLowerCase().compareTo("a very bloody x-mas") == 0) {
+            MiniMap1.setVisible(true);
+            MiniMap2.setVisible(false);
+            MiniMap3.setVisible(false);
+            MiniMap1.getChildren().add(minimapplayer);
+            MiniMap1.getChildren().add(person0label);
+            MiniMap1.getChildren().add(person1label);
+            MiniMap1.getChildren().add(person2label);
+            MiniMap1.getChildren().add(person3label);
+            MiniMap1.getChildren().add(person4label);
+        } else if (game.getScenarioName().toLowerCase().compareTo("not a phine day") == 0) {
+            MiniMap1.setVisible(false);
+            MiniMap2.setVisible(true);
+            MiniMap3.setVisible(false);
+            MiniMap2.getChildren().add(minimapplayer);
+            MiniMap2.getChildren().add(person0label);
+            MiniMap2.getChildren().add(person1label);
+            MiniMap2.getChildren().add(person2label);
+            MiniMap2.getChildren().add(person3label);
+            MiniMap2.getChildren().add(person4label);
+        } else if (game.getScenarioName().toLowerCase().compareTo("the mariano bar shooting") == 0) {
+            MiniMap1.setVisible(false);
+            MiniMap2.setVisible(false);
+            MiniMap3.setVisible(true);
+            MiniMap3.getChildren().add(minimapplayer);
+            MiniMap3.getChildren().add(person0label);
+            MiniMap3.getChildren().add(person1label);
+            MiniMap3.getChildren().add(person2label);
+            MiniMap3.getChildren().add(person3label);
+            MiniMap3.getChildren().add(person4label);
+        } else {
+            MiniMap1.setVisible(false);
+            MiniMap2.setVisible(false);
+            MiniMap3.setVisible(false);
+        }
+    }
+
+    private void placePersonsOnMiniMap() {
+        minimapplayer.setLayoutX(game.getCurrentRoom().getCoordinates().getPlayerCoordinateX());
+        minimapplayer.setLayoutY(game.getCurrentRoom().getCoordinates().getPlayerCoordinateY());
+        for (Room r : game.getRooms()) {
+            for (Person p : r.getPersonsInRoom()) {
+                switch (p.getID()) {
+                    case 0:
+                        person0label.setLayoutX(r.getCoordinates().getPerson0CoordinateX());
+                        person0label.setLayoutY(r.getCoordinates().getPerson0CoordinateY());
+                        break;
+                    case 1:
+                        person1label.setLayoutX(r.getCoordinates().getPerson1CoordinateX());
+                        person1label.setLayoutY(r.getCoordinates().getPerson1CoordinateY());
+                        break;
+                    case 2:
+                        person2label.setLayoutX(r.getCoordinates().getPerson2CoordinateX());
+                        person2label.setLayoutY(r.getCoordinates().getPerson2CoordinateY());
+                        break;
+                    case 3:
+                        person3label.setLayoutX(r.getCoordinates().getPerson3CoordinateX());
+                        person3label.setLayoutY(r.getCoordinates().getPerson3CoordinateY());
+                        break;
+                    case 4:
+                        person4label.setLayoutX(r.getCoordinates().getPerson4CoordinateX());
+                        person4label.setLayoutY(r.getCoordinates().getPerson4CoordinateY());
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        }
+    }
+
+    private void openLogbook() {
         FXMLLoader loader = new FXMLLoader();
         Parent root;
         try {
@@ -116,7 +208,7 @@ public class GameController implements Initializable {
                 @Override
                 public void handle(WindowEvent event) {
                     event.consume();
-                    
+
                     Alert alert = new Alert(AlertType.INFORMATION);
                     Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
                     alertStage.getIcons().add(new Image("logbook.png"));
@@ -130,7 +222,6 @@ public class GameController implements Initializable {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
     @FXML
     private void onWest(ActionEvent event) {
@@ -151,28 +242,28 @@ public class GameController implements Initializable {
     private void onNorth(ActionEvent event) {
         this.goDirection("north");
     }
-    
+
     private void refreshDirectionalButtons() {
         goWest.setDisable(true);
         goEast.setDisable(true);
         goNorth.setDisable(true);
         goSouth.setDisable(true);
-        if(this.game.getCurrentRoom().getExitDir("east") != null) {
+        if (this.game.getCurrentRoom().getExitDir("east") != null) {
             goEast.setDisable(false);
         }
-        if(this.game.getCurrentRoom().getExitDir("west") != null) {
+        if (this.game.getCurrentRoom().getExitDir("west") != null) {
             goWest.setDisable(false);
         }
-        if(this.game.getCurrentRoom().getExitDir("south") != null) {
+        if (this.game.getCurrentRoom().getExitDir("south") != null) {
             goSouth.setDisable(false);
         }
-        if(this.game.getCurrentRoom().getExitDir("north") != null) {
+        if (this.game.getCurrentRoom().getExitDir("north") != null) {
             goNorth.setDisable(false);
         }
     }
-    
+
     void goDirection(String dir) {
-        if(this.game.getCurrentRoom().getExitDir(dir) == null) {
+        if (this.game.getCurrentRoom().getExitDir(dir) == null) {
             return;
         }
         String roomName = this.game.getCurrentRoom().getExitDir(dir).getShortDescription();
@@ -180,6 +271,7 @@ public class GameController implements Initializable {
         Command cmd = new Command(cmdWord, roomName);
         this.sendCommand(cmd);
         this.handleEndCycleUpdates();
+        this.placePersonsOnMiniMap(); //add persons on the map, every time player go destination
     }
 
     @FXML
@@ -230,8 +322,8 @@ public class GameController implements Initializable {
         }
         this.actionListView.setItems(actionListData);
     }
-    
-    private void handleEndCycleUpdates(){
+
+    private void handleEndCycleUpdates() {
         this.updateTime();
         this.logbookController.updateListViews();
         this.objectsInRoomList.getItems().clear();
@@ -267,7 +359,7 @@ public class GameController implements Initializable {
         Object item1 = this.chosenList.getSelectionModel().getSelectedItem();
         String item_type = item1.getClass().getName().split("Business.")[1]; //Gets the class name and later uses it
         this.actionListView.getItems().clear();
-        
+
         if (item_type.compareTo("SpecialItem") == 0) {
             if (e.getSource().equals(objectsInRoomList)) {
                 this.actionListData.add(CommandWord.INSPECT);
@@ -279,25 +371,25 @@ public class GameController implements Initializable {
         } else if (item_type.compareTo("PersonWithRiddle") == 0) {
             this.actionListData.add(CommandWord.ASK);
             this.actionListView.setItems(actionListData);
-        } else if(item_type.compareTo("Item") == 0){
+        } else if (item_type.compareTo("Item") == 0) {
             if (e.getSource().equals(objectsInRoomList)) {
                 this.actionListData.add(CommandWord.INSPECT);
             } else {
                 this.actionListData.add(CommandWord.INSPECT);
                 this.actionListData.add(CommandWord.DROP);
             }
-            Item temp = (Item)this.chosenList.getSelectionModel().getSelectedItem();
-            if(temp.isDrinkable()){
-                if(this.objectsInRoomList.getSelectionModel().getSelectedItem() == null){
+            Item temp = (Item) this.chosenList.getSelectionModel().getSelectedItem();
+            if (temp.isDrinkable()) {
+                if (this.objectsInRoomList.getSelectionModel().getSelectedItem() == null) {
                     this.actionListData.add(CommandWord.DRINK);
                 }
             }
-            if(temp.isActive()){
-                if(this.objectsInRoomList.getSelectionModel().getSelectedItem() != null){
+            if (temp.isActive()) {
+                if (this.objectsInRoomList.getSelectionModel().getSelectedItem() != null) {
                     this.actionListData.add(CommandWord.TAKE);
                 }
             }
-        } else if(item_type.compareTo("Person") == 0){
+        } else if (item_type.compareTo("Person") == 0) {
             this.actionListData.add(CommandWord.ASK);
             this.actionListData.add(CommandWord.ACCUSE);
         } else {
@@ -307,7 +399,7 @@ public class GameController implements Initializable {
 
     @FXML
     private void onActionClicked() {
-        if(this.chosenList == null || this.chosenList.getSelectionModel().getSelectedItem() == null){
+        if (this.chosenList == null || this.chosenList.getSelectionModel().getSelectedItem() == null) {
             return;
         }
         if (this.actionListView.getSelectionModel().isEmpty() || this.chosenList.getItems().isEmpty()) {
@@ -317,7 +409,7 @@ public class GameController implements Initializable {
         String cmdString = actionListView.getSelectionModel().getSelectedItem().toString();
         CommandWord cmdWord = CommandWord.get(cmdString);
         String secondWord = this.chosenList.getSelectionModel().getSelectedItem().toString();
-        if(cmdWord == CommandWord.ASK){
+        if (cmdWord == CommandWord.ASK) {
             this.handleAskCmd();
         }
         Command cmd = new Command(cmdWord, secondWord);
@@ -350,17 +442,17 @@ public class GameController implements Initializable {
     }
 
     private void sendCommand(Command cmd) {
-        if(this.game.processCommand(cmd)){
+        if (this.game.processCommand(cmd)) {
             this.handleGameOver();
         }
     }
 
     private void handleGameOver() {
-        try{
+        try {
             this.game.addPoints();
             Alert preAlert = new Alert(AlertType.INFORMATION);
             preAlert.setTitle("Game Over");
-            switch(this.game.getGameOverCause()){
+            switch (this.game.getGameOverCause()) {
                 case "drink":
                     preAlert.setHeaderText("You died because you drank too much!");
                     preAlert.setContentText("As a detective you cannot drink too much!\nYou need to stay focused and sober if you\nare to solve the murder!");
@@ -377,25 +469,25 @@ public class GameController implements Initializable {
                     preAlert.setHeaderText("You accused the wrong person!");
                     preAlert.setContentText(this.game.getEndGameMsg("wrongAccuse"));
                     break;
-                    
+
                 default:
                     break;
             }
             preAlert.showAndWait();
-            if(this.game.canGetOnHighscore()){
+            if (this.game.canGetOnHighscore()) {
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle("Game Over");
                 dialog.setHeaderText("You have earned enough points to get on the highscore!\nYou earned: " + this.game.getPoints() + " points!");
                 dialog.setContentText("Please enter your name: ");
                 dialog.showAndWait();
                 String playerName;
-                if(dialog.getResult() == null){
+                if (dialog.getResult() == null) {
                     playerName = "Player";
                 } else {
                     playerName = dialog.getResult();
                 }
-                
-                if(!this.game.addToHighscore(playerName)){
+
+                if (!this.game.addToHighscore(playerName)) {
                     Alert error = new Alert(AlertType.ERROR);
                     error.setTitle("Highscore error!");
                     error.setHeaderText("An error occured when trying to write to the highscore file!");
@@ -403,7 +495,7 @@ public class GameController implements Initializable {
                     error.showAndWait();
                 }
             }
-            
+
             FXMLLoader loader = new FXMLLoader();
             Parent root;
             root = loader.load(getClass().getResource("EndHighscoreViewFXML.fxml").openStream()); // Throws I/O Exception
@@ -417,14 +509,14 @@ public class GameController implements Initializable {
             highscoreView.getIcons().add(new Image("logbook.png"));
             highscoreView.setScene(scene);
             highscoreView.show();
-            
-            Stage gameStage = (Stage)this.gameText.getScene().getWindow();
+
+            Stage gameStage = (Stage) this.gameText.getScene().getWindow();
             gameStage.close();
             this.logbookStage.close();
-            
-        } catch (FileNotFoundException err){
+
+        } catch (FileNotFoundException err) {
             System.out.println("Error in highscore");
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error opening highscore view!");
         }
     }

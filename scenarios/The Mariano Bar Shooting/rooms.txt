@@ -50,6 +50,7 @@ top left corner,top middle of the room,east
 top middle of the room,top left corner,west
 top left corner,bottom left corner,south
 bottom left corner,top left corner,north
+bottom left corner,bottom middle of the room,east
 top middle of the room,top right corner,east
 top right corner,top middle of the room,west
 top middle of the room,bottom middle of the room,south
@@ -60,3 +61,5 @@ bottom right corner,bottom middle of the room,west
 bottom right corner,top right corner,north
 top right corner,bottom right corner,south
 toilet,bathroom,east
+telephone box,telephone box,west
+bathroom,toilet,west
