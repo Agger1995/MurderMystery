@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import javafx.scene.control.TextArea;
 
 /**
- * The game class is the class which connects all the classes and uses them
- * appropriately It uses class Item to create new instances of the type Item,
- * the same goes for Person
+ * The game class is the class which connects all the classes and uses them appropriately It uses class Item to create new instances of the type Item, the same goes for Person
  *
  * @author chris
  */
 public class Game {
+
     private TextHandler printer;
     private Room currentRoom;
     private LogBook logbook;
@@ -30,11 +29,13 @@ public class Game {
     private String scenarioName;
     private TextArea gameText;
     private GameState state;
-    private enum GameState { GAMEOVER, PLAYING; }
+
+    private enum GameState {
+        GAMEOVER, PLAYING;
+    }
 
     /**
-     * The Game class' constructor Calls the method createRooms(), and initiates
-     * the game's parser
+     * The Game class' constructor Calls the method createRooms(), and initiates the game's parser
      *
      * @param logToParse
      * @param chosenScenarioPath
@@ -55,16 +56,16 @@ public class Game {
         this.state = GameState.PLAYING;
         this.highScore.readHighscoreTable();
     }
-    
-    public ArrayList<Room> getRooms(){
+
+    public ArrayList<Room> getRooms() {
         return this.ROOMS;
     }
-    
-    public int getInventorySize(){
+
+    public int getInventorySize() {
         return this.inventory.getInventorySize();
     }
-    
-    public int getInventoryMaxSize(){
+
+    public int getInventoryMaxSize() {
         return this.inventory.getMaxInventorySize();
     }
 
@@ -113,9 +114,8 @@ public class Game {
     }
 
     /**
-     * The game's welcome message. printWelcome() is called when game.play(); is
-     * called. Displays the general information regarding the game. Command list
-     * and a description of the room the player is in at the beginning.
+     * The game's welcome message. printWelcome() is called when game.play(); is called. Displays the general information regarding the game. Command list and a description of the room the player is
+     * in at the beginning.
      *
      * @return
      */
@@ -124,14 +124,11 @@ public class Game {
     }
 
     /**
-     * processCommand() is in charge of figuring out what to do with the user's
-     * input command. For each of the enum values in the enum class CommandWord,
-     * there must be a corresponding if statement in this method.
+     * processCommand() is in charge of figuring out what to do with the user's input command. For each of the enum values in the enum class CommandWord, there must be a corresponding if statement in
+     * this method.
      *
-     * @param command The parameter it takes is a command of type Command. It is
-     * checked up against the enum class CommandWord
-     * @return false if command is = UNKNOWN, returns false if any of the
-     * commands are recognized
+     * @param command The parameter it takes is a command of type Command. It is checked up against the enum class CommandWord
+     * @return false if command is = UNKNOWN, returns false if any of the commands are recognized
      */
     public boolean processCommand(Command command) {
         boolean wantToQuit = false;
@@ -158,7 +155,7 @@ public class Game {
                 case DRINK:
                     wantToQuit = this.drink(command);
                     break;
-                    
+
                 default:
                     break;
             }
@@ -209,7 +206,7 @@ public class Game {
     }
 
     private void dropItem(Command command) {
-        for (Item tempItemObject : inventory.getInventory()) {;
+        for (Item tempItemObject : inventory.getInventory()) {
             if (tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())) {
                 inventory.removeItem(tempItemObject);
                 currentRoom.addItem(tempItemObject);
@@ -259,7 +256,8 @@ public class Game {
         for (Item tempItemObject : currentRoom.getItems()) {
             if (tempItemObject.getName().equals(command.getSecondWord())) {
                 if (inventory.isInventoryFull(tempItemObject.getWeight())) {
-                    this.gameText.appendText("\n" + tempItemObject.getMsgOnPickup() + ".\nIt weights: " + tempItemObject.getWeight() + "\n");
+                    this.gameText.appendText("\n" + tempItemObject.getMsgOnPickup() + ".\n"
+                            + "It weights: " + tempItemObject.getWeight() + "\n");
                     if (tempItemObject.isMurderweapon()) {
                         logbook.addMurderWeapons(tempItemObject);
                     } else {
@@ -276,15 +274,16 @@ public class Game {
             currentRoom.getItems().remove(itemToRemoveFromRoom);
         }
         SpecialItem specialItemToRemoveFromRoom = null;
-        for (Item tempSpecialItemObject : currentRoom.getSpecialItems()) {
+        for (SpecialItem tempSpecialItemObject : currentRoom.getSpecialItems()) {
             if (tempSpecialItemObject.getName().equals(command.getSecondWord())) {
                 if (inventory.isInventoryFull(tempSpecialItemObject.getWeight())) {
-                    this.gameText.appendText(tempSpecialItemObject.getMsgOnPickup() + ". It weights: " + tempSpecialItemObject.getWeight() + "\n");
+                    this.gameText.appendText(tempSpecialItemObject.getMsgOnPickup() + ".\n"
+                            + "It weights: " + tempSpecialItemObject.getWeight() + "\n");
                     inventory.addInventory(tempSpecialItemObject);
                     if (tempSpecialItemObject.isMurderweapon()) {
                         logbook.addMurderWeapons(tempSpecialItemObject);
                     }
-                    itemToRemoveFromRoom = tempSpecialItemObject;
+                    specialItemToRemoveFromRoom = tempSpecialItemObject;
                     time.addMinute(tempSpecialItemObject.getTimeToTake());
                 } else {
                     this.gameText.appendText("\nInventory is full! You are carrying to much weight.\n");
@@ -334,7 +333,7 @@ public class Game {
     private boolean drink(Command command) {
         for (Item tempItemObject : inventory.getInventory()) {//tjekker items som er i current room, men manger at den ogsÃ¥ tjeker inventory
             if (tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())) {//tjek if there is an item with the same name as the input and if it is drinkabel
-                if(!tempItemObject.isDrinkable()){
+                if (!tempItemObject.isDrinkable()) {
                     this.gameText.appendText("\nYou can not drink the " + command.getSecondWord() + ".\n");//if the item is not drikabel we can't drink it
                     return false; //continue game
                 }
