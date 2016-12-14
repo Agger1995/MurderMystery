@@ -36,6 +36,11 @@ public class Point {
         return "You receive " + pointsToAdd + " points.\n";
     }
     
+    String removePoints(int pointsToRemove){
+        this.points -= pointsToRemove;
+        return "You lost " + pointsToRemove + " points.\n";
+    }
+    
     /**
      * Method which gets this.points
      * @return int, of the points the player has acquired throughout the game

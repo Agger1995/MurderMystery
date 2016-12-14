@@ -82,14 +82,14 @@ public class Game {
 
     public void addPoints() throws FileNotFoundException {
         if (isCorrectAccusation) {
-            pointSystem.addPoints(100);
-            pointSystem.addPoints(time.PointsIfWin());
+            this.gameText.appendText(pointSystem.addPoints(100));
+            this.gameText.appendText(pointSystem.addPoints(time.PointsIfWin()));
         } else if (deadByDrink) {
-            pointSystem.addPoints(-100);
+            this.gameText.appendText(pointSystem.removePoints(100));
         } else if (timeRanOut) {
-            pointSystem.addPoints(-100);
+            this.gameText.appendText(pointSystem.removePoints(100));
         } else {
-            pointSystem.addPoints(-100);
+            this.gameText.appendText(pointSystem.removePoints(100));
         }
     }
 
