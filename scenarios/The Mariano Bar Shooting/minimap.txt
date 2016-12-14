@@ -16,16 +16,16 @@ toilet
 bathroom
 53
 40
-39
+70
 46
-44
+60
 46
+80
 35
+65
 50
-40
-50
-44
-50
+58
+55
 [Room]
 top left corner
 100
