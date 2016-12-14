@@ -102,7 +102,10 @@ public class Highscore {
     }
     
     public boolean isFinalPointsHigher(int finalPoints){
-        if(this.actualSavedArrayLength < 10 && finalPoints > 0){
+        if(finalPoints < 0){
+            return false;
+        }
+        if(this.actualSavedArrayLength < 10){
             return true;
         } else {
             return finalPoints > this.savedPoints[this.actualSavedArrayLength - 1] && finalPoints > 0;
