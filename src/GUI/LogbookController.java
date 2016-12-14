@@ -108,7 +108,12 @@ public class LogbookController implements Initializable {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Logbook Help Screen");
         alert.setHeaderText("Here you can read about the logbook screen \nand how you can benefit from it.");
-        alert.setContentText("Here is explanation for the logbook screen.");
+        alert.setContentText("This window contains 3 lists.\n"
+                + " - Weapons found: This list holds the murder weapons you have found throughout the game.\n"
+                + " - Persons talked to: This list holds the information given to you from Persons, when interacting with them throughout the game.\n"
+                + " - Items Inspected: This list holds the information given to you from inspecting items throughout the game.\n"
+                + "\n"
+                + "You can select one of the items from the lists and it will\nshow the information you previously learned about the particular item or person.");
         alert.showAndWait();
     }
 }
