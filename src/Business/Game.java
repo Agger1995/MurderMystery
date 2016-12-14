@@ -358,6 +358,7 @@ public class Game {
     private void whenTimeRunsOut() {
         if (time.getTimeElapsed() >= 14 * 60) {//time runs out at kl: 08:00
             this.state = GameState.GAMEOVER; //end game
+            this.timeRanOut = true;
         }
     }
 
@@ -385,7 +386,7 @@ public class Game {
     }
 
     public ArrayList<Interactable> getObjectsInCurrentRoom() {
-        ArrayList<Interactable> allObjects = new ArrayList();
+        ArrayList<Interactable> allObjects = new ArrayList<>();
         ArrayList<Interactable> items = (ArrayList<Interactable>) (ArrayList<?>) currentRoom.getItems();
         ArrayList<Interactable> specialItems = (ArrayList<Interactable>) (ArrayList<?>) currentRoom.getSpecialItems();
         ArrayList<Interactable> persons = (ArrayList<Interactable>) (ArrayList<?>) currentRoom.getPersonsInRoom();

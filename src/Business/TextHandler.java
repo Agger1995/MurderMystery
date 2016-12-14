@@ -33,7 +33,7 @@ public class TextHandler {
     }
 
     String printLoseTimeRanOutMessage() {
-        return "Fail message if time runs out: Oh my, the time! It's already kl.08.00, and the cops are arriving, with their usual 'hard' work and rusty understanding of Mr. Phein's current loss and subsequently his financial situation I doubt this case will be solved, buried in money and secrets so that Mr. Pheins family name remains intact. It will forever remain a Mystery, a Mystery Mansion.";
+        return "Oh my, the time! It's already kl. 08.00, and the cops are arriving, with their usual 'hard' work and rusty understanding of Mr. Phein's current loss and subsequently his financial situation I doubt this case will be solved, buried in money and secrets so that Mr. Pheins family name remains intact. It will forever remain a Mystery, a Mystery Mansion.";
     }
 
     String printAccuseErrorMsg() {

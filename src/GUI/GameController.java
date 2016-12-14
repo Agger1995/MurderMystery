@@ -67,29 +67,13 @@ public class GameController implements Initializable {
     @FXML
     private ListView<Interactable> inventoryListView;
     @FXML
-    private Label minimapplayer;
+    private Label minimapplayer, person0label, person1label, person2label, person3label, person4label, inventoryCurrent;
     @FXML
-    private Label person0label;
-    @FXML
-    private Label person1label;
-    @FXML
-    private Label person2label;
-    @FXML
-    private Label person3label;
-    @FXML
-    private Label person4label;
-    @FXML
-    private Pane MiniMap1;
-    @FXML
-    private Pane MiniMap2;
-    @FXML
-    private Pane MiniMap3;
+    private Pane MiniMap1, MiniMap2, MiniMap3;
     @FXML
     private Button goWest, goEast, goSouth, goNorth, helpButton, continueWelcomeMsgBtn;
     @FXML
     private TextArea gameText;
-    @FXML
-    private Label inventoryCurrent;
     @FXML
     private TextField points, currentRoom, timeLeft;
 
@@ -308,7 +292,7 @@ public class GameController implements Initializable {
 
     private void getWelcomeText() {
         this.welcomeMsg = this.game.printWelcome();
-        this.gameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter));
+        this.gameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter) + "\n");
         this.welcomeMsgCounter++;
     }
 
