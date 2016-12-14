@@ -80,7 +80,7 @@ public class Game {
         return this.highScore.getHighscoreData();
     }
 
-    public void addPoints() throws FileNotFoundException {
+    public void addPoints() {
         if (isCorrectAccusation) {
             this.gameText.appendText(pointSystem.addPoints(100));
             this.gameText.appendText(pointSystem.addPoints(time.PointsIfWin()));
