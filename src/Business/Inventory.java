@@ -40,7 +40,7 @@ public class Inventory {
     }
     
     /**
-     * Method which checks whether the given Item itemToCheck is an element in this.inventoryItems.
+     * Checks if the item is placed in the inventory.
      * @param itemToCheck Item object to check if is in this.inventoryItems
      * @return true if itemToCheck is in this.inventoryItems, false otherwise
      */
@@ -49,8 +49,7 @@ public class Inventory {
     }
     
     /**
-     * Method to remove an item from a players inventory.
-     * Removes itemToDrop from this.inventoryItems and removes the itemToDrop.getWeight() from this.currentInv.
+     * Drops item to room
      * @param itemToDrop Item object to remove from this.inventoryItems.
      */
     void removeItem(Item itemToDrop){
@@ -67,12 +66,7 @@ public class Inventory {
     }
     
     /**
-     * Method to add an Item object to this.inventoryItems.
-     * Calls method this.isInventoryFull(weight) to check if the Item object 
-     * the player is trying to pick up exceeds this.invMaxItems. If it does, the
-     * player cannot pick up said item.
-     * If the player can pick up the item, the weight of the Item is added to
-     * this.currentInv.
+     * Adds item to inventory, if the inventory isn't full.
      * @param itemToAdd Item object to add to inventory.
      */
     void addInventory(Item itemToAdd){
@@ -83,7 +77,7 @@ public class Inventory {
     }
     
     /**
-     * Method which gets this.currentInv
+     * Gets the size of the inventory.
      * @return int refering to the combined weight of the players inventory
      */
     int getInventorySize(){
@@ -100,8 +94,8 @@ public class Inventory {
     }
     
     /**
-     * Method that gets the maximum allowed weight for the Inventory
-     * @return int refering to the maximum allowed weight for the inventory
+     * Returns the size of the inventory
+     * @return int, size.
      */
     int getMaxInventorySize(){
         return this.invMaxItems;

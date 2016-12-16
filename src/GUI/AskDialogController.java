@@ -19,7 +19,8 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * This dialog is opened, when you are asking a NPC.
+ * Both riddle persons and normal persons.
  *
  * @author Agger
  */
@@ -45,11 +46,20 @@ public class AskDialogController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
+    /**
+     * Sets the references to the game and logController.
+     * @param game
+     * @param logController 
+     */
     void setGameRef(Game game, LogbookController logController){
         this.gameRef = game;
         this.logController = logController;
     }
     
+    /**
+     * Closes the stage, when the 'close'-button is pressed.
+     * @param event 
+     */
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
         if(!this.riddleDialog){
@@ -60,6 +70,10 @@ public class AskDialogController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Personalizes it for the person chosen to speak to.
+     * @param personInDialog 
+     */
     void setPersonInDialog(Object personInDialog) {
         this.questionOne.setDisable(false);
         this.questionTwo.setDisable(false);
@@ -91,6 +105,11 @@ public class AskDialogController implements Initializable {
         
     }
     
+    /**
+     * Handles button presses.
+     * 
+     * @param e 
+     */
     @FXML
     private void handleQuestionAction(ActionEvent e){
         String toPrint = "";
@@ -121,6 +140,10 @@ public class AskDialogController implements Initializable {
         this.conversationArea.appendText("\n" + toPrint + "\n");
     }
 
+    /**
+     * Makes sure, you won't be able to get another riddle after the first.
+     * @param personInDialog A person with a riddle.
+     */
     private void riddleHasBeenAsked(PersonWithRiddle personInDialog) {
         this.conversationArea.appendText(personInDialog.getName() + ": I have already given you a riddle earlier human!");
         this.questionOne.setDisable(true);

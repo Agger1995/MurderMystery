@@ -33,7 +33,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * Main Menu Controller.
+ * In this controller, you can choose between the different scenarios.
+ * You can also see the highscores for each.
  *
  * @author chris
  */
@@ -51,6 +53,10 @@ public class MainMenuController implements Initializable {
     @FXML
     private TextArea highscoreView;
     
+    /**
+     * Sets the current stage.
+     * @param stage 
+     */
     public void setCurrentStage(Stage stage) {
         this.currentStage = stage;
     }
@@ -65,6 +71,9 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
+    /**
+     * Creates a window, that allows you to choose between the scenarios.
+     */
     @FXML
     private void handleScenarioPicker() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -114,10 +123,17 @@ public class MainMenuController implements Initializable {
         }
     }
     
+    /**
+     * Gets the highscore data for the chosen scenario.
+     */
     private void handleHighscoreView() {
         this.highscoreView.appendText(this.game.getHighscoreData());
     }
     
+    /**
+     * Handles when the play button has been pressed.
+     * Sets the scene to the Game scene - You are then able to play.
+     */
     @FXML
     private void handlePlayButton() {
         try {

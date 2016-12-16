@@ -28,13 +28,24 @@ final class LoadPersons extends ScenarioLoader {
     private final int LOAD_QUESTIONS = 1;
     private final int LOAD_ANSWERS = 2;
 
+    /**
+     * Loads the persons found at the path, by the name of persons.txt.
+     * @param path to load
+     * @param log to write log to
+     * @param rooms_list the list to store the rooms in.
+     * @param persons_list the list to store all of the persons in.
+     * @param printer a text handler, that handles the print.
+     * @param time a time reference.
+     */
     public LoadPersons(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         this.load();
     }
 
 
-
+    /**
+     * Loads the persons found the persons.txt file at the path defined in the constructor.
+     */
     public void load() {
         File file = new File(path + "/" + "persons.txt");
         Scanner scanner = null;
@@ -53,21 +64,21 @@ final class LoadPersons extends ScenarioLoader {
         Person temp_person = null;
         while (scanner.hasNextLine()) {
             switch (scanner.nextLine()) {
-                case "[Person]:":
+                case "[Person]:": //if scanner fundt "[Person]:" case, get persons attributes
                     state = LOAD_ATTRIBUTES;
                     break;
-                case "[Questions]:":
+                case "[Questions]:"://if scanner fundt "[Questions]:" case, get questions, that player can ask person about
                     state = LOAD_QUESTIONS;
                     break;
                 case "[Answers]:":
-                    state = LOAD_ANSWERS;
+                    state = LOAD_ANSWERS;//if scanner fundt "[Answers]:" case, get answers, that player can ger from person to his questions
                     break;
 
                 default:
                     break;
             }
             switch (state) {
-                case LOAD_ATTRIBUTES:
+                case LOAD_ATTRIBUTES: //case, that get persons attributes
                     int id = Integer.parseInt(scanner.nextLine());
                     String name = scanner.nextLine();
                     boolean isMurder = Boolean.parseBoolean(scanner.nextLine());
@@ -80,11 +91,11 @@ final class LoadPersons extends ScenarioLoader {
                     room.addPerson(temp_person);
                     temp_person.setWelcome(scanner.nextLine());
                     break;
-                case LOAD_QUESTIONS:
+                case LOAD_QUESTIONS: //case, that get questions
                     temp_person.setQuestions(scanner.nextLine(), scanner.nextLine(), scanner.nextLine());
                     break;
 
-                case LOAD_ANSWERS:
+                case LOAD_ANSWERS://case, that get answers
                     temp_person.setAnswers(scanner.nextLine(), scanner.nextLine(), scanner.nextLine());
                     break;
                 default:

@@ -25,16 +25,19 @@ import java.util.logging.Logger;
  * @author kristian
  */
 final class LoadPersonsWithRiddle extends ScenarioLoader {
+
     private Riddle riddleRef;
-    
+
     /**
+     * Load the persons with a riddle found at path, by the name of "riddle
+     * persons.txt".
      *
-     * @param path
-     * @param log
-     * @param rooms_list
-     * @param persons_list
-     * @param printer
-     * @param time
+     * @param path to load
+     * @param log to write log to
+     * @param rooms_list the list to store the rooms in.
+     * @param persons_list the list to store all of the persons in.
+     * @param printer a text handler, that handles the print.
+     * @param time a time reference.
      */
     public LoadPersonsWithRiddle(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time, Riddle riddleRef) {
         super(path, log, rooms_list, persons_list, printer, time);
@@ -42,10 +45,10 @@ final class LoadPersonsWithRiddle extends ScenarioLoader {
         this.load();
     }
 
-    /**
-     *
-     */
     @Override
+    /**
+     * Loads the persons with riddles.
+     */
     public void load() {
         File file = new File(path + "/" + "riddle persons.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
         Scanner scanner = null; //if the scanner can't load the file.
@@ -63,7 +66,7 @@ final class LoadPersonsWithRiddle extends ScenarioLoader {
         }
         while (scanner.hasNextLine()) {
             switch (scanner.nextLine()) {
-                case "[Person]:":
+                case "[Person]:":   //if scanner fundt "[Person]:" case, get persons attributes
                     Room room = this.getRoomByName(scanner.nextLine());
                     String name = scanner.nextLine();
                     String introMessage = scanner.nextLine();

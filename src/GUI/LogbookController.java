@@ -22,7 +22,8 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 
 /**
- * FXML Controller class
+ * Logbook Controller Class
+ * A controller for the extra window concerning the game logbook.
  *
  * @author amaliehoff
  */
@@ -50,11 +51,18 @@ public class LogbookController implements Initializable {
         
     }
     
+    /**
+     * Sets reference to the LogBook-object found in the business layer.
+     * @param logbook reference
+     */
     public void setRefAndInitialData(LogBook logbook){
         this.logbook = logbook;
         this.initialViewOfLists();
     }
     
+    /**
+     * Refreshes the lists, so new items are added.
+     */
     private void initialViewOfLists(){
         this.itemListView.getItems().clear();
         this.personListView.getItems().clear();
@@ -83,10 +91,17 @@ public class LogbookController implements Initializable {
         this.weaponListView.getItems().addAll(weaponListViewData);
     }
     
+    /**
+     * Refresh the ListViews.
+     */
     public void updateListViews(){
         this.initialViewOfLists();
     }
     
+    /**
+     * Updates the information in the TextArea, by its chosen item and ListView.
+     * @param e 
+     */
     @FXML
     private void listViewListener(Event e){
         this.logbookTextArea.clear();
@@ -103,6 +118,9 @@ public class LogbookController implements Initializable {
         }
     }
     
+    /**
+     * Handles the on click event on the help button.
+     */
     @FXML
     private void onHelpBtn(){
         Alert alert = new Alert(AlertType.INFORMATION);

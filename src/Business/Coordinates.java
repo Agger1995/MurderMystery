@@ -6,7 +6,7 @@
 package Business;
 
 /**
- *
+ * Holds all the coordinates for a given Room-object.
  * @author Laura
  */
 public class Coordinates {
@@ -24,6 +24,26 @@ public class Coordinates {
     private int person4X;
     private int person4Y;
 
+    /**
+     * All the coordinates for a given Room object is set in this class.
+     * The first 2 coordinates are reserved for the player
+     * The last 4 coordinates are reserved for 4 persons(NPCs)
+     * All coordinates are int values.
+     * <p>
+     * All the getter methods are the same - returns either a x- or y-coordinate based on the name of the method.
+     * @param playerX
+     * @param playerY
+     * @param person0X
+     * @param person0Y
+     * @param person1X
+     * @param person1Y
+     * @param person2X
+     * @param person2Y
+     * @param person3X
+     * @param person3Y
+     * @param person4X
+     * @param person4Y 
+     */
     public Coordinates(int playerX, int playerY, int person0X, int person0Y, int person1X, int person1Y, int person2X, int person2Y, int person3X, int person3Y, int person4X, int person4Y) {
         this.playerX = playerX;
         this.playerY = playerY;

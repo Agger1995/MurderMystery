@@ -23,19 +23,33 @@ import java.util.logging.Logger;
  *
  * @author Laura
  */
-public class LoadMiniMap extends ScenarioLoader {
+class LoadMiniMap extends ScenarioLoader {
 
     protected ArrayList<Room> rooms_list;
     
     private int state;
     private final int LOAD_ATTRIBUTES = 0;
 
+    /**
+     * Called in the ScenarioLoader.
+     * @param path to load
+     * @param log to write log to
+     * @param rooms_list the list to store the rooms in.
+     * @param persons_list the list to store all of the persons in.
+     * @param printer a text handler, that handles the print.
+     * @param time a time reference.
+     */
     public LoadMiniMap(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         load();
-
     }
-@Override
+    /**
+     * load is a method, that is overriden from the ScenarioLoader.
+     * It loads the data, from the minimap.txt file, which is found
+     * at the path given in the constructor.
+     */
+    
+    @Override
     public void load() {
         File file = new File(this.path + "/" + "minimap.txt");
         Scanner scanner = null; 
@@ -55,13 +69,13 @@ public class LoadMiniMap extends ScenarioLoader {
         while (scanner.hasNextLine()) {
             switch (scanner.nextLine()) {
                 case "[Room]:":
-                    state = LOAD_ATTRIBUTES;
+                    state = LOAD_ATTRIBUTES;//if scanner fundt "[Room]:" case, get minimap attributes for that room
                     break;
                 default:
                     break;
             }
             switch (state) {
-                case LOAD_ATTRIBUTES:
+                case LOAD_ATTRIBUTES: //case that get coordinates on the map for each person, if if it is located in this room.
                     Room room = getRoomByName(scanner.nextLine());
                     int playerX1 = Integer.parseInt(scanner.nextLine());
                     int playerY1 = Integer.parseInt(scanner.nextLine());

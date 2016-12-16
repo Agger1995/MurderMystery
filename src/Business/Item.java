@@ -80,7 +80,7 @@ public class Item implements Interactable {
      * The Item class' constructor. Is used when creating new instances of Item.
      * Sets all the instance attributes from the parameter list.
      *
-     * @param ID int, is this Items unique ID
+     * @param ID int, is this item's unique ID
      * @param name String, is this Items 'name'
      * @param isActive boolean, if this Item can be picked up
      * @param msgOnPickup String, the message to be displayed on pickup
@@ -93,7 +93,7 @@ public class Item implements Interactable {
      * @param timeToInspect int, time it takes to inspect this Item
      * @param timeToDrink int, time it takes to drink this Item
      * @param Log LogBook, reference to the LogBook object created in Game
-     * class.
+     * object.
      */
     public Item(int ID, String name, boolean isActive, String msgOnPickup, String msgOnInspect, boolean isMurderWeapon, int weight, boolean isDrinkable, int timeToTake, int timeToInspect, int timeToDrink, LogBook Log) {
         this.ID = ID;
@@ -114,7 +114,7 @@ public class Item implements Interactable {
     /**
      * Method which gets this Item's weight
      *
-     * @return int of this Items weight
+     * @return int of this item's weight
      */
     int getWeight() {
         return this.weight;
@@ -157,7 +157,7 @@ public class Item implements Interactable {
     }
 
     /**
-     * Method which gets this Items active state
+     * Returns whether or not the item is pickable.
      *
      * @return true if this Item is active, false otherwise
      */
@@ -166,10 +166,9 @@ public class Item implements Interactable {
     }
 
     /**
-     * Method which sets this Items hasBeenInspected attributes
+     * Sets if the item has been inspected before.
      *
-     * @param condition is the new state of this.hasBeenInspected. True if this
-     * Item has been Inspected, false otherwise.
+     * @param condition true = inspected before.
      */
     void setHasBeenInspected(boolean condition) {
         this.hasBeenInspected = condition;
@@ -185,8 +184,7 @@ public class Item implements Interactable {
     }
 
     /**
-     * Method which gets this Items isMuderweapon state
-     *
+     * Returns whether of not the item is a murder weapon.
      * @return true if this Item is a murder weapon, false otherwise.
      */
     boolean isMurderweapon() {
@@ -194,9 +192,8 @@ public class Item implements Interactable {
     }
 
     /**
-     * Method which gets this Items name attribute
-     *
-     * @return String of this items name
+     * Returns the name of the item.
+     * @return String, name
      */
     @Override
     public String getName() {
@@ -204,10 +201,8 @@ public class Item implements Interactable {
     }
 
     /**
-     * Method which gets this Items msgOnInspect Also adds this Items keywords
-     * to the LogBook through this.LogConnection.
-     *
-     * @return String of this items msgOnInspect
+     * Returns the msg on inspect. I.e "you inspected a pickle".
+     * @return String, msg
      */
     public String getMsgOnInspect() {
         this.LogConnection.addItemDescription(this);
@@ -215,28 +210,35 @@ public class Item implements Interactable {
     }
 
     /**
-     * Method which gets this Items msgOnPickup
+     * Message on pickup: i.e. "you picked up a pickle".
      *
-     * @return String of this items msgOnPickup
+     * @return String, msg.
      */
     public String getMsgOnPickup() {
         return this.msgOnPickup;
     }
 
     /**
-     * Method which gets this Items isDrinkable state
-     *
-     * @return true if this Item is drinkable, false otherwise.
+     * Returns whether or not the item is drinkable.
+     * @return boolean, isDrinkable.
      */
     public boolean isDrinkable() {
         return this.isDrinkable;
     }
 
+    /**
+     * Returns the name of the item.
+     * @return string, name of item.
+     */
     @Override
     public String toString() {
         return this.name;
     }
 
+    /**
+     * Returns the type of the item.
+     * @return String, type.
+     */
     @Override
     public String getType() {
         return this.getClass().getSimpleName();

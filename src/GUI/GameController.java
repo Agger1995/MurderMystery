@@ -44,7 +44,8 @@ import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
 
 /**
- * FXML Controller class
+ * FXML Controller class This controller controls all the game events.
+ *
  *
  * @author chris
  */
@@ -84,6 +85,13 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    /**
+     * This method sets up all of the references to the Game object. The game
+     * reference is passed from the GUIMain.java.
+     *
+     * @param game Game reference from GUIMain
+     * @param logbook Logbook reference, also passed from GUIMain.
+     */
     void setRefAndInitialData(Game game, LogBook logbook) {
         this.game = game;
         this.logbook = logbook;
@@ -98,7 +106,15 @@ public class GameController implements Initializable {
         this.placePersonsOnMiniMap();
     }
 
+    /**
+     * This method places labels on the minimap. It also checks which scenario
+     * is chosen.
+     */
     private void placePlayerAndPersonsOnMap() {
+        /*
+        If-else statement, that switches between the different scenario names.
+        Makes sure the correct minimap is chosen, while the others are disabled.
+         */
         if (game.getScenarioName().toLowerCase().compareTo("a very bloody x-mas") == 0) {
             MiniMap1.setVisible(true);
             MiniMap2.setVisible(false);
@@ -136,7 +152,14 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * Sets the label coordinates. Each label has a person or player
+     * represented.
+     */
     private void placePersonsOnMiniMap() {
+        /*
+        Each label represents a person.
+         */
         minimapplayer.setLayoutX(game.getCurrentRoom().getCoordinates().getPlayerCoordinateX());
         minimapplayer.setLayoutY(game.getCurrentRoom().getCoordinates().getPlayerCoordinateY());
         for (Room r : game.getRooms()) {
@@ -170,29 +193,36 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * This opens the Logbook gui in another window. It also makes it
+     * uncloseable.
+     */
     private void openLogbook() {
         FXMLLoader loader = new FXMLLoader();
         Parent root;
         try {
-            root = loader.load(getClass().getResource("LogbookFXML.fxml").openStream());
-            LogbookController logController = (LogbookController) loader.getController();
-            logController.setRefAndInitialData(this.logbook);
-            this.logbookController = logController;
-            Scene scene = new Scene(root);
-            logbookStage = new Stage();
-            logbookStage.getIcons().add(new Image("logbook.png"));
-            logbookStage.setResizable(false);
-            logbookStage.setScene(scene);
-            logbookStage.setAlwaysOnTop(true);
+            root = loader.load(getClass().getResource("LogbookFXML.fxml").openStream()); //get layout
+            LogbookController logController = (LogbookController) loader.getController(); //get controller
+            logController.setRefAndInitialData(this.logbook); //sets reference to logbook
+            this.logbookController = logController; //
+            Scene scene = new Scene(root); //creates a new scene for the controller.
+            logbookStage = new Stage(); //creates a new stage for the scene
+            logbookStage.getIcons().add(new Image("logbook.png")); //sets icon
+            logbookStage.setResizable(false); //makes sure you can't resize this.
+            logbookStage.setScene(scene); //sets scene
+            logbookStage.setAlwaysOnTop(true); //makes sure, it's always visible.
             logbookStage.setTitle("Logbook");
             logbookStage.setX(30);
             logbookStage.setY(200);
             logbookStage.show();
+            /*
+            Makes sure you can't close the logbook while playing the game.
+            Comes with a warning if you try.
+             */
             logbookStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
                     event.consume();
-
                     Alert alert = new Alert(AlertType.INFORMATION);
                     Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
                     alertStage.getIcons().add(new Image("logbook.png"));
@@ -207,31 +237,62 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * Triggers a command in the direction specified in the method.
+     *
+     * @param event
+     */
     @FXML
     private void onWest(ActionEvent event) {
         this.goDirection("west");
     }
 
+    /**
+     * Triggers a command in the direction specified in the method.
+     *
+     * @param event
+     */
     @FXML
     private void onEast(ActionEvent event) {
         this.goDirection("east");
     }
 
+    /**
+     * Triggers a command in the direction specified in the method.
+     *
+     * @param event
+     */
     @FXML
     private void onSouth(ActionEvent event) {
         this.goDirection("south");
     }
 
+    /**
+     * Triggers a command in the direction specified in the method.
+     *
+     * @param event
+     */
     @FXML
     private void onNorth(ActionEvent event) {
         this.goDirection("north");
     }
 
+    /**
+     * Makes the different buttons available and unavailable. The directions
+     * where there is a connection, it enables the button of the given
+     * direction.
+     */
     private void refreshDirectionalButtons() {
+        /*
+        Disables the buttons first, when enables each, if a connection is in the existence.
+         */
         goWest.setDisable(true);
         goEast.setDisable(true);
         goNorth.setDisable(true);
         goSouth.setDisable(true);
+        /*
+        Reenables if present.
+         */
         if (this.game.getCurrentRoom().getExitDir("east") != null) {
             goEast.setDisable(false);
         }
@@ -246,10 +307,21 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * Handles the travel to the specified direction.
+     *
+     * @param dir
+     */
     void goDirection(String dir) {
+        /*
+        Checks if you can go that way. Returns if you can't.
+         */
         if (this.game.getCurrentRoom().getExitDir(dir) == null) {
             return;
         }
+        /*
+        Handles the travelling.
+         */
         String roomName = this.game.getCurrentRoom().getExitDir(dir).getShortDescription();
         CommandWord cmdWord = CommandWord.get("Go");
         Command cmd = new Command(cmdWord, roomName);
@@ -258,10 +330,19 @@ public class GameController implements Initializable {
         this.placePersonsOnMiniMap(); //add persons on the map, every time player go destination
     }
 
+    /**
+     * This is triggered, when the help button is pressed. It comes fourth as an
+     * alert box of the type: INFORMATION.
+     *
+     * @param event
+     */
     @FXML
     private void onHelp(ActionEvent event) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Help screen");
+        /*
+        Createas a new Alert window, to display the information.
+         */
+        Alert alert = new Alert(AlertType.INFORMATION); //sets type.
+        alert.setTitle("Help screen"); //sets title.
         alert.setHeaderText("Here you can read about the game window components");
         alert.setContentText("This is the main game window\n"
                 + "You can move around the different rooms using the buttons in the middle of the screen\n"
@@ -279,8 +360,14 @@ public class GameController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Appends the message box.
+     */
     @FXML
     private void continueWelcomeMsg() {
+        /*
+        Appends the TextArea of the missing text.
+         */
         if (this.welcomeMsgCounter < this.welcomeMsg.size()) {
             this.gameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter) + "\n");
             this.welcomeMsgCounter++;
@@ -290,16 +377,25 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * Appends the message box.
+     */
     private void getWelcomeText() {
         this.welcomeMsg = this.game.printWelcome();
         this.gameText.appendText(this.welcomeMsg.get(this.welcomeMsgCounter) + "\n");
         this.welcomeMsgCounter++;
     }
 
+    /**
+     * Updates the label showing the time.
+     */
     private void updateTime() {
         this.timeLeft.setText(game.getTime());
     }
 
+    /**
+     * Adds all the actions.
+     */
     private void addActions() {
         for (CommandWord CW : CommandWord.values()) {
             this.actionListData.add(CW);
@@ -307,7 +403,14 @@ public class GameController implements Initializable {
         this.actionListView.setItems(actionListData);
     }
 
+    /**
+     * After a command-button has been pressed, this will be called to handle
+     * all the updates.
+     */
     private void handleEndCycleUpdates() {
+        /*
+        Calls all the end cycle methods.
+         */
         this.updateTime();
         this.logbookController.updateListViews();
         this.objectsInRoomList.getItems().clear();
@@ -318,28 +421,39 @@ public class GameController implements Initializable {
         this.currentRoom.setText(this.game.getCurrentRoom().getShortDescription());
     }
 
-    //method that add all objects in the current room @Laura
+    /**
+     * Updates the lists containing the objects in room and inventory.
+     */
     private void updateObjects() {
+        /*
+        refreshes the lists.
+        Starts by emptying the lists.
+        End by filling them up.
+         */
         objectsInRoomList.getItems().removeAll();
         ArrayList<Interactable> objects = game.getObjectsInCurrentRoom();
-        /*for(Interactable tmp: objects)
-        {
-            this.InRoomListView.getItems().add(tmp.getName());
-        }*/
         this.objectsInRoomList.getItems().addAll(objects);
         inventoryListView.getItems().clear();
         inventoryListView.getItems().addAll(this.game.getInventory());
     }
 
+    /**
+     * This handles which item is selected through the different lists.
+     *
+     * @param e ListView that is chosen.
+     */
     @FXML
     private void objectSelectionListener(Event e) {
+        //Makes sure only one list is chosen at a time.
         ListView toDeactivate = (e.getSource().equals(inventoryListView)) ? objectsInRoomList : inventoryListView;
         this.chosenList = (e.getSource().equals(inventoryListView)) ? inventoryListView : objectsInRoomList;
         toDeactivate.getSelectionModel().select(null); // Deactivates the list that is clicked on last
 
+        //Returns if the list is empty, or no item has been pressed.
         if (this.chosenList.getSelectionModel().isEmpty()) {
             return;
         }
+        //Handles the actions available.
         Object item1 = this.chosenList.getSelectionModel().getSelectedItem();
         String item_type = item1.getClass().getName().split("Business.")[1]; //Gets the class name and later uses it
         this.actionListView.getItems().clear();
@@ -381,14 +495,19 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * Handles the action pressed in the list view menu.
+     */
     @FXML
     private void onActionClicked() {
+        //Makes sure an items has been chosen.
         if (this.chosenList == null || this.chosenList.getSelectionModel().getSelectedItem() == null) {
             return;
         }
         if (this.actionListView.getSelectionModel().isEmpty() || this.chosenList.getItems().isEmpty()) {
             return;
         }
+        //Gets the index, so the chosen one remains after the lists are refreshed.
         int index = this.chosenList.getSelectionModel().getSelectedIndex();
         String cmdString = actionListView.getSelectionModel().getSelectedItem().toString();
         CommandWord cmdWord = CommandWord.get(cmdString);
@@ -405,6 +524,9 @@ public class GameController implements Initializable {
         this.handleEndCycleUpdates();
     }
 
+    /**
+     * This creates a window that handles the dialogue between you and the npc.
+     */
     private void handleAskCmd() {
         FXMLLoader loader = new FXMLLoader();
         Parent root;
@@ -425,12 +547,20 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * Sends the chosen command to the business layer.
+     *
+     * @param cmd Command that is chosen.
+     */
     private void sendCommand(Command cmd) {
         if (this.game.processCommand(cmd)) {
             this.handleGameOver();
         }
     }
 
+    /**
+     * This handles the Game Over routine.
+     */
     private void handleGameOver() {
         try {
             this.game.addPoints();
@@ -505,10 +635,16 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * This updates the label showing the current points gotten.
+     */
     private void updatePoints() {
         this.points.setText("" + this.game.getPoints());
     }
 
+    /**
+     * This updates the label showing the current inventory capacity.
+     */
     private void updateInventorySize() {
         this.inventoryCurrent.setText("" + this.game.getInventorySize() + "/" + this.game.getInventoryMaxSize());
     }

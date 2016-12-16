@@ -27,13 +27,25 @@ import java.util.logging.Logger;
 final class LoadItems extends ScenarioLoader {
 
     private HashMap<String, Item> items_list;
-
+    
+    /**
+     * Loads the items found at the path by the name of items.txt.
+     * @param path
+     * @param log
+     * @param rooms_list
+     * @param persons_list
+     * @param printer
+     * @param time 
+     */
     public LoadItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         items_list = new HashMap();
         this.load();
     }
 
+    /**
+     * Loads the items found at the path defined in the constructor by name of items.txt.
+     */
     @Override
     public void load() {
         File file = new File(path + "/" + "items.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
@@ -55,7 +67,7 @@ final class LoadItems extends ScenarioLoader {
         }
         while (scanner.hasNextLine()) {
             switch (scanner.nextLine()) {
-                case "[Item]:":
+                case "[Item]:": //if scanner fundt "[Item]:" case, get items attributes and put this in the items_list
                     Room room = getRoomByName(scanner.nextLine());
                     int id = Integer.parseInt(scanner.nextLine());
                     String name = scanner.nextLine();
@@ -75,7 +87,7 @@ final class LoadItems extends ScenarioLoader {
                     items_list.put(name, item);
                     break;
 
-                case "[Locked Door]:":
+                case "[Locked Door]:": //if scanner fundt "[Locked Door]:" case, show this some "locked door" until player do not provide key.
                     String[] key = scanner.nextLine().split(",");
                     Item itemToUnlock = items_list.get(key[0]);
                     Room LockedFrom = getRoomByName(key[1]);

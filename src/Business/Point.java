@@ -6,7 +6,7 @@
 package Business;
 
 /**
- * Point class.
+ * Point class. Holds the total amount of points.
  * 
  * @author chris
  */
@@ -19,31 +19,34 @@ public class Point {
     /**
      * The Point class' constructor.
      * Is used when creating new instances of Point.
-     * Only 1 instance should be created of Point throughout a game.
+     * Only 1 instance should be created of Point throughout the game.
      */
     public Point(){
         this.points = 0;
     }
     
     /**
-     * Method which adds pointsToAdd to this.points
-     * Also prints a message to the player how many points has been added to the player.
-     * @param pointsToAdd int, of the points to add to this.points
-     * @return 
+     * Adds points to the total points.
+     * @param pointsToAdd int, amount of points to add.
      */
     String addPoints(int pointsToAdd){
         this.points += pointsToAdd;
         return "You receive " + pointsToAdd + " points.\n";
     }
     
+    /**
+     * Removes a points from the total.
+     * @param pointsToRemove int, total to remove.
+     * @return String, the amount you lose in human readable level.
+     */
     String removePoints(int pointsToRemove){
         this.points -= pointsToRemove;
         return "You lost " + pointsToRemove + " points.\n";
     }
     
     /**
-     * Method which gets this.points
-     * @return int, of the points the player has acquired throughout the game
+     * Get the total amount of points scored.
+     * @return int, the total amount of points.
      */
     int getPoints(){
         return this.points;

@@ -6,7 +6,7 @@
 package Business;
 
 /**
- *
+ * An interface, that tells whether or not object is interactable.
  * @author chris
  */
 public interface Interactable {

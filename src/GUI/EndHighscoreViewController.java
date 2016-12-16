@@ -15,7 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 /**
- * FXML Controller class
+ * Highscore window handling.
+ * This controller handles all the events regarding the highscore window.
  *
  * @author chris
  */
@@ -34,11 +35,19 @@ public class EndHighscoreViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
+    /**
+     * This method writes the highscore data to the TextArea.
+     * @param data String of the highscore
+     * @param scenarioName Name of the Scenario
+     */
     void setHighscoreData(String data, String scenarioName){
         this.highscoreView.appendText(data);
         this.scenarioNameLabel.setText("Highscore view for: " + scenarioName);
     }
     
+    /**
+     * Makes sure the game is closed, when the 'x' button is pressed.
+     */
     @FXML
     private void handleCloseGameBtn(){
         Platform.exit();

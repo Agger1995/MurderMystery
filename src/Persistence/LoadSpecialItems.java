@@ -22,25 +22,38 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Laura
+ * @author Laura LoadSpecialItems class inherit the ScenarioLoader class and
+ * therefore class used that same atributes and methods
  */
 final class LoadSpecialItems extends ScenarioLoader {
 
     private HashMap<String, SpecialItem> special_items_list;
 
+    /**
+     * Does almost have the same functionality as the LoadItems class, but it
+     * has some extra funtionality, because the items are special.
+     *
+     * @param path to load
+     * @param log to write log to
+     * @param rooms_list the list to store the rooms in.
+     * @param persons_list the list to store all of the persons in.
+     * @param printer a text handler, that handles the print.
+     * @param time a time reference.
+     */
     public LoadSpecialItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);
         special_items_list = new HashMap();
         this.load();
     }
 
+    /**
+     * Loads the data from the file named specialItems.txt, found in the path
+     * given in the constructor.
+     */
     @Override
     public void load() {
         File file = new File(path + "/" + "specialItems.txt"); //Hold file of the riddles. riddles.txt should be placed in the root folder.
         Scanner scanner = null; //if the scanner can't load the file.
-//        if (!CheckFile.rightFormat(file, 16)) {
-//            throw new IllegalArgumentException("File is probably corrupt, check if the lines count is correct.");
-//        }
 
         try {
             scanner = new Scanner(file); // scanner for the file

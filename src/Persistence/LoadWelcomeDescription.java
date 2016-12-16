@@ -17,20 +17,28 @@ import java.util.logging.Logger;
 /**
  *
  * @author kristian
+ * 
  */
 final class LoadWelcomeDescription {
 
     private ArrayList<String> descriptions;
     private String path;
     private TextHandler printer;
-
+    
+    /**
+     * Loads the descriptions of a given path.
+     * @param path To the folder, where this file is saved. (description.txt)
+     * @param printer A text handler saved to.
+     */
     public LoadWelcomeDescription(String path, TextHandler printer) {
         this.descriptions = new ArrayList();
         this.path = path;
         this.printer = printer;
         this.load();
     }
-    
+    /**
+     * Loads the description.txt file, and saves it in the printer.
+     */
     private void load() {
         File file = new File(path + "/" + "description.txt");
         Scanner scanner = null; 

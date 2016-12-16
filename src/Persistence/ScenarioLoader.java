@@ -26,6 +26,16 @@ public class ScenarioLoader {
     TextHandler printer;
     Time time;
     private Riddle riddleRef;
+    /**
+     * This is the first constructor of the class ScenarioLoader.
+     * It sets all the reference, that is used in the load() method.
+     * @param path to load
+     * @param log to write log to
+     * @param rooms_list the list to store the rooms in.
+     * @param persons_list the list to store all of the persons in.
+     * @param printer a text handler, that handles the print.
+     * @param time a time reference.
+     */
 
     public ScenarioLoader(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time){
         this.time = time;
@@ -35,6 +45,20 @@ public class ScenarioLoader {
         this.printer = printer;
         this.rooms_list = rooms_list;
     }
+    
+    /**
+     * This is the second constructor of the class ScenarioLoader.
+     * It sets all the reference, that is used in the load() method.
+     * The only difference between this constructor and the first, is the
+     * reference to the riddle object.
+     * @param path to load
+     * @param log to write log to
+     * @param rooms_list the list to store the rooms in.
+     * @param persons_list the list to store all of the persons in.
+     * @param printer a text handler, that handles the print.
+     * @param time a time reference.
+     * @param riddleRef riddle reference
+     */
     
     public ScenarioLoader(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time,Riddle riddleRef){
         this.time = time;
@@ -46,7 +70,10 @@ public class ScenarioLoader {
         this.riddleRef = riddleRef;
     }
     
-  
+    /**
+    * load() method is used to call all Load-classes, and load
+    * for a given scenario.
+    */
     
     public void load() {
         String[] parts = this.path.split("/");
@@ -59,6 +86,11 @@ public class ScenarioLoader {
         new LoadWelcomeDescription(this.path, printer); //Loads and shows the description of the game.
     }
 
+    /**
+     * returns a room by its name.
+     * @param name
+     * @return Room object
+     */
     protected Room getRoomByName(String name) {
         for (Room room : rooms_list) {
             if (room.getShortDescription().equals(name)) {

@@ -17,11 +17,18 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- *
+ * GUIMain - Initializes the MainMenu Controller,
+ * found in the MainMenuFXML.fxml
  * @author chris
  */
 public class GUIMain extends Application {
     
+    /**
+     * Loads the layout, which initializes a controller.
+     * 
+     * @param primaryStage
+     * @throws IOException 
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -44,6 +51,8 @@ public class GUIMain extends Application {
     }
 
     /**
+     * The main method.
+     * Calls 'launch(args)', which later calls the start method.
      * @param args the command line arguments
      */
     public static void main(String[] args) {

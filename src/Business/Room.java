@@ -84,8 +84,8 @@ public class Room {
     }
     
     /**
-     * method which gets all exits for an object of type room
-     * @return HashMap<String, Room> of all exits for this.
+     * Returns all the exits of the room.
+     * @return HashMap<String, Room> of all exits of this room.
      */
     HashMap<String, Room> getAllExits(){
         return this.exits;
@@ -196,7 +196,7 @@ public class Room {
 
     /**
      * setExit sets an exit (direction) leading to a Room (neighbor)
-     * adds a new key value set to this.exits HashMap<String, Room>
+     * adds a new key value set to this.exits HashMap
      * @param direction the direction to go to get to Room
      * @param neighbor the Room object
      */
@@ -279,7 +279,7 @@ public class Room {
     
     /**
      * gets a list for this.personsInRoom
-     * @return ArrayList<Person> for this.personsInRoom
+     * @return ArrayList for this.personsInRoom
      */
     public ArrayList<Person> getPersonsInRoom(){
         return this.personsInRoom;
