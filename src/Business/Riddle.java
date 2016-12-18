@@ -14,9 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Reads a riddle from riddle.txt, and returns a random one.
- * Won't ever return the same riddle in the same playthrough.
- * 
+ * Reads a riddle from riddle.txt, and returns a random one. Won't ever return the same riddle in the same playthrough.
+ *
  * @author kristian
  */
 public class Riddle {
@@ -59,6 +58,7 @@ public class Riddle {
 
     /**
      * Returns a random riddle object when called.
+     *
      * @return a random riddle object.
      */
     Riddle getRandomRiddle() {
@@ -78,6 +78,7 @@ public class Riddle {
 
     /**
      * Sets the path to the folder containing the riddles file.
+     *
      * @param path to the folder containing the riddles.txt file
      */
     public void setPath(String path) {

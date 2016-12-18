@@ -23,6 +23,7 @@ import java.util.logging.Logger;
  * @author kristian
  */
 final class LoadPersons extends ScenarioLoader {
+
     private int state;
     private final int LOAD_ATTRIBUTES = 0;
     private final int LOAD_QUESTIONS = 1;
@@ -30,6 +31,7 @@ final class LoadPersons extends ScenarioLoader {
 
     /**
      * Loads the persons found at the path, by the name of persons.txt.
+     *
      * @param path to load
      * @param log to write log to
      * @param rooms_list the list to store the rooms in.
@@ -42,14 +44,13 @@ final class LoadPersons extends ScenarioLoader {
         this.load();
     }
 
-
     /**
      * Loads the persons found the persons.txt file at the path defined in the constructor.
      */
     public void load() {
         File file = new File(path + "/" + "persons.txt");
         Scanner scanner = null;
-        
+
         try {
             scanner = new Scanner(file); // scanner for the file
         } catch (FileNotFoundException ex) {

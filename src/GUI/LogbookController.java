@@ -22,12 +22,12 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 
 /**
- * Logbook Controller Class
- * A controller for the extra window concerning the game logbook.
+ * Logbook Controller Class A controller for the extra window concerning the game logbook.
  *
  * @author amaliehoff
  */
 public class LogbookController implements Initializable {
+
     private LogBook logbook;
     ObservableList<Item> weaponListViewData = FXCollections.observableArrayList();
     ObservableList<Item> itemListViewData = FXCollections.observableArrayList();
@@ -48,41 +48,42 @@ public class LogbookController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
-    
+
     /**
      * Sets reference to the LogBook-object found in the business layer.
+     *
      * @param logbook reference
      */
-    public void setRefAndInitialData(LogBook logbook){
+    public void setRefAndInitialData(LogBook logbook) {
         this.logbook = logbook;
         this.initialViewOfLists();
     }
-    
+
     /**
      * Refreshes the lists, so new items are added.
      */
-    private void initialViewOfLists(){
+    private void initialViewOfLists() {
         this.itemListView.getItems().clear();
         this.personListView.getItems().clear();
         this.weaponListView.getItems().clear();
         this.itemListViewData.clear();
         this.personListViewData.clear();
         this.weaponListViewData.clear();
-        for(Item tempItem : this.logbook.getMurderWeapons()){
-            if(tempItem != null){
+        for (Item tempItem : this.logbook.getMurderWeapons()) {
+            if (tempItem != null) {
                 this.weaponListViewData.add(tempItem);
             }
         }
-        for(Person tempPerson : this.logbook.getPersons()){
-            if(tempPerson != null){
+        for (Person tempPerson : this.logbook.getPersons()) {
+            if (tempPerson != null) {
                 this.personListViewData.add(tempPerson);
             }
         }
-        
-        for(Item tempItem : this.logbook.getItems()){
-            if(tempItem != null){
+
+        for (Item tempItem : this.logbook.getItems()) {
+            if (tempItem != null) {
                 this.itemListViewData.add(tempItem);
             }
         }
@@ -90,39 +91,40 @@ public class LogbookController implements Initializable {
         this.personListView.getItems().addAll(personListViewData);
         this.weaponListView.getItems().addAll(weaponListViewData);
     }
-    
+
     /**
      * Refresh the ListViews.
      */
-    public void updateListViews(){
+    public void updateListViews() {
         this.initialViewOfLists();
     }
-    
+
     /**
      * Updates the information in the TextArea, by its chosen item and ListView.
-     * @param e 
+     *
+     * @param e
      */
     @FXML
-    private void listViewListener(Event e){
+    private void listViewListener(Event e) {
         this.logbookTextArea.clear();
-        ListView source = (ListView)e.getSource();
-        if(source.getSelectionModel().getSelectedItem() == null){
+        ListView source = (ListView) e.getSource();
+        if (source.getSelectionModel().getSelectedItem() == null) {
             return;
         }
-        if(e.getSource() == itemListView){
+        if (e.getSource() == itemListView) {
             this.logbookTextArea.appendText(this.itemListView.getSelectionModel().getSelectedItem().getMsgOnInspect());
-        } else if(e.getSource() == personListView){
+        } else if (e.getSource() == personListView) {
             this.logbookTextArea.appendText(logbook.getResponse(this.personListView.getSelectionModel().getSelectedItem()));
-        } else if(e.getSource() == weaponListView){
+        } else if (e.getSource() == weaponListView) {
             this.logbookTextArea.appendText(this.weaponListView.getSelectionModel().getSelectedItem().getMsgOnInspect());
         }
     }
-    
+
     /**
      * Handles the on click event on the help button.
      */
     @FXML
-    private void onHelpBtn(){
+    private void onHelpBtn() {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Logbook Help Screen");
         alert.setHeaderText("Here you can read about the logbook screen \nand how you can benefit from it.");

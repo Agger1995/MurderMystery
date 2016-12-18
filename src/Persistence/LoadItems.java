@@ -27,15 +27,16 @@ import java.util.logging.Logger;
 final class LoadItems extends ScenarioLoader {
 
     private HashMap<String, Item> items_list;
-    
+
     /**
      * Loads the items found at the path by the name of items.txt.
+     *
      * @param path
      * @param log
      * @param rooms_list
      * @param persons_list
      * @param printer
-     * @param time 
+     * @param time
      */
     public LoadItems(String path, LogBook log, ArrayList<Room> rooms_list, ArrayList<Person> persons_list, TextHandler printer, Time time) {
         super(path, log, rooms_list, persons_list, printer, time);

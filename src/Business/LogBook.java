@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * LogBook class is used to store information gained throughout a gameplay.
- * 
+ *
  * @author chris
  */
 public class LogBook {
@@ -23,8 +23,7 @@ public class LogBook {
     private final int maxDrink;
 
     /**
-     * Constructor of the class LogBook.
-     * Contains all the gathered information for the player to see.
+     * Constructor of the class LogBook. Contains all the gathered information for the player to see.
      */
     public LogBook() {
         this.maxDrink = 2;
@@ -35,11 +34,9 @@ public class LogBook {
     }
 
     /**
-     * Method that returns the value of the hashmap responses, corresponsing to
-     * the specified person parameter
+     * Method that returns the value of the hashmap responses, corresponsing to the specified person parameter
      *
-     * @param person Person object for which we want to get the value of the
-     * hashmap responses
+     * @param person Person object for which we want to get the value of the hashmap responses
      * @return String
      */
     public String getResponse(Person person) {
@@ -56,8 +53,7 @@ public class LogBook {
     }
 
     /**
-     * Method that returns a set of responses keys and their corresponding
-     * values within the set.
+     * Method that returns a set of responses keys and their corresponding values within the set.
      *
      * @return Set holding Person objects
      */
@@ -78,17 +74,14 @@ public class LogBook {
      * Method that adds a Person objects response to the responses hashmap.
      *
      * @param personToAdd Person object to add as a key to the hashmap
-     * @param toAdd String object to add as a value with personToAdd as key to
-     * the hashmap
+     * @param toAdd String object to add as a value with personToAdd as key to the hashmap
      */
     void addPersonResponse(Person personToAdd, String toAdd) {
         this.responses.put(personToAdd, toAdd);
     }
 
     /**
-     * Method that adds an Item object to the arraylist itemsInspected The
-     * method checks whether the Item object already exists in the list prior to
-     * adding it
+     * Method that adds an Item object to the arraylist itemsInspected The method checks whether the Item object already exists in the list prior to adding it
      *
      * @param itemToAdd Item object to add
      */
@@ -99,9 +92,7 @@ public class LogBook {
     }
 
     /**
-     * Method that adds an Item object to the arraylist murderWeapons The method
-     * checks whether the Item object already exists in the list prior to adding
-     * it
+     * Method that adds an Item object to the arraylist murderWeapons The method checks whether the Item object already exists in the list prior to adding it
      *
      * @param itemToAdd Item object to add
      */

@@ -9,8 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
 /**
- * An event handler, that makes you able to control the movement by the Arrow
- * Keys.
+ * An event handler, that makes you able to control the movement by the Arrow Keys.
  *
  * @author kristian
  */
@@ -20,6 +19,7 @@ public class ShortcutEventHandler implements EventHandler<KeyEvent> {
 
     /**
      * Constructor of the event handler.
+     *
      * @param controller
      */
     public ShortcutEventHandler(GameController controller) {

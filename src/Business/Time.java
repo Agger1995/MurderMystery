@@ -7,7 +7,7 @@ package Business;
 
 /**
  * Time class is used to store the time and time elapsed of a playthrough.
- * 
+ *
  * @author amaliehoff
  */
 public class Time {
@@ -17,9 +17,8 @@ public class Time {
     private int endTime; //the hour that the game i won on.
 
     /**
-     * Create a new Time object.
-     * The object has a time: ie 18*60 = 18:00.
-     * endHour = time to solve the mystery. i.e. 14*60.
+     * Create a new Time object. The object has a time: ie 18*60 = 18:00. endHour = time to solve the mystery. i.e. 14*60.
+     *
      * @param time int, time of the day
      * @param endHour int, time to solve.
      */
@@ -30,8 +29,8 @@ public class Time {
     }
 
     /**
-     * Adds or removes time.
-     * if integer is negative, we get more time.
+     * Adds or removes time. if integer is negative, we get more time.
+     *
      * @param time int, minutes
      */
     void addMinute(int time) {
@@ -44,6 +43,7 @@ public class Time {
 
     /**
      * Returns the hour of the time. I.e 18.
+     *
      * @return int, hour
      */
     private int getHour() {
@@ -53,7 +53,8 @@ public class Time {
 
     /**
      * Returns the mminutes of the time
-     * @return 
+     *
+     * @return
      */
     private int getMinutes() {
         int minutes = (int) (time % 60); //calculate minutes.
@@ -62,6 +63,7 @@ public class Time {
 
     /**
      * Returns the time in a humanly readable fashion.
+     *
      * @return String, time
      */
     String getTime() {
@@ -85,6 +87,7 @@ public class Time {
 
     /**
      * Returns the time elapsed since the beginning.
+     *
      * @return int, time elapsed
      */
     int getTimeElapsed() {
@@ -93,6 +96,7 @@ public class Time {
 
     /**
      * Get total time restriction
+     *
      * @return int, endTime
      */
     int getEndHour() {
@@ -101,6 +105,7 @@ public class Time {
 
     /**
      * Returns points generated when won
+     *
      * @return int, points gianed when won.
      */
     int PointsIfWin() {

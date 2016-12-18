@@ -8,16 +8,17 @@ package Business;
 import java.util.ArrayList;
 
 /**
- * Handles different messages, like the ones you get, when you win, lose etc.
- * It is also responsible for the intro message.
+ * Handles different messages, like the ones you get, when you win, lose etc. It is also responsible for the intro message.
  *
  * @author chris
  */
 public class TextHandler {
+
     private ArrayList<String> descriptions;
 
     /**
      * Returns an ArrayList containing the full intro message in small bites.
+     *
      * @return ArrayList of the intro message, so it can be printed out little by little.
      */
     public ArrayList<String> printIntroMessage() {
@@ -32,6 +33,7 @@ public class TextHandler {
 
     /**
      * returns this string if won.
+     *
      * @return string, win message
      */
     String printWinMessage() {
@@ -40,6 +42,7 @@ public class TextHandler {
 
     /**
      * returns this string if lost.
+     *
      * @return string, lose message.
      */
     String printLoseMessageAcussation() {
@@ -48,6 +51,7 @@ public class TextHandler {
 
     /**
      * This message is returned, when the time runs out.
+     *
      * @return string, message
      */
     String printLoseTimeRanOutMessage() {
@@ -56,6 +60,7 @@ public class TextHandler {
 
     /**
      * Unused. Back in time, you had to collect all evidence
+     *
      * @return string, not done yet.
      */
     String printAccuseErrorMsg() {
@@ -64,7 +69,8 @@ public class TextHandler {
 
     /**
      * Sets the description of a given scenario.
-     * @param descriptions, descriptions 
+     *
+     * @param descriptions, descriptions
      */
     public void setIntroMessage(ArrayList<String> descriptions) {
         this.descriptions = descriptions;

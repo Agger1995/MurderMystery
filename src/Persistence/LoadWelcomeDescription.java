@@ -17,16 +17,17 @@ import java.util.logging.Logger;
 /**
  *
  * @author kristian
- * 
+ *
  */
 final class LoadWelcomeDescription {
 
     private ArrayList<String> descriptions;
     private String path;
     private TextHandler printer;
-    
+
     /**
      * Loads the descriptions of a given path.
+     *
      * @param path To the folder, where this file is saved. (description.txt)
      * @param printer A text handler saved to.
      */
@@ -36,12 +37,13 @@ final class LoadWelcomeDescription {
         this.printer = printer;
         this.load();
     }
+
     /**
      * Loads the description.txt file, and saves it in the printer.
      */
     private void load() {
         File file = new File(path + "/" + "description.txt");
-        Scanner scanner = null; 
+        Scanner scanner = null;
 
         try {
             scanner = new Scanner(file); // scanner for the file

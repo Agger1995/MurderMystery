@@ -33,8 +33,7 @@ public class Highscore {
     }
 
     /**
-     * Returns a string of the highscores for a given scenario to one big
-     * String.
+     * Returns a string of the highscores for a given scenario to one big String.
      *
      * @return highscore string.
      */
@@ -47,8 +46,7 @@ public class Highscore {
     }
 
     /**
-     * Reads the file at the path given in the constructor. The file name is:
-     * highscore.txt
+     * Reads the file at the path given in the constructor. The file name is: highscore.txt
      */
     public void readHighscoreTable() {
         try {
@@ -72,8 +70,7 @@ public class Highscore {
     }
 
     /**
-     * If the player has enough points, he will be written to the highscores.
-     * This method doesn't save the highscore to the file.
+     * If the player has enough points, he will be written to the highscores. This method doesn't save the highscore to the file.
      *
      * @param playerName
      * @param finalPoints
@@ -128,9 +125,7 @@ public class Highscore {
     }
 
     /**
-     * Checks if the player has negative points. Checks if the highscore table
-     * is less than 10. Finally checks if the player qualities as a highscore
-     * owner.
+     * Checks if the player has negative points. Checks if the highscore table is less than 10. Finally checks if the player qualities as a highscore owner.
      *
      * @param finalPoints
      * @return
@@ -149,13 +144,16 @@ public class Highscore {
 
     /**
      * Gets the names of the highscore owners.
+     *
      * @return names of winners.
      */
     public String[] getStringArray() {
         return this.savedName;
     }
+
     /**
      * Gets the points of the highscore owners.
+     *
      * @return points of winners.
      */
     public int[] getIntArray() {

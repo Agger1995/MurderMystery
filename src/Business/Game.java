@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import javafx.scene.control.TextArea;
 
 /**
- * The game class is the class which connects all the classes and uses them
- * appropriately It uses class Item to create new instances of the type Item,
- * the same goes for Person
+ * The game class is the class which connects all the classes and uses them appropriately It uses class Item to create new instances of the type Item, the same goes for Person
  *
  * @author chris
  */
 public class Game {
+
     private TextHandler printer;
     private Room currentRoom;
     private LogBook logbook;
@@ -30,11 +29,13 @@ public class Game {
     private String scenarioName;
     private TextArea gameText;
     private GameState state;
-    private enum GameState { GAMEOVER, PLAYING; }
+
+    private enum GameState {
+        GAMEOVER, PLAYING;
+    }
 
     /**
-     * The Game class' constructor Calls the method createRooms(), and initiates
-     * the game's parser
+     * The Game class' constructor Calls the method createRooms(), and initiates the game's parser
      *
      * @param logToParse
      * @param chosenScenarioPath
@@ -55,33 +56,37 @@ public class Game {
         this.state = GameState.PLAYING;
         this.highScore.readHighscoreTable();
     }
-    
+
     /**
      * Returns an ArrayList of the rooms in the game
+     *
      * @return ArrayList of rooms.
      */
-    public ArrayList<Room> getRooms(){
+    public ArrayList<Room> getRooms() {
         return this.ROOMS;
     }
-    
+
     /**
      * Returns the inventory size of the player.
+     *
      * @return int, Inventory size
      */
-    public int getInventorySize(){
+    public int getInventorySize() {
         return this.inventory.getInventorySize();
     }
-    
+
     /**
      * Returns the max size of the inventory.
+     *
      * @return int, max inventory size.
      */
-    public int getInventoryMaxSize(){
+    public int getInventoryMaxSize() {
         return this.inventory.getMaxInventorySize();
     }
 
     /**
      * Returns name of scenario
+     *
      * @return String, scenario name
      */
     public String getScenarioName() {
@@ -90,6 +95,7 @@ public class Game {
 
     /**
      * Returns an integer of the total points
+     *
      * @return int, points
      */
     public int getPoints() {
@@ -98,6 +104,7 @@ public class Game {
 
     /**
      * Returns a string of the highscore data.
+     *
      * @return String, highscore
      */
     public String getHighscoreData() {
@@ -106,7 +113,8 @@ public class Game {
 
     /**
      * Adds points to the total amount of points.
-     * @throws FileNotFoundException 
+     *
+     * @throws FileNotFoundException
      */
     public void addPoints() throws FileNotFoundException {
         if (isCorrectAccusation) {
@@ -123,6 +131,7 @@ public class Game {
 
     /**
      * Returns the end game message chosen by the way you win or lose.
+     *
      * @param key
      * @return String, win/lose message
      */
@@ -143,6 +152,7 @@ public class Game {
 
     /**
      * Returns whether or not you can be on the highscore.
+     *
      * @return boolean, true = highscore
      */
     public boolean canGetOnHighscore() {
@@ -150,9 +160,8 @@ public class Game {
     }
 
     /**
-     * The game's welcome message. printWelcome() is called when game.play(); is
-     * called. Displays the general information regarding the game. Command list
-     * and a description of the room the player is in at the beginning.
+     * The game's welcome message. printWelcome() is called when game.play(); is called. Displays the general information regarding the game. Command list and a description of the room the player is
+     * in at the beginning.
      *
      * @return
      */
@@ -161,14 +170,11 @@ public class Game {
     }
 
     /**
-     * processCommand() is in charge of figuring out what to do with the user's
-     * input command. For each of the enum values in the enum class CommandWord,
-     * there must be a corresponding if statement in this method.
+     * processCommand() is in charge of figuring out what to do with the user's input command. For each of the enum values in the enum class CommandWord, there must be a corresponding if statement in
+     * this method.
      *
-     * @param command The parameter it takes is a command of type Command. It is
-     * checked up against the enum class CommandWord
-     * @return false if command is = UNKNOWN, returns false if any of the
-     * commands are recognized
+     * @param command The parameter it takes is a command of type Command. It is checked up against the enum class CommandWord
+     * @return false if command is = UNKNOWN, returns false if any of the commands are recognized
      */
     public boolean processCommand(Command command) {
         boolean wantToQuit = false;
@@ -195,7 +201,7 @@ public class Game {
                 case DRINK:
                     wantToQuit = this.drink(command);
                     break;
-                    
+
                 default:
                     break;
             }
@@ -209,6 +215,7 @@ public class Game {
 
     /**
      * Goes to the room specified in the command, if accessable.
+     *
      * @param command
      */
     private void goRoom(Command command) {
@@ -230,7 +237,7 @@ public class Game {
                 time.addMinute(currentRoom.getTimeToMove());
                 return;
             }
-            
+
             this.gameText.appendText("The door is locked! You need the keys for it.\n");
             return;
         }
@@ -251,7 +258,8 @@ public class Game {
 
     /**
      * Drops item found in the Command command
-     * @param command 
+     *
+     * @param command
      */
     private void dropItem(Command command) {
         //Iterates through the inventory of items and checks if they're equal to the items in the inventory.
@@ -265,10 +273,11 @@ public class Game {
             }
         }
     }
-    
+
     /**
      * Handles the inspections, checks if the item is inspected and adds points to the inspection.
-     * @param workItem 
+     *
+     * @param workItem
      */
     private void handleInspection(Item workItem) {
         this.gameText.appendText("\n" + workItem.getMsgOnInspect() + "\n");
@@ -281,14 +290,15 @@ public class Game {
 
     /**
      * Inspects the item found in the command.
-     * @param command 
+     *
+     * @param command
      */
     private void inspect(Command command) {
         //Iterates through the items in the current room.
         for (Item tempItemObject : currentRoom.getItems()) {
-        //Checks if the item in currentRoom is equal to the players item.
+            //Checks if the item in currentRoom is equal to the players item.
             if (tempItemObject.getName().equals(command.getSecondWord())) {
-            //Uses the handleInspection method, setting the item to "inspected".
+                //Uses the handleInspection method, setting the item to "inspected".
                 this.handleInspection(tempItemObject);
                 return;
             }
@@ -299,7 +309,7 @@ public class Game {
                 this.handleInspection((Item) tempSpecialItemObject);
                 //Utilizes the specialItem attributes, to check isSectretEntrace meaning "is the door locked" (in this case).
                 if (tempSpecialItemObject.isSecretEntrance()) {
-                //Sets the exits, if the player has picked up the specialItem (key in this case).    
+                    //Sets the exits, if the player has picked up the specialItem (key in this case).    
                     currentRoom.setExit(tempSpecialItemObject.getSecretExitFirst(), tempSpecialItemObject.getSecretExitSecond());
                     currentRoom.setExitDir(tempSpecialItemObject.getDirectionalKey(), tempSpecialItemObject.getDirectionalExit());
                 }
@@ -309,7 +319,7 @@ public class Game {
         //Iterating through the inventory for items. 
         for (Item tempItemObject : this.inventory.getInventory()) {
             if (tempItemObject.getName().equals(command.getSecondWord())) {
-            //Checks if the item is inspected.    
+                //Checks if the item is inspected.    
                 this.handleInspection(tempItemObject);
                 return;
             }
@@ -318,7 +328,8 @@ public class Game {
 
     /**
      * Takes the item specified in the command.
-     * @param command 
+     *
+     * @param command
      */
     private void takeItem(Command command) {
         //Runs a series of checks to check if the inventory is full.
@@ -367,9 +378,10 @@ public class Game {
             currentRoom.getSpecialItems().remove(specialItemToRemoveFromRoom);
         }
     }
-    
+
     /**
      * Accuses the person found in the command.
+     *
      * @param command
      * @return boolean, true if rightly accused.
      */
@@ -393,9 +405,10 @@ public class Game {
         this.gameText.appendText("\n" + printer.printAccuseErrorMsg() + "\n");
         return false;
     }
-    
+
     /**
      * A method which returns the check on if the riddle answer was correct and adds or subtracts time accordingly.
+     *
      * @param personInRiddle
      * @param chosenAnswer
      * @return String, a response of the chosen answer to the question
@@ -403,9 +416,10 @@ public class Game {
     public String handleRiddle(PersonWithRiddle personInRiddle, int chosenAnswer) {
         return personInRiddle.processAnswer(chosenAnswer);
     }
-    
+
     /**
-     * Handles the interrogation of a person. 
+     * Handles the interrogation of a person.
+     *
      * @param personToInterrogate
      * @param chosenQuestion
      * @return String, answer of a given question.
@@ -415,21 +429,22 @@ public class Game {
         //Checks if the person that is asked and adds points accordingly.
         if (!personToInterrogate.isAsked()) {
             pointSystem.addPoints(5);
-        //This is an important set, since it allows the answers to be displayed after the questions have been asked.    
+            //This is an important set, since it allows the answers to be displayed after the questions have been asked.    
             personToInterrogate.setHasBeenAsked(true);
         }
         return personToInterrogate.getAnswer(chosenQuestion);
     }
-    
+
     /**
      * Drinks from an item, if drinkable.
+     *
      * @param command
      * @return boolean, false if continue game. true = drunk.
      */
     private boolean drink(Command command) {
         for (Item tempItemObject : inventory.getInventory()) {//Iterates through the items in the inventory.
             if (tempItemObject.getName().toLowerCase().equals(command.getSecondWord().toLowerCase())) {//tjek if there is an item with the same name as the input and if it is drinkabel
-                if(!tempItemObject.isDrinkable()){
+                if (!tempItemObject.isDrinkable()) {
                     this.gameText.appendText("\nYou can not drink the " + command.getSecondWord() + ".\n");//if the item is not drikabel we can't drink it
                     return false; //continue game
                 }
@@ -451,8 +466,7 @@ public class Game {
     }
 
     /**
-     * Checks whether or not there is time left.
-     * If there isn't any time left - end the game.
+     * Checks whether or not there is time left. If there isn't any time left - end the game.
      */
     private void whenTimeRunsOut() {
         if (time.getTimeElapsed() >= 14 * 60) {//time runs out at kl: 08:00
@@ -461,8 +475,7 @@ public class Game {
     }
 
     /**
-     * Generates movement for the persons placed in the game.
-     * For every "turn" there is a 25% chance, that the person moves.
+     * Generates movement for the persons placed in the game. For every "turn" there is a 25% chance, that the person moves.
      */
     private void generateRandomPersonMovement() {
         //Checks 
@@ -477,20 +490,22 @@ public class Game {
     }
 
     /**
-    * Get highscore reference
-    */
+     * Get highscore reference
+     */
     public Highscore getHighscoreRef() {
         return this.highScore;
     }
+
     /**
-    * Get current time
-    */
+     * Get current time
+     */
     public String getTime() {
         return this.time.getTime();
     }
 
     /**
      * Sets the reference to the TextArea found in the GUI package.
+     *
      * @param ref TextArea, to be written to.
      */
     public void setTextAreaRef(TextArea ref) {
@@ -499,6 +514,7 @@ public class Game {
 
     /**
      * Returns an ArrayList of all of the interactable objects.
+     *
      * @return ArrayList of interactable objects in a given room.
      */
     public ArrayList<Interactable> getObjectsInCurrentRoom() {
@@ -512,6 +528,7 @@ public class Game {
 
     /**
      * Returns an ArrayList representing the items in the inventory.
+     *
      * @return ArrayList of inventory.
      */
     public ArrayList<Item> getInventory() {
@@ -520,6 +537,7 @@ public class Game {
 
     /**
      * Gets the room you're in.
+     *
      * @return Room, currentRoom
      */
     public Room getCurrentRoom() {
@@ -528,21 +546,24 @@ public class Game {
 
     /**
      * Creates a riddle for a riddle person.
-     * @param personInDialog 
+     *
+     * @param personInDialog
      */
     public void createRiddle(PersonWithRiddle personInDialog) {
         personInDialog.createRiddle();
     }
-    
+
     /**
-     * This method as named, updates the backend part of the game-engine, so it's on par with the GUI. 
+     * This method as named, updates the backend part of the game-engine, so it's on par with the GUI.
      */
     private void updateBackend() {
         this.generateRandomPersonMovement();
         this.whenTimeRunsOut();
     }
+
     /**
      * A method that checks the cause of the game over that the over methods initialize.
+     *
      * @return String, cause of the Game Over.
      */
     public String getGameOverCause() {
@@ -560,6 +581,7 @@ public class Game {
 
     /**
      * Adds the player to the highscore table.
+     *
      * @param name
      * @return true if succesful - false if not.
      */

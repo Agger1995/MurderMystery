@@ -29,8 +29,7 @@ final class LoadPersonsWithRiddle extends ScenarioLoader {
     private Riddle riddleRef;
 
     /**
-     * Load the persons with a riddle found at path, by the name of "riddle
-     * persons.txt".
+     * Load the persons with a riddle found at path, by the name of "riddle persons.txt".
      *
      * @param path to load
      * @param log to write log to

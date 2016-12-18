@@ -22,16 +22,14 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Laura LoadSpecialItems class inherit the ScenarioLoader class and
- * therefore class used that same atributes and methods
+ * @author Laura LoadSpecialItems class inherit the ScenarioLoader class and therefore class used that same atributes and methods
  */
 final class LoadSpecialItems extends ScenarioLoader {
 
     private HashMap<String, SpecialItem> special_items_list;
 
     /**
-     * Does almost have the same functionality as the LoadItems class, but it
-     * has some extra funtionality, because the items are special.
+     * Does almost have the same functionality as the LoadItems class, but it has some extra funtionality, because the items are special.
      *
      * @param path to load
      * @param log to write log to
@@ -47,8 +45,7 @@ final class LoadSpecialItems extends ScenarioLoader {
     }
 
     /**
-     * Loads the data from the file named specialItems.txt, found in the path
-     * given in the constructor.
+     * Loads the data from the file named specialItems.txt, found in the path given in the constructor.
      */
     @Override
     public void load() {

@@ -7,6 +7,7 @@ package Business;
 
 /**
  * Holds all the coordinates for a given Room-object.
+ *
  * @author Laura
  */
 public class Coordinates {
@@ -25,12 +26,11 @@ public class Coordinates {
     private int person4Y;
 
     /**
-     * All the coordinates for a given Room object is set in this class.
-     * The first 2 coordinates are reserved for the player
-     * The last 4 coordinates are reserved for 4 persons(NPCs)
-     * All coordinates are int values.
+     * All the coordinates for a given Room object is set in this class. The first 2 coordinates are reserved for the player The last 4 coordinates are reserved for 4 persons(NPCs) All coordinates are
+     * int values.
      * <p>
      * All the getter methods are the same - returns either a x- or y-coordinate based on the name of the method.
+     *
      * @param playerX
      * @param playerY
      * @param person0X
@@ -42,7 +42,7 @@ public class Coordinates {
      * @param person3X
      * @param person3Y
      * @param person4X
-     * @param person4Y 
+     * @param person4Y
      */
     public Coordinates(int playerX, int playerY, int person0X, int person0Y, int person1X, int person1Y, int person2X, int person2Y, int person3X, int person3Y, int person4X, int person4Y) {
         this.playerX = playerX;
@@ -62,37 +62,48 @@ public class Coordinates {
     public int getPlayerCoordinateX() {
         return this.playerX;
     }
-    public int getPlayerCoordinateY(){
+
+    public int getPlayerCoordinateY() {
         return this.playerY;
     }
-    public int getPerson0CoordinateX(){
-       return this.person0X; 
+
+    public int getPerson0CoordinateX() {
+        return this.person0X;
     }
-    public int getPerson0CoordinateY(){
-       return this.person0Y; 
+
+    public int getPerson0CoordinateY() {
+        return this.person0Y;
     }
-    public int getPerson1CoordinateX(){
-       return this.person1X; 
+
+    public int getPerson1CoordinateX() {
+        return this.person1X;
     }
-    public int getPerson1CoordinateY(){
-       return this.person1Y; 
+
+    public int getPerson1CoordinateY() {
+        return this.person1Y;
     }
-    public int getPerson2CoordinateX(){
-       return this.person2X; 
+
+    public int getPerson2CoordinateX() {
+        return this.person2X;
     }
-    public int getPerson2CoordinateY(){
-       return this.person2Y; 
+
+    public int getPerson2CoordinateY() {
+        return this.person2Y;
     }
-    public int getPerson3CoordinateX(){
-       return this.person3X; 
+
+    public int getPerson3CoordinateX() {
+        return this.person3X;
     }
-    public int getPerson3CoordinateY(){
-       return this.person3Y; 
+
+    public int getPerson3CoordinateY() {
+        return this.person3Y;
     }
-    public int getPerson4CoordinateX(){
-       return this.person4X; 
+
+    public int getPerson4CoordinateX() {
+        return this.person4X;
     }
-    public int getPerson4CoordinateY(){
-       return this.person4Y; 
+
+    public int getPerson4CoordinateY() {
+        return this.person4Y;
     }
 }

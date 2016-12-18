@@ -7,11 +7,15 @@ package Business;
 
 /**
  * An interface, that tells whether or not object is interactable.
+ *
  * @author chris
  */
 public interface Interactable {
+
     public String getName();//method that get a name of all Items and Persons
+
     @Override
     public String toString();
+
     public String getType();
 }

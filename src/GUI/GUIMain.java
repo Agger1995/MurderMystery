@@ -17,17 +17,17 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * GUIMain - Initializes the MainMenu Controller,
- * found in the MainMenuFXML.fxml
+ * GUIMain - Initializes the MainMenu Controller, found in the MainMenuFXML.fxml
+ *
  * @author chris
  */
 public class GUIMain extends Application {
-    
+
     /**
      * Loads the layout, which initializes a controller.
-     * 
+     *
      * @param primaryStage
-     * @throws IOException 
+     * @throws IOException
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -36,7 +36,7 @@ public class GUIMain extends Application {
         MainMenuController controller = (MainMenuController) loader.getController();
         controller.setCurrentStage(primaryStage);
         Scene scene = new Scene(root);
-        
+
         primaryStage.getIcons().add(new Image("gameIcon.jpg"));
         primaryStage.setResizable(false);
         primaryStage.setTitle("Main Menu");
@@ -51,8 +51,8 @@ public class GUIMain extends Application {
     }
 
     /**
-     * The main method.
-     * Calls 'launch(args)', which later calls the start method.
+     * The main method. Calls 'launch(args)', which later calls the start method.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {

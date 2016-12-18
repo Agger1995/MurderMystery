@@ -86,8 +86,7 @@ public class GameController implements Initializable {
     }
 
     /**
-     * This method sets up all of the references to the Game object. The game
-     * reference is passed from the GUIMain.java.
+     * This method sets up all of the references to the Game object. The game reference is passed from the GUIMain.java.
      *
      * @param game Game reference from GUIMain
      * @param logbook Logbook reference, also passed from GUIMain.
@@ -107,8 +106,7 @@ public class GameController implements Initializable {
     }
 
     /**
-     * This method places labels on the minimap. It also checks which scenario
-     * is chosen.
+     * This method places labels on the minimap. It also checks which scenario is chosen.
      */
     private void placePlayerAndPersonsOnMap() {
         /*
@@ -153,8 +151,7 @@ public class GameController implements Initializable {
     }
 
     /**
-     * Sets the label coordinates. Each label has a person or player
-     * represented.
+     * Sets the label coordinates. Each label has a person or player represented.
      */
     private void placePersonsOnMiniMap() {
         /*
@@ -194,8 +191,7 @@ public class GameController implements Initializable {
     }
 
     /**
-     * This opens the Logbook gui in another window. It also makes it
-     * uncloseable.
+     * This opens the Logbook gui in another window. It also makes it uncloseable.
      */
     private void openLogbook() {
         FXMLLoader loader = new FXMLLoader();
@@ -278,9 +274,7 @@ public class GameController implements Initializable {
     }
 
     /**
-     * Makes the different buttons available and unavailable. The directions
-     * where there is a connection, it enables the button of the given
-     * direction.
+     * Makes the different buttons available and unavailable. The directions where there is a connection, it enables the button of the given direction.
      */
     private void refreshDirectionalButtons() {
         /*
@@ -331,8 +325,7 @@ public class GameController implements Initializable {
     }
 
     /**
-     * This is triggered, when the help button is pressed. It comes fourth as an
-     * alert box of the type: INFORMATION.
+     * This is triggered, when the help button is pressed. It comes fourth as an alert box of the type: INFORMATION.
      *
      * @param event
      */
@@ -404,8 +397,7 @@ public class GameController implements Initializable {
     }
 
     /**
-     * After a command-button has been pressed, this will be called to handle
-     * all the updates.
+     * After a command-button has been pressed, this will be called to handle all the updates.
      */
     private void handleEndCycleUpdates() {
         /*

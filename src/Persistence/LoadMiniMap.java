@@ -26,12 +26,13 @@ import java.util.logging.Logger;
 class LoadMiniMap extends ScenarioLoader {
 
     protected ArrayList<Room> rooms_list;
-    
+
     private int state;
     private final int LOAD_ATTRIBUTES = 0;
 
     /**
      * Called in the ScenarioLoader.
+     *
      * @param path to load
      * @param log to write log to
      * @param rooms_list the list to store the rooms in.
@@ -43,16 +44,15 @@ class LoadMiniMap extends ScenarioLoader {
         super(path, log, rooms_list, persons_list, printer, time);
         load();
     }
+
     /**
-     * load is a method, that is overriden from the ScenarioLoader.
-     * It loads the data, from the minimap.txt file, which is found
-     * at the path given in the constructor.
+     * load is a method, that is overriden from the ScenarioLoader. It loads the data, from the minimap.txt file, which is found at the path given in the constructor.
      */
-    
+
     @Override
     public void load() {
         File file = new File(this.path + "/" + "minimap.txt");
-        Scanner scanner = null; 
+        Scanner scanner = null;
 
         try {
             scanner = new Scanner(file); // scanner for the file
@@ -98,4 +98,4 @@ class LoadMiniMap extends ScenarioLoader {
         }
     }
 
-  }
+}

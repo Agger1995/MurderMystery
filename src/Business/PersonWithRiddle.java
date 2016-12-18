@@ -9,9 +9,8 @@ import java.util.HashMap;
 import static java.lang.Math.random;
 
 /**
- * A special kind of person, only interactable through "ask" command.
- * Gives you a riddle and rewards you, if it's correctly answered.
- * 
+ * A special kind of person, only interactable through "ask" command. Gives you a riddle and rewards you, if it's correctly answered.
+ *
  * @author kristian
  */
 public class PersonWithRiddle implements Interactable {
@@ -31,6 +30,7 @@ public class PersonWithRiddle implements Interactable {
 
     /**
      * Creates a special person, that has a riddle. Can't be accused, only asked.
+     *
      * @param name name of the riddle person
      * @param rightAnswerMessage string if right answer is chosen
      * @param wrongAnswerMessage string if wrong answer is chosen
@@ -63,6 +63,7 @@ public class PersonWithRiddle implements Interactable {
 
     /**
      * Returns a question
+     *
      * @return string, question.
      */
     public String getRiddle() {
@@ -70,8 +71,7 @@ public class PersonWithRiddle implements Interactable {
     }
 
     /**
-     * fills up the hashmap: answers, with all of the answers.
-     * Both wrong and right.
+     * fills up the hashmap: answers, with all of the answers. Both wrong and right.
      */
     void createRiddle() {
         answers = getAnswers(); //get hashmap with all of the answer
@@ -79,6 +79,7 @@ public class PersonWithRiddle implements Interactable {
 
     /**
      * Returns true, if the person has a riddle left.
+     *
      * @return boolean
      */
     public boolean hasRiddle() {
@@ -87,6 +88,7 @@ public class PersonWithRiddle implements Interactable {
 
     /**
      * Mixes a riddle answers and questions, so the same question won't have the same order.
+     *
      * @return HashMap that contains both wrong and right answers.
      */
     public HashMap<Integer, String> getAnswers() {
@@ -123,6 +125,7 @@ public class PersonWithRiddle implements Interactable {
 
     /**
      * Checks if the answer answered is answered correctly. Gives or takes time.
+     *
      * @param key of the answer chosen
      * @return string of the response of the person.
      */
@@ -139,7 +142,8 @@ public class PersonWithRiddle implements Interactable {
 
     /**
      * Sets the intro message of the person, when first met.
-     * @param str 
+     *
+     * @param str
      */
     public void setIntroMessage(String str) {
         this.introMessage = str; //Set's intro message.
@@ -147,7 +151,8 @@ public class PersonWithRiddle implements Interactable {
 
     /**
      * Tells the first intro message, when the person is first met.
-     * @return 
+     *
+     * @return
      */
     public String tellIntroMessage() {
         if (!hasToldIntroMessage) {
@@ -157,8 +162,9 @@ public class PersonWithRiddle implements Interactable {
         return "";
     }
 
-    /** 
+    /**
      * returns the name of the person.
+     *
      * @return string, name
      */
     @Override
@@ -168,6 +174,7 @@ public class PersonWithRiddle implements Interactable {
 
     /**
      * returns the type of the person.
+     *
      * @return String, type.
      */
     @Override

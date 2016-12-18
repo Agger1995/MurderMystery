@@ -33,9 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
- * Main Menu Controller.
- * In this controller, you can choose between the different scenarios.
- * You can also see the highscores for each.
+ * Main Menu Controller. In this controller, you can choose between the different scenarios. You can also see the highscores for each.
  *
  * @author chris
  */
@@ -52,10 +50,11 @@ public class MainMenuController implements Initializable {
     private Label chosenScenarioLabel, highscoreLabel;
     @FXML
     private TextArea highscoreView;
-    
+
     /**
      * Sets the current stage.
-     * @param stage 
+     *
+     * @param stage
      */
     public void setCurrentStage(Stage stage) {
         this.currentStage = stage;
@@ -70,7 +69,7 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-    
+
     /**
      * Creates a window, that allows you to choose between the scenarios.
      */
@@ -79,7 +78,7 @@ public class MainMenuController implements Initializable {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Scenario Picker");
         alert.setHeaderText("You have following scenarios available to play.");
-        
+
         File file = new File("scenarios/");
         String[] directories = file.list(new FilenameFilter() {
             @Override
@@ -88,31 +87,31 @@ public class MainMenuController implements Initializable {
             }
         });
         int i = 0;
-        
+
         String appendTo = "";
         ArrayList<ButtonType> buttons = new ArrayList<>();
         for (String workingString : directories) {
             appendTo += (i + 1) + " : " + workingString + "\n";
-            
+
             buttons.add(new ButtonType(workingString));
-            
+
             i++;
         }
         buttons.add(new ButtonType("Cancel"));
-        
+
         alert.getButtonTypes().setAll(buttons);
         alert.setContentText(appendTo);
-        
+
         Optional<ButtonType> chosen = alert.showAndWait();
-        
+
         if (!chosen.get().getText().equals("Cancel")) {
             String scenarioPath = "scenarios/" + chosen.get().getText();
-            
+
             this.riddle.setPath(scenarioPath); //Sets the path for the riddles.
 
             this.logbook = new LogBook();
             this.game = new Game(this.logbook, scenarioPath, this.riddle);
-            
+
             this.highscore = game.getHighscoreRef();
             this.chosenScenarioLabel.setText(chosen.get().getText());
             this.highscoreLabel.setOpacity(1);
@@ -122,17 +121,16 @@ public class MainMenuController implements Initializable {
             this.handleHighscoreView();
         }
     }
-    
+
     /**
      * Gets the highscore data for the chosen scenario.
      */
     private void handleHighscoreView() {
         this.highscoreView.appendText(this.game.getHighscoreData());
     }
-    
+
     /**
-     * Handles when the play button has been pressed.
-     * Sets the scene to the Game scene - You are then able to play.
+     * Handles when the play button has been pressed. Sets the scene to the Game scene - You are then able to play.
      */
     @FXML
     private void handlePlayButton() {
@@ -148,7 +146,7 @@ public class MainMenuController implements Initializable {
             currentStage.setResizable(false);
             currentStage.setScene(scene);
             currentStage.show();
-            
+
         } catch (IOException IOErr) {
             System.out.println(IOErr + "Fatal error loading game window!");
         }

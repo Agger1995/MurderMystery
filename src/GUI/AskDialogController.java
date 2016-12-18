@@ -19,19 +19,19 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 /**
- * This dialog is opened, when you are asking a NPC.
- * Both riddle persons and normal persons.
+ * This dialog is opened, when you are asking a NPC. Both riddle persons and normal persons.
  *
  * @author Agger
  */
 public class AskDialogController implements Initializable {
+
     private Person personInDialog;
     private PersonWithRiddle personWithRiddleInDialog;
     private boolean riddleDialog;
     private LogbookController logController;
     private Game gameRef;
     private String stringToAddLogbook = "";
-    
+
     @FXML
     private Label personName;
     @FXML
@@ -45,24 +45,26 @@ public class AskDialogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-    
+
     /**
      * Sets the references to the game and logController.
+     *
      * @param game
-     * @param logController 
+     * @param logController
      */
-    void setGameRef(Game game, LogbookController logController){
+    void setGameRef(Game game, LogbookController logController) {
         this.gameRef = game;
         this.logController = logController;
     }
-    
+
     /**
      * Closes the stage, when the 'close'-button is pressed.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
-        if(!this.riddleDialog){
+        if (!this.riddleDialog) {
             this.personInDialog.addToLogBook(this.stringToAddLogbook);
             this.logController.updateListViews();
         }
@@ -72,25 +74,26 @@ public class AskDialogController implements Initializable {
 
     /**
      * Personalizes it for the person chosen to speak to.
-     * @param personInDialog 
+     *
+     * @param personInDialog
      */
     void setPersonInDialog(Object personInDialog) {
         this.questionOne.setDisable(false);
         this.questionTwo.setDisable(false);
         this.questionThree.setDisable(false);
-        if( personInDialog instanceof Person){
+        if (personInDialog instanceof Person) {
             this.questionOne.setText("Question 1");
             this.questionTwo.setText("Question 2");
             this.questionThree.setText("Question 3");
-            this.personInDialog = (Person)personInDialog;
+            this.personInDialog = (Person) personInDialog;
             this.riddleDialog = false;
             this.personName.setText(this.personInDialog.getName());
             this.conversationArea.appendText(this.personInDialog.returnQuestions());
-        } else if(personInDialog instanceof PersonWithRiddle){
+        } else if (personInDialog instanceof PersonWithRiddle) {
             this.personWithRiddleInDialog = (PersonWithRiddle) personInDialog;
             this.riddleDialog = true;
             this.personName.setText(this.personWithRiddleInDialog.getName());
-            if(!this.personWithRiddleInDialog.hasRiddle()){
+            if (!this.personWithRiddleInDialog.hasRiddle()) {
                 this.riddleHasBeenAsked(this.personWithRiddleInDialog);
                 return;
             }
@@ -102,36 +105,36 @@ public class AskDialogController implements Initializable {
             this.gameRef.createRiddle(this.personWithRiddleInDialog);
             this.conversationArea.appendText(this.personWithRiddleInDialog.printAnswers() + "\n");
         }
-        
+
     }
-    
+
     /**
      * Handles button presses.
-     * 
-     * @param e 
+     *
+     * @param e
      */
     @FXML
-    private void handleQuestionAction(ActionEvent e){
+    private void handleQuestionAction(ActionEvent e) {
         String toPrint = "";
-        if(this.riddleDialog){
-            if(e.getSource() == questionOne){
+        if (this.riddleDialog) {
+            if (e.getSource() == questionOne) {
                 toPrint = this.gameRef.handleRiddle(personWithRiddleInDialog, 1);
-            } else if(e.getSource() == questionTwo){
+            } else if (e.getSource() == questionTwo) {
                 toPrint = this.gameRef.handleRiddle(personWithRiddleInDialog, 2);
-            } else if(e.getSource() == questionThree){
+            } else if (e.getSource() == questionThree) {
                 toPrint = this.gameRef.handleRiddle(personWithRiddleInDialog, 3);
             }
             this.questionOne.setDisable(true);
             this.questionThree.setDisable(true);
             this.questionTwo.setDisable(true);
         } else {
-            if(e.getSource() == questionOne){
+            if (e.getSource() == questionOne) {
                 toPrint = this.gameRef.handleInterrogation(personInDialog, 1);
                 this.questionOne.setDisable(true);
-            } else if(e.getSource() == questionTwo){
+            } else if (e.getSource() == questionTwo) {
                 toPrint = this.gameRef.handleInterrogation(personInDialog, 2);
                 this.questionTwo.setDisable(true);
-            } else if(e.getSource() == questionThree){
+            } else if (e.getSource() == questionThree) {
                 toPrint = this.gameRef.handleInterrogation(personInDialog, 3);
                 this.questionThree.setDisable(true);
             }
@@ -142,6 +145,7 @@ public class AskDialogController implements Initializable {
 
     /**
      * Makes sure, you won't be able to get another riddle after the first.
+     *
      * @param personInDialog A person with a riddle.
      */
     private void riddleHasBeenAsked(PersonWithRiddle personInDialog) {

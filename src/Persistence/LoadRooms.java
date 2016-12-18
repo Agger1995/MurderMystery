@@ -29,9 +29,8 @@ final class LoadRooms extends ScenarioLoader {
     private final int LOAD_CONNECTIONS = 1;
 
     /**
-     * Loads the rooms, from the rooms.txt file found at path.
-     * It is essential, that this is the first class, that is run first, because
-     * the fact that the other objects are saved in the Room-objects.
+     * Loads the rooms, from the rooms.txt file found at path. It is essential, that this is the first class, that is run first, because the fact that the other objects are saved in the Room-objects.
+     *
      * @param path to load
      * @param log to write log to
      * @param rooms_list the list to store the rooms in.
@@ -45,8 +44,7 @@ final class LoadRooms extends ScenarioLoader {
     }
 
     /**
-     * Loads the rooms found at the path by the name rooms.txt.
-     * This method creates the rooms, and links them together.
+     * Loads the rooms found at the path by the name rooms.txt. This method creates the rooms, and links them together.
      */
     @Override
     public void load() {
